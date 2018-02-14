@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context="com.brainyapps.e2fix.activities.LoginActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <!-- mail login -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="4dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/email"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:drawableStart="@drawable/login_mail"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    style="@style/LoginEditTheme"
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:drawableStart="@drawable/login_pwd"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- login button -->
+            <RelativeLayout
+                android:id="@+id/but_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/but_theme_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/login_but_padding"
+                    android:text="@string/action_sign_in"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/login_but_text_size"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <!-- forgot password button -->
+            <Button
+                android:id="@+id/but_forget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="4dp"
+                style="@style/ButTransparentTheme"
+                android:text="Forgot Password ?" />
+
+        </LinearLayout>
+
+        <!-- separator -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorTheme" />
+
+        <!-- social login -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="20dp"
+            android:orientation="vertical">
+
+            <!-- facebook button -->
+            <RelativeLayout
+                android:id="@+id/but_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_but_social_height"
+                android:background="@drawable/but_facebook_bg">
+
+                <ImageView
+                    android:layout_width="@dimen/login_but_social_height"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/login_fb"
+                    android:padding="@dimen/login_but_social_padding"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/login_but_padding"
+                    android:text="Login using Facebook"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/login_but_text_size" />
+            </RelativeLayout>
+
+            <!-- google button -->
+            <RelativeLayout
+                android:id="@+id/but_gplus"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_but_social_height"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/but_google_bg">
+
+                <ImageView
+                    android:layout_width="@dimen/login_but_social_height"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/login_gplus"
+                    android:padding="@dimen/login_but_social_padding"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/login_but_padding"
+                    android:text="Login using Google"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/login_but_text_size" />
+            </RelativeLayout>
+
+            <!-- signup button -->
+            <Button
+                android:id="@+id/but_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="4dp"
+                style="@style/ButTransparentTheme"
+                android:text="No Account? Sign Up Here" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
