@@ -1,7 +1,5 @@
-package com.brainyapps.e2fix.activities
+package com.brainyapps.e2fix.activities.signin
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
 import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
@@ -23,6 +21,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.content.Intent
 import com.brainyapps.e2fix.R
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -48,8 +47,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
             }
             // Sign up button
             R.id.but_signup -> {
-//                val signupIntent = Intent(this@SigninActivity, SignupActivity::class.java)
-//                startActivityForResult(signupIntent, REQUEST_SIGNUP)
+                val signupIntent = Intent(this@LoginActivity, SignupLandingActivity::class.java)
+                startActivity(signupIntent)
             }
         }
     }
@@ -75,7 +74,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
         val vGo = findViewById<View>(R.id.but_login)
         vGo.setOnClickListener(this)
 
-//        email_sign_in_button.setOnClickListener { attemptLogin() }
+        val button = findViewById<View>(R.id.but_signup)
+        button.setOnClickListener(this)
     }
 
     private fun populateAutoComplete() {

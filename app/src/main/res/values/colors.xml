@@ -4,9 +4,19 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorWhite">#f5f5f5</color>
+    <color name="colorGrey">#b0b0b0</color>
+
     <color name="colorTheme">#32a721</color>
+    <color name="colorThemeDark">#278119</color>
+    <color name="colorThemeDarkDeep">#1f6714</color>
+
+    <color name="colorBackground">#eeeeee</color>
+
     <color name="colorFacebook">#2a468e</color>
     <color name="colorFacebookDark">#223872</color>
     <color name="colorGoogle">#e82828</color>
     <color name="colorGoogleDark">#ba2020</color>
+
+    <color name="colorBack">#eeeeee</color>
 </resources>

@@ -24,10 +24,10 @@ android {
         main {
             res.srcDirs =
                     [
-                        'src/main/res/layouts/signin',
-                        'src/main/res/layouts/common',
-                        'src/main/res/layouts',
-                        'src/main/res'
+                            'src/main/res/layouts/signin',
+                            'src/main/res/layouts/common',
+                            'src/main/res/layouts',
+                            'src/main/res'
                     ]
         }
     }

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.signin.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
 
