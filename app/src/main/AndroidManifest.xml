@@ -41,7 +41,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.signin.SignupEmailActivity" />
-        <activity android:name=".activities.signin.SignupPasswordActivity"></activity>
+        <activity android:name=".activities.signin.SignupPasswordActivity" />
+        <activity android:name=".activities.signin.SignupRePasswordActivity"></activity>
     </application>
 
 </manifest>
