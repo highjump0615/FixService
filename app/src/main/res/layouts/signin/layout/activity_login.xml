@@ -70,33 +70,22 @@
             </android.support.design.widget.TextInputLayout>
 
             <!-- login button -->
-            <RelativeLayout
+            <Button
                 android:id="@+id/but_login"
+                android:theme="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:background="@drawable/but_theme_bg">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="@dimen/login_but_padding"
-                    android:text="@string/action_sign_in"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/login_but_text_size"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                android:text="@string/action_sign_in" />
 
             <!-- forgot password button -->
             <Button
                 android:id="@+id/but_forget"
+                android:theme="@style/PrimaryFlatButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="4dp"
-                style="@style/ButTransparentTheme"
                 android:text="Forgot Password ?" />
 
         </LinearLayout>

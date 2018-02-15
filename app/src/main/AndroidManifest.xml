@@ -34,8 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.signin.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.SignupLandingActivity"
             android:screenOrientation="portrait"

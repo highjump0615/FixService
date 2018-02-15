@@ -19,6 +19,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- button -->
+    <style name="PrimaryButtonStyle" parent="Theme.AppCompat">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorButtonNormal">@color/colorTheme</item>
+    </style>
+    <style name="PrimaryFlatButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorAccent">@color/colorTheme</item>
+    </style>
+
 
     <!-- Splash activity -->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
