@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
             R.id.but_login -> attemptLogin()
             // Forget password button
             R.id.but_forget -> {
-//                val forgotIntent = Intent(this@SigninActivity, ForgotpasswordActivity::class.java)
-//                startActivityForResult(forgotIntent, REQUEST_FORGOTPASSWORD)
+                val forgetIntent = Intent(this@LoginActivity, ForgetActivity::class.java)
+                startActivity(forgetIntent)
             }
             // Sign up button
             R.id.but_signup -> {
@@ -74,7 +74,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
         val vGo = findViewById<View>(R.id.but_login)
         vGo.setOnClickListener(this)
 
-        val button = findViewById<View>(R.id.but_signup)
+        var button = findViewById<View>(R.id.but_forget)
+        button.setOnClickListener(this)
+
+        button = findViewById<View>(R.id.but_signup)
         button.setOnClickListener(this)
     }
 

@@ -11,6 +11,8 @@ import com.brainyapps.e2fix.activities.BaseActivity
  * Created by Administrator on 2/15/18.
  */
 open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
+    override fun onClick(view: View?) {
+    }
 
     lateinit var mbutNext: RelativeLayout
 
@@ -25,8 +27,5 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
 
         mbutNext = findViewById<View>(R.id.but_next) as RelativeLayout
         mbutNext.setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
     }
 }

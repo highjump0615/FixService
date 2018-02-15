@@ -42,7 +42,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.signin.SignupEmailActivity" />
         <activity android:name=".activities.signin.SignupPasswordActivity" />
-        <activity android:name=".activities.signin.SignupRePasswordActivity"></activity>
+        <activity android:name=".activities.signin.SignupRePasswordActivity" />
+        <activity android:name=".activities.signin.ForgetActivity"></activity>
     </application>
 
 </manifest>

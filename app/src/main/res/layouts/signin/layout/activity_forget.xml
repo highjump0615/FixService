@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.signin.SignupRePasswordActivity"
+    tools:context="com.brainyapps.e2fix.activities.signin.ForgetActivity"
     android:background="@color/colorBackground">
 
     <LinearLayout
@@ -34,21 +34,21 @@
                 style="@style/LoginEditTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Re-Enter Password"
-                android:drawableStart="@drawable/login_pwd"
-                android:inputType="textPassword"
+                android:hint="Enter Your Email"
+                android:drawableStart="@drawable/login_mail"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
 
             <CheckBox
-                android:id="@+id/chk_length"
+                android:id="@+id/chk_registered"
                 style="@style/CheckboxStyle"
-                android:text="Matches new password"
+                android:text="Registered Email"
                 android:layout_marginTop="14dp"/>
 
-            <!-- next button -->
+            <!-- submit button -->
             <RelativeLayout
-                android:id="@+id/but_next"
+                android:id="@+id/but_submit"
                 style="@style/DirectionButStyle"
                 android:layout_marginTop="16dp">
 
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="NEXT"
+                    android:text="SUBMIT"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/login_but_text_size"
                     android:textStyle="bold" />
@@ -67,6 +67,7 @@
             </RelativeLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
