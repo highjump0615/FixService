@@ -17,5 +17,13 @@ class Utils {
                         .matches()
             }
         }
+
+        fun containsCharacter(string: String): Boolean {
+            return string.matches(".*[a-zA-Z].*".toRegex())
+        }
+
+        fun containsNumber(string: String): Boolean {
+            return string.matches(".*\\d.*".toRegex())
+        }
     }
 }

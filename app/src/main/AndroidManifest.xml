@@ -40,7 +40,8 @@
             android:name=".activities.signin.SignupLandingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.signin.SignupEmailActivity"></activity>
+        <activity android:name=".activities.signin.SignupEmailActivity" />
+        <activity android:name=".activities.signin.SignupPasswordActivity"></activity>
     </application>
 
 </manifest>

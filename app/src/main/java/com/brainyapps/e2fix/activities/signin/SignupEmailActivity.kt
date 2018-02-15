@@ -1,5 +1,6 @@
 package com.brainyapps.e2fix.activities.signin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -13,20 +14,14 @@ import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.utils.Utils
 
-class SignupEmailActivity : BaseActivity(), View.OnClickListener {
+class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
 
-    lateinit var mbutNext: RelativeLayout
     lateinit var mchkEmail: CheckBox
     lateinit var mchkUsed: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup_email)
-
-        setNavbar("Sign up", true)
-
-        mbutNext = findViewById<View>(R.id.but_next) as RelativeLayout
-        mbutNext.setOnClickListener(this)
+        initView(R.layout.activity_signup_email)
 
         mchkEmail = findViewById<View>(R.id.chk_valid_email) as CheckBox
 
@@ -68,6 +63,8 @@ class SignupEmailActivity : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             // Next
             R.id.but_next -> {
+                val intent = Intent(this@SignupEmailActivity, SignupPasswordActivity::class.java)
+                startActivity(intent)
             }
         }
     }
