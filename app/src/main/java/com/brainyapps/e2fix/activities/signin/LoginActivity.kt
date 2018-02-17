@@ -23,6 +23,7 @@ import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.admin.AdminMainActivity
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -165,9 +166,14 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+//            showProgress(true)
+//            mAuthTask = UserLoginTask(emailStr, passwordStr)
+//            mAuthTask!!.execute(null as Void?)
+
+            if (emailStr == "admin@admin.com") {
+                val intent = Intent(this@LoginActivity, AdminMainActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
