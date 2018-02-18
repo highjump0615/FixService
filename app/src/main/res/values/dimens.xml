@@ -27,4 +27,13 @@
     <dimen name="admin_main_margin_title">50dp</dimen>
     <dimen name="line_height">0.5dp</dimen>
 
+    <!-- user list -->
+    <dimen name="admin_user_list_margin">10dp</dimen>
+    <dimen name="admin_user_list_photo_size">36dp</dimen>
+    <dimen name="admin_user_list_name_size">14sp</dimen>
+    <dimen name="admin_user_list_type_size">10sp</dimen>
+
+    <!-- loading list layout -->
+    <dimen name="loading_progress_size">30dp</dimen>
+
 </resources>

@@ -170,10 +170,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
 //            mAuthTask = UserLoginTask(emailStr, passwordStr)
 //            mAuthTask!!.execute(null as Void?)
 
-            if (emailStr == "admin@admin.com") {
-                val intent = Intent(this@LoginActivity, AdminMainActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this@LoginActivity, AdminMainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

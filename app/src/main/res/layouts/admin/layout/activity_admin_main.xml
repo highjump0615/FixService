@@ -6,8 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.signin.SignupEmailActivity"
-    android:background="@color/colorBackground">
+    tools:context="com.brainyapps.e2fix.activities.signin.SignupEmailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +37,7 @@
 
             <!-- Users -->
             <RelativeLayout
+                android:id="@+id/layout_user"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/admin_main_menu_height"
                 android:clickable="true"
@@ -82,6 +82,7 @@
 
             <!-- Reported users -->
             <RelativeLayout
+                android:id="@+id/layout_reported_user"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/admin_main_menu_height"
                 android:clickable="true"
@@ -126,6 +127,7 @@
 
             <!-- Settings -->
             <RelativeLayout
+                android:id="@+id/layout_setting"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/admin_main_menu_height"
                 android:clickable="true"

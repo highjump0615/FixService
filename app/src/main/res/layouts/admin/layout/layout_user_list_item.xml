@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/admin_user_list_margin"
+    android:layout_marginLeft="@dimen/admin_user_list_margin"
+    android:layout_marginRight="@dimen/admin_user_list_margin"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/admin_user_list_margin">
+
+        <!-- user photo -->
+        <ImageView
+            android:layout_width="@dimen/admin_user_list_photo_size"
+            android:layout_height="@dimen/admin_user_list_photo_size"
+            android:src="@drawable/user_default"/>
+
+        <!-- name & type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/admin_user_list_name_size"
+                android:text="Oliver Cramb"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="@dimen/admin_user_list_type_size"
+                android:text="Customer" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

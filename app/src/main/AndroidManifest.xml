@@ -41,18 +41,21 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.signin.SignupEmailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.SignupPasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.SignupRePasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.ForgetActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.admin.AdminMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.AdminUserActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -1,5 +1,7 @@
 package com.brainyapps.e2fix.utils
 
+import android.app.Activity
+import android.content.Intent
 import android.text.TextUtils
 
 /**
@@ -24,6 +26,23 @@ class Utils {
 
         fun containsNumber(string: String): Boolean {
             return string.matches(".*\\d.*".toRegex())
+        }
+
+        /**
+         * Move to destination activity class with animate transition.
+         */
+        fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean) {
+            val intent = Intent(source, destinationClass)
+
+            if (removeSource) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+            source.startActivity(intent)
+
+            if (removeSource) {
+                source.finish()
+            }
         }
     }
 }
