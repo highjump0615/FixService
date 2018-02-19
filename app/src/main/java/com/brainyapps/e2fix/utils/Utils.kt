@@ -31,7 +31,7 @@ class Utils {
         /**
          * Move to destination activity class with animate transition.
          */
-        fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean) {
+        fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean = false) {
             val intent = Intent(source, destinationClass)
 
             if (removeSource) {

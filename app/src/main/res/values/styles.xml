@@ -66,15 +66,24 @@
         <item name="android:padding">@dimen/login_but_social_padding</item>
         <item name="android:background">@color/colorThemeDarkDeep</item>
     </style>
+    <style name="CustomButTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/login_but_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
     <style name="CheckboxStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/signup_text_size</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:colorControlNormal">@color/colorTheme</item>
-        <item name="android:colorControlHighlight">@color/colorTheme</item>
-        <item name="android:buttonTint">@drawable/chk_color</item>
+        <item name="colorControlNormal">@color/colorTheme</item>
+        <item name="colorControlHighlight">@color/colorTheme</item>
+        <item name="buttonTint">@drawable/chk_color</item>
         <item name="android:textColor">@drawable/chk_text_color</item>
         <item name="android:clickable">false</item>
     </style>

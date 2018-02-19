@@ -31,6 +31,7 @@ class AdminSettingActivity : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             // edit profile
             R.id.layout_edit_profile -> {
+                Utils.moveNextActivity(this@AdminSettingActivity, AdminEditProfileActivity::class.java)
             }
             // logout
             R.id.layout_logout-> {

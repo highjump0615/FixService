@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.signin.SignupPasswordActivity"
-    android:background="@color/colorBackground">
+    tools:context="com.brainyapps.e2fix.activities.admin.AdminEditProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,48 +29,46 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit"
+                android:id="@+id/edit_email"
                 style="@style/LoginEditTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Your Password"
+                android:hint="Email Address"
+                android:drawableStart="@drawable/login_mail"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                style="@style/LoginEditTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
                 android:drawableStart="@drawable/login_pwd"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
 
-            <CheckBox
-                android:id="@+id/chk_length"
-                style="@style/CheckboxStyle"
-                android:text="At least 6 characters long"
-                android:layout_marginTop="14dp"/>
-            <CheckBox
-                android:id="@+id/chk_uppercase"
-                style="@style/CheckboxStyle"
-                android:text="Contains at least 1 uppercase letter" />
-            <CheckBox
-                android:id="@+id/chk_lowercase"
-                style="@style/CheckboxStyle"
-                android:text="Contains at least 1 lowercase letter" />
-            <CheckBox
-                android:id="@+id/chk_number"
-                style="@style/CheckboxStyle"
-                android:text="Contains at least 1 number" />
+            <EditText
+                android:id="@+id/edit_repassword"
+                style="@style/LoginEditTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:drawableStart="@drawable/login_pwd"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
 
-            <!-- next button -->
-            <RelativeLayout
-                android:id="@+id/but_next"
-                style="@style/DirectionButStyle"
-                android:layout_marginTop="16dp">
-
-                <ImageView
-                    style="@style/DirectionButIcon" />
-
-                <TextView
-                    style="@style/CustomButTextStyle"
-                    android:text="NEXT" />
-
-            </RelativeLayout>
+            <!-- login button -->
+            <Button
+                android:id="@+id/but_save"
+                android:theme="@style/PrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="SAVE CHANGES" />
 
         </LinearLayout>
 

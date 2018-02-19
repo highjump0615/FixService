@@ -119,13 +119,8 @@
                     android:padding="@dimen/login_but_social_padding"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="@dimen/login_but_padding"
-                    android:text="Login using Facebook"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/login_but_text_size" />
+                    style="@style/CustomButTextStyle"
+                    android:text="Login using Facebook" />
             </RelativeLayout>
 
             <!-- google button -->
@@ -143,13 +138,8 @@
                     android:padding="@dimen/login_but_social_padding"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="@dimen/login_but_padding"
-                    android:text="Login using Google"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/login_but_text_size" />
+                    style="@style/CustomButTextStyle"
+                    android:text="Login using Google" />
             </RelativeLayout>
 
             <!-- signup button -->

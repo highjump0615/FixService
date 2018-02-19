@@ -54,13 +54,8 @@
                     style="@style/DirectionButIcon" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="SERVICEMAN"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/login_but_text_size"
-                    android:textStyle="bold" />
+                    style="@style/CustomButTextStyle"
+                    android:text="SERVICEMAN" />
 
             </RelativeLayout>
 
@@ -74,13 +69,8 @@
                     style="@style/DirectionButIcon" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="CUSTOMER"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/login_but_text_size"
-                    android:textStyle="bold" />
+                    style="@style/CustomButTextStyle"
+                    android:text="CUSTOMER" />
 
             </RelativeLayout>
 
