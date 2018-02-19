@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.admin.AdminReportDetail
 import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FItemClickListener
@@ -84,6 +85,11 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
     override fun onItemClick(view: View?, position: Int) {
         val id = view!!.id
 
-        Utils.moveNextActivity(ctx as Activity, AdminUserDetailActivity::class.java)
+        if (type == ITEM_VIEW_TYPE_USER) {
+            Utils.moveNextActivity(ctx as Activity, AdminUserDetailActivity::class.java)
+        }
+        else if (type == ITEM_VIEW_TYPE_USER_REPORTED) {
+            Utils.moveNextActivity(ctx as Activity, AdminReportDetail::class.java)
+        }
     }
 }

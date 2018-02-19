@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brainyapps.e2fix.activities.admin.AdminReportDetail"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/toolbar_bg">
+
+            <com.brainyapps.e2fix.views.ViewToolbar
+                android:id="@+id/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- top bar -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/view_toolbar"
+                android:gravity="center"
+                android:text="REASON FOR REPORT"
+                android:textSize="16sp"
+                android:background="@color/colorSemiTran"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis posuere dui, a ornare lectus faucibus eu. Duis rutrum volutpat orci ac tincidunt. Proin nec erat eget urna eleifend fringilla et ut ante. Donec venenatis nisl a dolor dictum tempus. Etiam imperdiet a sapien ac fringilla."
+            android:background="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="Reported by David Ho"
+            android:textStyle="bold"
+            android:background="@android:color/white" />
+
+        <!-- button -->
+        <Button
+            android:id="@+id/but_ban"
+            android:theme="@style/DangerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="BAN USER" />
+        <Button
+            android:id="@+id/but_delete"
+            android:theme="@style/PrimaryButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="DELETE REPORT" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

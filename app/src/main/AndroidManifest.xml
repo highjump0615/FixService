@@ -64,7 +64,8 @@
             android:name=".activities.admin.AdminSettingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.admin.AdminEditProfileActivity" />
-        <activity android:name=".activities.admin.AdminUserDetailActivity"></activity>
+        <activity android:name=".activities.admin.AdminUserDetailActivity" />
+        <activity android:name=".activities.admin.AdminReportDetail"></activity>
     </application>
 
 </manifest>
