@@ -12,11 +12,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/layout_toolbar"
-            layout="@layout/app_bar_admin"
+        <com.brainyapps.e2fix.views.ViewToolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_main_bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"

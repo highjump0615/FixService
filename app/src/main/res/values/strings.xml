@@ -19,4 +19,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- admin user detail -->
+    <string name="ban_user">BAN USER</string>
+    <string name="unban_user">UNBAN USER</string>
+
 </resources>

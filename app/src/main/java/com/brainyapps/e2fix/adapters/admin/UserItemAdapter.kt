@@ -1,13 +1,16 @@
 package com.brainyapps.e2fix.adapters.admin
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FItemClickListener
+import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.ViewHolderLoading
 import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
 import java.util.ArrayList
@@ -81,29 +84,6 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
     override fun onItemClick(view: View?, position: Int) {
         val id = view!!.id
 
-//        val itemData = aryUser[position]
-//        val homeActivity = mContext as HomeActivity
-//
-//        when (id) {
-//            R.id.imgview_photo, R.id.but_user -> {
-//                val currentUser = UserData.getCurrentUser() as UserData
-//                if (currentUser.getObjectId().equals(itemData.getUser().getObjectId())) {
-//                    return
-//                }
-//
-//                CommonUtils.mUserSelected = itemData.getUser()
-//
-//                val intent = Intent(homeActivity, ProfileActivity::class.java)
-//                intent.putExtra(ProfileActivity.SELECTED_USERNAME, itemData.getUsername())
-//
-//                homeActivity.startActivity(intent)
-//                homeActivity.overridePendingTransition(R.anim.anim_in, R.anim.anim_out)
-//            }
-//
-//            else -> {
-//                CommonUtils.mItemSelected = itemData
-//                CommonUtils.moveNextActivity(homeActivity, DetailActivity::class.java, false)
-//            }
-//        }
+        Utils.moveNextActivity(ctx as Activity, AdminUserDetailActivity::class.java)
     }
 }

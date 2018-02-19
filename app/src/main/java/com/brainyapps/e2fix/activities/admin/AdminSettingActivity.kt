@@ -16,7 +16,7 @@ class AdminSettingActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_setting)
 
-        setNavbar("USERS", true)
+        setNavbar("SETTINGS", true)
 
         // edit profile
         var layout = findViewById<RelativeLayout>(R.id.layout_edit_profile)

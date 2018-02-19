@@ -36,4 +36,11 @@
     <!-- loading list layout -->
     <dimen name="loading_progress_size">30dp</dimen>
 
+    <!-- user detail activity -->
+    <dimen name="admin_user_detail_photo_size">110dp</dimen>
+    <dimen name="admin_user_detail_icon_width">30dp</dimen>
+    <dimen name="admin_user_detail_about_margin">6dp</dimen>
+    <dimen name="admin_user_detail_about_height">20dp</dimen>
+    <dimen name="admin_user_detail_padding">8dp</dimen>
+
 </resources>

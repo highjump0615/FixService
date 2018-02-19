@@ -8,6 +8,8 @@
     <color name="colorGrey">#b0b0b0</color>
     <color name="colorGreenLight">#b9dc77</color>
 
+    <color name="colorSemiTran">#80ffffff</color>
+
     <color name="colorTabItemHighlight">#d8ebad</color>
     <color name="colorTabItem">#cbe289</color>
 
