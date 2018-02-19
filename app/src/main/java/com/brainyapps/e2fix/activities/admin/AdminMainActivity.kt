@@ -43,6 +43,8 @@ class AdminMainActivity : BaseActivity(), View.OnClickListener {
             }
             // settings
             R.id.layout_setting -> {
+                val intent = Intent(this@AdminMainActivity, AdminSettingActivity::class.java)
+                startActivity(intent)
             }
         }
     }
