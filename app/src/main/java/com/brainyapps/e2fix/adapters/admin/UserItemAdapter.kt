@@ -16,31 +16,34 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class UserItemAdapter(private val mContext: Context, private val aryUser: ArrayList<User>)
+class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: Int)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), E2FItemClickListener {
 
     var mbNeedMore = false
 
-    private val ITEM_VIEW_TYPE_USER = 0
-    private val ITEM_VIEW_TYPE_FOOTER = 1
+    companion object {
+        val ITEM_VIEW_TYPE_USER = 0
+        val ITEM_VIEW_TYPE_USER_REPORTED = 1
+        val ITEM_VIEW_TYPE_FOOTER = 2
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         var vhRes: RecyclerView.ViewHolder? = null
 
-        if (viewType == ITEM_VIEW_TYPE_USER) {
+        if (viewType == ITEM_VIEW_TYPE_FOOTER) {
+            val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_list_loading, parent, false)
+
+            val vh = ViewHolderLoading(v)
+            vhRes = vh
+        }
+        else {
             // create a new view
             val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_user_list_item, parent, false)
             // set the view's size, margins, paddings and layout parameters
 
-            val vh = ViewHolderUserItem(v, mContext)
+            val vh = ViewHolderUserItem(v, ctx, viewType == ITEM_VIEW_TYPE_USER_REPORTED)
             vh.setOnItemClickListener(this)
-            vhRes = vh
-        }
-        else {
-            val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_list_loading, parent, false)
-
-            val vh = ViewHolderLoading(v)
             vhRes = vh
         }
 
@@ -68,7 +71,7 @@ class UserItemAdapter(private val mContext: Context, private val aryUser: ArrayL
     override fun getItemViewType(position: Int): Int {
 
         return if (position < aryUser.size) {
-            ITEM_VIEW_TYPE_USER
+            type
         }
         else {
             ITEM_VIEW_TYPE_FOOTER

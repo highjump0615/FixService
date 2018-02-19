@@ -38,6 +38,8 @@ class AdminMainActivity : BaseActivity(), View.OnClickListener {
             }
             // reported users
             R.id.layout_reported_user -> {
+                val intent = Intent(this@AdminMainActivity, AdminReportUserActivity::class.java)
+                startActivity(intent)
             }
             // settings
             R.id.layout_setting -> {

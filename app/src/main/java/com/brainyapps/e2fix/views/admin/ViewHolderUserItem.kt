@@ -12,11 +12,16 @@ import com.brainyapps.e2fix.R
  * Created by Administrator on 2/19/18.
  */
 
-class ViewHolderUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView) {
+class ViewHolderUserItem(itemView: View, ctx: Context, showReport: Boolean) : ViewHolderBase(itemView) {
 
     init {
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)
         viewMain.setOnClickListener(this)
+
+        if (showReport) {
+            val imgFlag = itemView.findViewById<ImageView>(R.id.imgview_flag)
+            imgFlag.visibility = View.VISIBLE
+        }
     }
 
 }

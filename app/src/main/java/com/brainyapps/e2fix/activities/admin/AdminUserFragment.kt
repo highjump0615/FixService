@@ -27,7 +27,7 @@ class AdminUserFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_admin_user, container, false)
 
         // init data
-        for (i in 0..5) {
+        for (i in 0..15) {
             this.aryUser.add(User())
         }
 
@@ -37,7 +37,7 @@ class AdminUserFragment : Fragment() {
         val layoutManager = LinearLayoutManager(this.activity)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = UserItemAdapter(this.activity, this.aryUser)
+        this.adapter = UserItemAdapter(this.activity, this.aryUser, UserItemAdapter.ITEM_VIEW_TYPE_USER)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
 
