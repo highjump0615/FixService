@@ -12,19 +12,15 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
-import android.opengl.Visibility
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.util.Util
 import com.cocosw.bottomsheet.BottomSheet
 import kotlinx.android.synthetic.main.activity_signup_info.*
 import java.io.ByteArrayOutputStream
@@ -47,6 +43,7 @@ class SignupInfoActivity : SignupBaseActivity() {
 
         this.but_photo.setOnClickListener(this)
         this.imgview_photo.setOnClickListener(this)
+        this.but_next.setOnClickListener(this)
 
         initMenuDialog()
     }
@@ -56,6 +53,10 @@ class SignupInfoActivity : SignupBaseActivity() {
             // Photo
             R.id.but_photo, R.id.imgview_photo -> {
                 showMenuDialog()
+            }
+            // next
+            R.id.but_next -> {
+                Utils.moveNextActivity(this, SignupStripeActivity::class.java)
             }
         }
     }
