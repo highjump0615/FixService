@@ -46,4 +46,26 @@
     <!-- signup info activity -->
     <dimen name="signup_info_photo_size">110dp</dimen>
 
+    <!-- navigation drawer -->
+    <dimen name="navigation_header_height">180dp</dimen>
+    <dimen name="navigation_header_padding">14dp</dimen>
+    <dimen name="navigation_menu_height">46dp</dimen>
+    <dimen name="navigation_banner_hori_padding">10dp</dimen>
+    <dimen name="navigation_banner_vert_padding">2dp</dimen>
+
+    <!-- job activity -->
+    <dimen name="job_margin">8dp</dimen>
+    <dimen name="job_list_item_height">100dp</dimen>
+    <dimen name="job_list_photo_size">80dp</dimen>
+    <dimen name="job_list_content_margin">11dp</dimen>
+    <dimen name="job_list_desc_text_size">13sp</dimen>
+    <dimen name="job_list_icons_height">32dp</dimen>
+    <dimen name="job_list_icons_spacing">4dp</dimen>
+    <dimen name="job_list_icon_width">20dp</dimen>
+    <dimen name="job_list_icon_margin">10dp</dimen>
+    <dimen name="job_list_icon_text_size">12sp</dimen>
+    <dimen name="job_list_button_width">80dp</dimen>
+    <dimen name="job_list_button_height">36dp</dimen>
+    <dimen name="job_list_button_text_size">12sp</dimen>
+
 </resources>

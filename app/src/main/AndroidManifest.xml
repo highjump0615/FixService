@@ -28,10 +28,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"></activity>
@@ -80,14 +76,23 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.SignupInfoActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.signin.SignupStripeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activities.serviceman.JobActivity"
+            android:screenOrientation="portrait" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".activities.signin.SignupStripeActivity"></activity>
+
     </application>
 
 </manifest>

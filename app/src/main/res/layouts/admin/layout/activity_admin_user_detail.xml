@@ -19,7 +19,7 @@
             android:background="@drawable/toolbar_bg"
             android:orientation="vertical">
 
-            <com.brainyapps.e2fix.views.ViewToolbar
+            <com.brainyapps.e2fix.views.admin.ViewToolbar
                 android:id="@+id/view_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

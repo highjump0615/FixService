@@ -23,5 +23,14 @@
     <!-- admin user detail -->
     <string name="ban_user">BAN USER</string>
     <string name="unban_user">UNBAN USER</string>
-
+    
+    
+    <string-array name="jobtyps_array">
+        <item>Plumbings</item>
+        <item>Construction jobs</item>
+        <item>Paint jobs</item>
+        <item>Tile jobs</item>
+    </string-array>
+    
+    
 </resources>

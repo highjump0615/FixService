@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="ViewToolbar">
+
+        <attr name="rightImage" format="reference" />
+
+    </declare-styleable>
+
 </resources>
