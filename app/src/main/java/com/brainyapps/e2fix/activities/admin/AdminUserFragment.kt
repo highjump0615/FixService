@@ -37,7 +37,7 @@ class AdminUserFragment : Fragment() {
         val layoutManager = LinearLayoutManager(this.activity)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = UserItemAdapter(this.activity, this.aryUser, UserItemAdapter.ITEM_VIEW_TYPE_USER)
+        this.adapter = UserItemAdapter(this.activity!!, this.aryUser, UserItemAdapter.ITEM_VIEW_TYPE_USER)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
 

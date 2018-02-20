@@ -43,4 +43,7 @@
     <dimen name="admin_user_detail_about_height">20dp</dimen>
     <dimen name="admin_user_detail_padding">8dp</dimen>
 
+    <!-- signup info activity -->
+    <dimen name="signup_info_photo_size">110dp</dimen>
+
 </resources>

@@ -100,4 +100,10 @@
         <item name="android:background">@color/colorWhite</item>
     </style>
 
+    <!-- sign up info activity -->
+    <style name="SignupPhotoButtonStyle" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/colorTheme</item>
+        <item name="colorButtonNormal">@android:color/white</item>
+    </style>
+
 </resources>

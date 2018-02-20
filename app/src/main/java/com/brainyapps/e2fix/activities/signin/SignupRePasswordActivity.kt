@@ -1,10 +1,12 @@
 package com.brainyapps.e2fix.activities.signin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import com.brainyapps.e2fix.R
@@ -55,6 +57,15 @@ class SignupRePasswordActivity : SignupBaseActivity() {
         }
 
         override fun afterTextChanged(editable: Editable) {
+        }
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            // Next
+            R.id.but_next -> {
+                Utils.moveNextActivity(this, SignupInfoActivity::class.java)
+            }
         }
     }
 }
