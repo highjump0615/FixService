@@ -95,6 +95,12 @@
         <activity
             android:name=".activities.serviceman.BidActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.serviceman.BidDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.serviceman.BidDetailApplyActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

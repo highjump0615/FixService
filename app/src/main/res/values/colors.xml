@@ -18,6 +18,7 @@
     <color name="colorThemeDarkDeep">#1f6714</color>
 
     <color name="colorBackground">#eeeeee</color>
+    <color name="colorWhiteBackground">#fafafa</color>
 
     <color name="colorFacebook">#2a468e</color>
     <color name="colorFacebookDark">#223872</color>

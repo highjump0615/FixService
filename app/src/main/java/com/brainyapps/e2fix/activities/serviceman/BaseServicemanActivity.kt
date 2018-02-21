@@ -1,5 +1,6 @@
 package com.brainyapps.e2fix.activities.serviceman
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -35,6 +36,7 @@ open class BaseServicemanActivity : BaseActivity(), View.OnClickListener {
         this.layout_nav_available_job.setOnClickListener(this)
         this.layout_nav_bid_won.setOnClickListener(this)
         this.layout_logout.setOnClickListener(this)
+        this.layout_nav_applied.setOnClickListener(this)
     }
 
     override fun onBackPressed() {
@@ -59,11 +61,27 @@ open class BaseServicemanActivity : BaseActivity(), View.OnClickListener {
 
             // bids win
             R.id.layout_nav_bid_won -> {
-                if (this is BidActivity) {
+                if (this is BidActivity && this.type == BidActivity.TYPE_BID_WON) {
                     drawer_layout.closeDrawer(GravityCompat.START)
                 }
                 else {
-                    Utils.moveNextActivity(this, BidActivity::class.java, true)
+                    val intent = Intent(this, BidActivity::class.java)
+                    intent.putExtra(BidActivity.KEY_TYPE, BidActivity.TYPE_BID_WON)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+            // jobs applied
+            R.id.layout_nav_applied -> {
+                if (this is BidActivity && this.type == BidActivity.TYPE_JOB_APPLIED) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                }
+                else {
+                    val intent = Intent(this, BidActivity::class.java)
+                    intent.putExtra(BidActivity.KEY_TYPE, BidActivity.TYPE_JOB_APPLIED)
+                    startActivity(intent)
+                    finish()
                 }
             }
 

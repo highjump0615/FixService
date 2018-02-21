@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/view_main"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="@dimen/job_margin"
-    android:layout_marginRight="@dimen/job_margin"
     android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
@@ -19,7 +14,7 @@
             android:layout_width="@dimen/job_list_photo_size"
             android:layout_height="match_parent"
             android:src="@drawable/job_thumbnail"
-            android:scaleType="center"/>
+            android:scaleType="centerCrop"/>
 
         <!-- content -->
         <RelativeLayout
@@ -28,18 +23,6 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/job_list_content_margin">
-
-            <!-- banner -->
-            <TextView
-                android:id="@+id/text_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="new"
-                android:textSize="12sp"
-                android:layout_alignParentRight="true"
-                android:paddingLeft="@dimen/bid_list_banner_hori_padding"
-                android:paddingRight="@dimen/bid_list_banner_hori_padding"
-                android:background="@drawable/round_banner_bg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis posuere dui, a ornare lectus faucibus eu. Duis rutrum volutpat orci ac tincidunt. Proin nec erat eget urna eleifend fringilla et ut ante. Donec venenatis nisl a dolor dictum tempus. Etiam imperdiet a sapien ac fringilla."
                     android:maxLines="2"
-                    android:textSize="@dimen/job_list_desc_text_size" />
+                    android:textSize="13sp" />
 
                 <!-- location -->
                 <LinearLayout
@@ -90,25 +73,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Miami, Florida"
-                        android:textSize="@dimen/job_list_icon_text_size"/>
-                </LinearLayout>
-
-                <!-- bid -->
-                <LinearLayout
-                    android:id="@+id/layout_bid"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/job_list_icons_height"
-                    android:layout_marginTop="@dimen/job_list_icons_spacing"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="@dimen/job_list_icon_width"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/job_list_icon_margin"
-                        android:src="@drawable/job_bid_icon"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Waiting for a Bid winners"
                         android:textSize="@dimen/job_list_icon_text_size"/>
                 </LinearLayout>
 

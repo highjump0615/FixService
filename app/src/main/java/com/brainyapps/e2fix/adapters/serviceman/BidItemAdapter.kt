@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.serviceman.BidActivity
+import com.brainyapps.e2fix.activities.serviceman.BidDetailActivity
+import com.brainyapps.e2fix.activities.serviceman.BidDetailApplyActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
@@ -19,7 +22,7 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
+class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: Int)
     : BaseItemAdapter() {
 
     companion object {
@@ -43,7 +46,7 @@ class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_bid_list_item, parent, false)
                 // set the view's size, margins, paddings and layout parameters
 
-                val vh = ViewHolderBidItem(v, ctx)
+                val vh = ViewHolderBidItem(v, ctx, type)
                 vh.setOnItemClickListener(this)
                 vhRes = vh
             }
@@ -93,6 +96,14 @@ class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
 
     override fun onItemClick(view: View?, position: Int) {
         when (view?.id) {
+            R.id.view_main -> {
+                if (type == BidActivity.TYPE_BID_WON) {
+                    Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
+                }
+                else if (type == BidActivity.TYPE_JOB_APPLIED) {
+                    Utils.moveNextActivity(ctx as Activity, BidDetailApplyActivity::class.java)
+                }
+            }
             // bid button
             R.id.but_bid -> {
                 Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)

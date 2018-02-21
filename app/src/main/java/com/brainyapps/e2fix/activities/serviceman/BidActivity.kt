@@ -17,8 +17,17 @@ import kotlinx.android.synthetic.main.layout_content_job.*
 
 class BidActivity : BaseServicemanActivity() {
 
+    companion object {
+        val KEY_TYPE = "type"
+
+        val TYPE_BID_WON = 1
+        val TYPE_JOB_APPLIED = 2
+    }
+
     var aryJob = ArrayList<Job>()
     var adapter: BidItemAdapter? = null
+
+    var type = TYPE_BID_WON
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +35,10 @@ class BidActivity : BaseServicemanActivity() {
 
         setNavbar()
         initDrawer()
+
+        // get type from intent
+        val bundle = intent.extras
+        this.type = bundle.getInt(KEY_TYPE)
 
         // init data
         for (i in 0..14) {
@@ -38,7 +51,7 @@ class BidActivity : BaseServicemanActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = BidItemAdapter(this, this.aryJob)
+        this.adapter = BidItemAdapter(this, this.aryJob, this.type)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
     }
