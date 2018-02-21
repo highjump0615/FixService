@@ -27,6 +27,7 @@ class SettingsActivity : BaseServicemanActivity(), View.OnClickListener {
         when (view?.id) {
             // edit profile
             R.id.layout_edit_profile -> {
+                Utils.moveNextActivity(this, EditProfileActivity::class.java)
             }
         }
     }

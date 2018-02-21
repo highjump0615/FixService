@@ -89,5 +89,9 @@
     <!-- rate list item -->
     <dimen name="rate_item_photo_size">50dp</dimen>
 
+    <!-- edit profile activity -->
+    <dimen name="edit_profile_photo_margin">3dp</dimen>
+    <dimen name="edit_profile_photo_button_padding">7dp</dimen>
+    <dimen name="edit_profile_spacing">20dp</dimen>
 
 </resources>
