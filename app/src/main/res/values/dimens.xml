@@ -77,4 +77,17 @@
     <dimen name="bid_detail_item_height">30dp</dimen>
     <dimen name="bid_detail_item_hori_padding">10dp</dimen>
 
+    <!-- serviceman profile activity -->
+    <dimen name="serviceman_profile_user_height">260dp</dimen>
+
+    <!-- rate star -->
+    <dimen name="rate_star_width">80dp</dimen>
+    <dimen name="rate_star_height">16dp</dimen>
+    <dimen name="profile_user_info_margin">15dp</dimen>
+    <dimen name="profile_user_info_title_margin">10dp</dimen>
+
+    <!-- rate list item -->
+    <dimen name="rate_item_photo_size">50dp</dimen>
+
+
 </resources>

@@ -38,6 +38,7 @@ open class BaseServicemanActivity : BaseActivity(), View.OnClickListener {
         this.layout_logout.setOnClickListener(this)
         this.layout_nav_applied.setOnClickListener(this)
         this.layout_nav_setting.setOnClickListener(this)
+        this.layout_nav_profile.setOnClickListener(this)
     }
 
     override fun onBackPressed() {
@@ -94,6 +95,11 @@ open class BaseServicemanActivity : BaseActivity(), View.OnClickListener {
             // setting
             R.id.layout_nav_setting -> {
                 Utils.moveNextActivity(this, SettingsActivity::class.java, true)
+            }
+
+            // profile
+            R.id.layout_nav_profile -> {
+                Utils.moveNextActivity(this, ProfileActivity::class.java, true)
             }
         }
     }

@@ -4,32 +4,27 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
+import com.brainyapps.e2fix.adapters.serviceman.ProfileAdapter
 import com.brainyapps.e2fix.models.Job
-import kotlinx.android.synthetic.main.layout_content_job.*
+import com.brainyapps.e2fix.models.Review
 
-class JobActivity : BaseServicemanActivity() {
+class ProfileActivity : BaseServicemanActivity() {
 
-    var aryJob = ArrayList<Job>()
-    var adapter: JobItemAdapter? = null
+    var aryReview = ArrayList<Review>()
+    var adapter: ProfileAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job)
+        setContentView(R.layout.activity_serviceman_profile)
 
         setNavbar()
         initDrawer()
 
-        // init spinner
-        val adapter = ArrayAdapter.createFromResource(this, R.array.jobtypes_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        this.spinner.adapter = adapter
-
         // init data
         for (i in 0..15) {
-            this.aryJob.add(Job())
+            this.aryReview.add(Review())
         }
 
         // init list
@@ -38,7 +33,7 @@ class JobActivity : BaseServicemanActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = JobItemAdapter(this, this.aryJob)
+        this.adapter = ProfileAdapter(this, this.aryReview)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
     }

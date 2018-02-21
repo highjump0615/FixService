@@ -25,7 +25,7 @@
     <string name="unban_user">UNBAN USER</string>
     
     
-    <string-array name="jobtyps_array">
+    <string-array name="jobtypes_array">
         <item>Plumbings</item>
         <item>Construction jobs</item>
         <item>Paint jobs</item>
