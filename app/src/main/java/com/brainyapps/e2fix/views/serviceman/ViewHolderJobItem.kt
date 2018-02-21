@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.views.admin.ViewHolderBase
 
 /**
@@ -16,12 +17,24 @@ import com.brainyapps.e2fix.views.admin.ViewHolderBase
 
 class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView) {
 
+    private var butBid: Button
+
     init {
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)
         viewMain.setOnClickListener(this)
 
-        val button = itemView.findViewById<Button>(R.id.but_bid)
-        button.setOnClickListener(this)
+        this.butBid = itemView.findViewById<Button>(R.id.but_bid)
+        this.butBid.setOnClickListener(this)
     }
 
+    fun fillContent(data: Job) {
+
+        // check if posted job
+        if (data.userPosted != null) {
+            this.butBid.setText("VIEW BIDS")
+        }
+        else {
+            this.butBid.setText("BID")
+        }
+    }
 }

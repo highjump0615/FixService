@@ -82,13 +82,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.serviceman.JobActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.serviceman.BidSubmitActivity"
             android:screenOrientation="portrait" />
@@ -110,6 +104,16 @@
         <activity
             android:name=".activities.serviceman.EditProfileActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.customer.JobActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

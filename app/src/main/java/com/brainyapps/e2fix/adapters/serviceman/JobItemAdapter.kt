@@ -10,19 +10,15 @@ import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.utils.E2FItemClickListener
 import com.brainyapps.e2fix.utils.Utils
-import com.brainyapps.e2fix.views.ViewHolderLoading
-import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
-import com.bumptech.glide.util.Util
 import java.util.ArrayList
 
 /**
  * Created by Administrator on 2/19/18.
  */
 
-class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
+class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
     : BaseItemAdapter() {
 
     companion object {
@@ -47,14 +43,15 @@ class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ViewHolderUserItem) {
+        if (holder is ViewHolderJobItem) {
+            holder.fillContent(aryJob[position])
         }
         else {
         }
     }
 
     override fun getItemCount(): Int {
-        var nCount = aryUser.size
+        var nCount = aryJob.size
 
         if (mbNeedMore) {
             nCount++
@@ -65,7 +62,7 @@ class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
 
     override fun getItemViewType(position: Int): Int {
 
-        return if (position < aryUser.size) {
+        return if (position < aryJob.size) {
             ITEM_VIEW_TYPE_JOB
         }
         else {

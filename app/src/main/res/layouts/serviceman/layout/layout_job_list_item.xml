@@ -102,7 +102,8 @@
 
             <Button
                 android:id="@+id/but_bid"
-                android:layout_width="@dimen/job_list_button_width"
+                android:layout_width="wrap_content"
+                android:minWidth="@dimen/job_list_button_width"
                 android:layout_height="@dimen/job_list_button_height"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
