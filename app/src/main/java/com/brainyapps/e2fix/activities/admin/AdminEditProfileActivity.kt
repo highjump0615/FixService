@@ -1,6 +1,5 @@
 package com.brainyapps.e2fix.activities.admin
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button

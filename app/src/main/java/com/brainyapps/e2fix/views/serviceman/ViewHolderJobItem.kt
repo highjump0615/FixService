@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
@@ -18,6 +19,9 @@ class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView)
     init {
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)
         viewMain.setOnClickListener(this)
+
+        val button = itemView.findViewById<Button>(R.id.but_bid)
+        button.setOnClickListener(this)
     }
 
 }

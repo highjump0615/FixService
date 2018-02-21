@@ -1,17 +1,20 @@
 package com.brainyapps.e2fix.adapters.serviceman
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.utils.E2FItemClickListener
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.ViewHolderLoading
 import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
+import com.bumptech.glide.util.Util
 import java.util.ArrayList
 
 /**
@@ -80,6 +83,11 @@ class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        val id = view!!.id
+        when (view?.id) {
+            // bid button
+            R.id.but_bid -> {
+                Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
+            }
+        }
     }
 }

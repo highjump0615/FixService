@@ -1,7 +1,6 @@
 package com.brainyapps.e2fix.activities.signin
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.view.View
 import android.widget.RelativeLayout
 import com.brainyapps.e2fix.R

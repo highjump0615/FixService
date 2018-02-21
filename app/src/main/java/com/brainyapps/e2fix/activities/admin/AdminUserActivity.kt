@@ -1,16 +1,10 @@
 package com.brainyapps.e2fix.activities.admin
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import kotlinx.android.synthetic.main.activity_admin_user.*

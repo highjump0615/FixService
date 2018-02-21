@@ -1,16 +1,11 @@
 package com.brainyapps.e2fix.activities.serviceman
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity

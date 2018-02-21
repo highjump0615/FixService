@@ -17,7 +17,7 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    fun setNavbar(title: String = "", withBackButton: Boolean = false) {
+    fun setNavbar(title: String? = null, withBackButton: Boolean = false) {
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
