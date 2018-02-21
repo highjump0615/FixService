@@ -9,31 +9,26 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
-import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
+import com.brainyapps.e2fix.adapters.serviceman.BidItemAdapter
 import com.brainyapps.e2fix.models.Job
 import kotlinx.android.synthetic.main.activity_job.*
 import kotlinx.android.synthetic.main.app_bar_serviceman.*
 import kotlinx.android.synthetic.main.layout_content_job.*
 
-class JobActivity : BaseServicemanActivity() {
+class BidActivity : BaseServicemanActivity() {
 
     var aryJob = ArrayList<Job>()
-    var adapter: JobItemAdapter? = null
+    var adapter: BidItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job)
+        setContentView(R.layout.activity_bid)
 
         setNavbar()
         initDrawer()
 
-        // init spinner
-        val adapter = ArrayAdapter.createFromResource(this, R.array.jobtyps_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        this.spinner.adapter = adapter
-
         // init data
-        for (i in 0..15) {
+        for (i in 0..14) {
             this.aryJob.add(Job())
         }
 
@@ -43,7 +38,7 @@ class JobActivity : BaseServicemanActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = JobItemAdapter(this, this.aryJob)
+        this.adapter = BidItemAdapter(this, this.aryJob)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
     }

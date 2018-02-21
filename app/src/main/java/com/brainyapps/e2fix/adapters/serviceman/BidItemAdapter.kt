@@ -10,23 +10,21 @@ import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.utils.E2FItemClickListener
 import com.brainyapps.e2fix.utils.Utils
-import com.brainyapps.e2fix.views.ViewHolderLoading
-import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
-import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
-import com.bumptech.glide.util.Util
+import com.brainyapps.e2fix.views.serviceman.ViewHolderBidItem
+import com.brainyapps.e2fix.views.serviceman.ViewHolderHeader
 import java.util.ArrayList
 
 /**
  * Created by Administrator on 2/19/18.
  */
 
-class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
+class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
     : BaseItemAdapter() {
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0
+        val ITEM_VIEW_TYPE_HEADER = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,20 +32,35 @@ class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
         var vhRes = super.onCreateViewHolder(parent, viewType)
 
         if (vhRes == null) {
-            // create a new view
-            val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_job_list_item, parent, false)
-            // set the view's size, margins, paddings and layout parameters
+            if (viewType == ITEM_VIEW_TYPE_HEADER) {
+                val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_bid_list_header_item, parent, false)
 
-            val vh = ViewHolderJobItem(v, ctx)
-            vh.setOnItemClickListener(this)
-            vhRes = vh
+                val vh = ViewHolderHeader(v)
+                vhRes = vh
+            }
+            else {
+                // create a new view
+                val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_bid_list_item, parent, false)
+                // set the view's size, margins, paddings and layout parameters
+
+                val vh = ViewHolderBidItem(v, ctx)
+                vh.setOnItemClickListener(this)
+                vhRes = vh
+            }
         }
 
         return vhRes
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ViewHolderUserItem) {
+        if (holder is ViewHolderBidItem) {
+            // set new mark visibility
+            if (position == 1) {
+                holder.setNewMarkVisible(View.VISIBLE)
+            }
+            else {
+                holder.setNewMarkVisible(View.INVISIBLE)
+            }
         }
         else {
         }
@@ -66,7 +79,12 @@ class JobItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>)
     override fun getItemViewType(position: Int): Int {
 
         return if (position < aryUser.size) {
-            ITEM_VIEW_TYPE_JOB
+            if (position % 3 == 0) {
+                ITEM_VIEW_TYPE_HEADER
+            }
+            else {
+                ITEM_VIEW_TYPE_JOB
+            }
         }
         else {
             ITEM_VIEW_TYPE_FOOTER

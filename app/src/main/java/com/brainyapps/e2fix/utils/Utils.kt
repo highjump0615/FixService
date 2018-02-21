@@ -41,10 +41,6 @@ class Utils {
         fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean = false) {
             val intent = Intent(source, destinationClass)
 
-            if (removeSource) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-
             source.startActivity(intent)
 
             if (removeSource) {

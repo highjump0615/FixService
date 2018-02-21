@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.admin.AdminReportDetail
 import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
+import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FItemClickListener
 import com.brainyapps.e2fix.utils.Utils
@@ -21,27 +22,18 @@ import java.util.ArrayList
  */
 
 class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: Int)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), E2FItemClickListener {
-
-    var mbNeedMore = false
+    : BaseItemAdapter() {
 
     companion object {
         val ITEM_VIEW_TYPE_USER = 0
         val ITEM_VIEW_TYPE_USER_REPORTED = 1
-        val ITEM_VIEW_TYPE_FOOTER = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        var vhRes: RecyclerView.ViewHolder? = null
+        var vhRes = super.onCreateViewHolder(parent, viewType)
 
-        if (viewType == ITEM_VIEW_TYPE_FOOTER) {
-            val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_list_loading, parent, false)
-
-            val vh = ViewHolderLoading(v)
-            vhRes = vh
-        }
-        else {
+        if (vhRes == null) {
             // create a new view
             val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_user_list_item, parent, false)
             // set the view's size, margins, paddings and layout parameters
@@ -54,8 +46,7 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
         return vhRes
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolderUserItem) {
         }
         else {

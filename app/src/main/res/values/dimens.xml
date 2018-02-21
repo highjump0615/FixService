@@ -55,11 +55,12 @@
 
     <!-- job activity -->
     <dimen name="job_margin">8dp</dimen>
-    <dimen name="job_list_item_height">100dp</dimen>
+    <dimen name="job_list_item_height">106dp</dimen>
     <dimen name="job_list_photo_size">80dp</dimen>
     <dimen name="job_list_content_margin">11dp</dimen>
     <dimen name="job_list_desc_text_size">13sp</dimen>
-    <dimen name="job_list_icons_height">32dp</dimen>
+    <dimen name="job_list_icons_margin">5dp</dimen>
+    <dimen name="job_list_icons_height">14dp</dimen>
     <dimen name="job_list_icons_spacing">4dp</dimen>
     <dimen name="job_list_icon_width">20dp</dimen>
     <dimen name="job_list_icon_margin">10dp</dimen>
@@ -67,5 +68,9 @@
     <dimen name="job_list_button_width">80dp</dimen>
     <dimen name="job_list_button_height">36dp</dimen>
     <dimen name="job_list_button_text_size">12sp</dimen>
+
+    <!-- bid activity -->
+    <dimen name="bid_list_banner_hori_padding">5dp</dimen>
+    <dimen name="bid_list_header_margin">8dp</dimen>
 
 </resources>
