@@ -123,6 +123,12 @@
         <activity
             android:name=".activities.customer.PostJobActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.customer.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.customer.SettingsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

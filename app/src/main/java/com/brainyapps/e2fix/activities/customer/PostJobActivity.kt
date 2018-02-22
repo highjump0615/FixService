@@ -37,6 +37,8 @@ class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
     }
 
     override fun onClick(view: View?) {
+        super.onClick(view)
+
         when (view?.id) {
             // Photo
             R.id.but_photo, R.id.imgview_photo -> {
@@ -44,8 +46,7 @@ class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
             }
             // next
             R.id.but_post -> {
-                Utils.moveNextActivity(this, JobActivity::class.java)
-                finish()
+                Utils.moveNextActivity(this, JobActivity::class.java, true)
             }
         }
     }

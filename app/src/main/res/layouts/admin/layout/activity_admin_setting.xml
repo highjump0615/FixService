@@ -70,14 +70,13 @@
 
             <!-- Log out -->
             <RelativeLayout
-                android:id="@+id/layout_reported_user"
+                android:id="@+id/layout_logout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/admin_main_menu_height"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground">
 
                 <RelativeLayout
-                    android:id="@+id/layout_logout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
