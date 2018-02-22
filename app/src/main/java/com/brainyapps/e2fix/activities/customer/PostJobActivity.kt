@@ -1,29 +1,39 @@
-package com.brainyapps.e2fix.activities.signin
+package com.brainyapps.e2fix.activities.customer
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_signup_info.*
+import kotlinx.android.synthetic.main.layout_content_post.*
 
-class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
+class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
 
     var helper: PhotoActivityHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup_info)
+        setContentView(R.layout.activity_post)
 
+        setNavbar("Post a Job", false)
+        initDrawer()
+
+        // init photo
         this.helper = PhotoActivityHelper(this)
+
+        // init spinner
+        val adapter = ArrayAdapter.createFromResource(this, R.array.jobtypes_array, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        this.spinner.adapter = adapter
 
         this.but_photo.setOnClickListener(this)
         this.imgview_photo.setOnClickListener(this)
-        this.but_next.setOnClickListener(this)
+        this.but_post.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -33,8 +43,9 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
                 this.helper!!.showMenuDialog()
             }
             // next
-            R.id.but_next -> {
-                Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+            R.id.but_post -> {
+                Utils.moveNextActivity(this, JobActivity::class.java)
+                finish()
             }
         }
     }

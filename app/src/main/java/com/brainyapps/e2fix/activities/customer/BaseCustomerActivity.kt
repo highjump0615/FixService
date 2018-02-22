@@ -62,15 +62,12 @@ open class BaseCustomerActivity : BaseActivity(), View.OnClickListener {
 
             // post job
             R.id.layout_nav_post -> {
-//                if (this is BidActivity && this.type == BidActivity.TYPE_BID_WON) {
-//                    drawer_layout.closeDrawer(GravityCompat.START)
-//                }
-//                else {
-//                    val intent = Intent(this, BidActivity::class.java)
-//                    intent.putExtra(BidActivity.KEY_TYPE, BidActivity.TYPE_BID_WON)
-//                    startActivity(intent)
-//                    finish()
-//                }
+                if (this is PostJobActivity) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                }
+                else {
+                    Utils.moveNextActivity(this, PostJobActivity::class.java, true)
+                }
             }
 
             // setting
