@@ -1,4 +1,4 @@
-package com.brainyapps.e2fix.activities.serviceman
+package com.brainyapps.e2fix.activities.customer
 
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -6,30 +6,30 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.models.User
 import kotlinx.android.synthetic.main.layout_content_job.*
 
-class JobActivity : BaseServicemanActivity() {
+class JobPostedActivity : BaseDrawerActivity() {
 
     var aryJob = ArrayList<Job>()
     var adapter: JobItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_job)
+        setContentView(R.layout.activity_customer_job)
 
         setNavbar()
-        initDrawer()
-
-        // init spinner
-        val adapter = ArrayAdapter.createFromResource(this, R.array.jobtypes_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        this.spinner.adapter = adapter
+        initDrawer(User.USER_TYPE_CUSTOMER)
 
         // init data
-        for (i in 0..15) {
-            this.aryJob.add(Job())
+        for (i in 0..10) {
+            val j = Job()
+            j.userPosted = User()
+
+            this.aryJob.add(j)
         }
 
         // init list

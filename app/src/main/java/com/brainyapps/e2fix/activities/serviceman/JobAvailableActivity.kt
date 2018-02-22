@@ -4,27 +4,34 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
-import com.brainyapps.e2fix.adapters.serviceman.ProfileAdapter
 import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.models.Review
+import com.brainyapps.e2fix.models.User
+import kotlinx.android.synthetic.main.layout_content_job.*
 
-class ProfileActivity : BaseServicemanActivity() {
+class JobAvailableActivity : BaseDrawerActivity() {
 
-    var aryReview = ArrayList<Review>()
-    var adapter: ProfileAdapter? = null
+    var aryJob = ArrayList<Job>()
+    var adapter: JobItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_serviceman_profile)
+        setContentView(R.layout.activity_job)
 
         setNavbar()
-        initDrawer()
+        initDrawer(User.USER_TYPE_SERVICEMAN)
+
+        // init spinner
+        val adapter = ArrayAdapter.createFromResource(this, R.array.jobtypes_array, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        this.spinner.adapter = adapter
 
         // init data
         for (i in 0..15) {
-            this.aryReview.add(Review())
+            this.aryJob.add(Job())
         }
 
         // init list
@@ -33,7 +40,7 @@ class ProfileActivity : BaseServicemanActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = ProfileAdapter(this, this.aryReview)
+        this.adapter = JobItemAdapter(this, this.aryJob)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
     }

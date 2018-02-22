@@ -38,8 +38,12 @@ class Utils {
         /**
          * Move to destination activity class with animate transition.
          */
-        fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean = false) {
+        fun moveNextActivity(source: Activity, destinationClass: Class<*>, removeSource: Boolean = false, removeAll: Boolean = false) {
             val intent = Intent(source, destinationClass)
+
+            if (removeAll) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
 
             source.startActivity(intent)
 

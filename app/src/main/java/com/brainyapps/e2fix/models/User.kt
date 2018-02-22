@@ -11,8 +11,8 @@ class User {
         val USER_TYPE_CUSTOMER = 1
         val USER_TYPE_SERVICEMAN = 2
 
-        val currentUser: User? = null
+        var currentUser: User? = null
     }
 
-    val type: Int = USER_TYPE_ADMIN
+    var type: Int = USER_TYPE_ADMIN
 }

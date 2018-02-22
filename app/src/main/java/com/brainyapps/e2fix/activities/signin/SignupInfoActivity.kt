@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
@@ -17,13 +18,18 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup_info)
+        initView(R.layout.activity_signup_info)
 
         this.helper = PhotoActivityHelper(this)
 
         this.but_photo.setOnClickListener(this)
         this.imgview_photo.setOnClickListener(this)
         this.but_next.setOnClickListener(this)
+
+        // hide the skill input when customer
+        if (this.userType == User.USER_TYPE_CUSTOMER) {
+            this.edit_skill.visibility = View.GONE
+        }
     }
 
     override fun onClick(view: View?) {
@@ -34,6 +40,11 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
             }
             // next
             R.id.but_next -> {
+                // make new user
+                val newUser = User()
+                newUser.type = this.userType
+                User.currentUser = newUser
+
                 Utils.moveNextActivity(this, SignupStripeActivity::class.java)
             }
         }

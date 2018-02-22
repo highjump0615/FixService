@@ -20,7 +20,7 @@
             android:layout_height="@dimen/admin_user_list_photo_size"
             android:src="@drawable/user_default"/>
 
-        <!-- name & type -->
+        <!-- nambidTypetype -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

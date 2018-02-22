@@ -5,13 +5,23 @@ import android.os.Bundle
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.models.User
 
 class SignupLandingActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.but_serviceman, R.id.but_customer -> {
-                val signupIntent = Intent(this@SignupLandingActivity, SignupEmailActivity::class.java)
-                startActivity(signupIntent)
+                val intent = Intent(this@SignupLandingActivity, SignupEmailActivity::class.java)
+
+                val userType = if (view?.id == R.id.but_serviceman) {
+                    User.USER_TYPE_SERVICEMAN
+                }
+                else {
+                    User.USER_TYPE_CUSTOMER
+                }
+                intent.putExtra(SignupBaseActivity.KEY_USER_TYPE, userType)
+
+                startActivity(intent)
             }
         }
     }

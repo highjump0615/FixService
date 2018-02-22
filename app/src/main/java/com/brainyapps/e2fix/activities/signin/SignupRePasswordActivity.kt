@@ -64,7 +64,9 @@ class SignupRePasswordActivity : SignupBaseActivity() {
         when (view?.id) {
             // Next
             R.id.but_next -> {
-                Utils.moveNextActivity(this, SignupInfoActivity::class.java)
+                val intent = Intent(this, SignupInfoActivity::class.java)
+                intent.putExtra(SignupBaseActivity.KEY_USER_TYPE, this.userType)
+                startActivity(intent)
             }
         }
     }

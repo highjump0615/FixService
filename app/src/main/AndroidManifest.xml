@@ -30,7 +30,14 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.BaseActivity"
             android:screenOrientation="portrait" />
@@ -81,7 +88,7 @@
             android:name=".activities.signin.SignupStripeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.serviceman.JobActivity"
+            android:name=".activities.serviceman.JobAvailableActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.serviceman.BidSubmitActivity"
@@ -96,24 +103,15 @@
             android:name=".activities.serviceman.BidDetailApplyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.serviceman.SettingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.serviceman.ProfileActivity"
+            android:name=".activities.serviceman.ProfileServicemanActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.serviceman.EditProfileActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activities.customer.JobActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".activities.customer.JobPostedActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.customer.BidDetailActivity"
             android:screenOrientation="portrait" />
@@ -124,10 +122,10 @@
             android:name=".activities.customer.PostJobActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.customer.ProfileActivity"
+            android:name=".activities.customer.ProfileCustomerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.customer.SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait" />
     </application>
 

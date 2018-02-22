@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_content_post.*
 
-class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
+class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
 
     var helper: PhotoActivityHelper? = null
 
@@ -21,7 +23,7 @@ class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
         setContentView(R.layout.activity_post)
 
         setNavbar("Post a Job", false)
-        initDrawer()
+        initDrawer(User.USER_TYPE_CUSTOMER)
 
         // init photo
         this.helper = PhotoActivityHelper(this)
@@ -46,7 +48,7 @@ class PostJobActivity : BaseCustomerActivity(), E2FUpdateImageListener {
             }
             // next
             R.id.but_post -> {
-                Utils.moveNextActivity(this, JobActivity::class.java, true)
+                Utils.moveNextActivity(this, JobPostedActivity::class.java, true)
             }
         }
     }

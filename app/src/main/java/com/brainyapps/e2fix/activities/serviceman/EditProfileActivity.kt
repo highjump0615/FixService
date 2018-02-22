@@ -8,6 +8,7 @@ import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_serviceman_edit_profile.*
@@ -31,6 +32,11 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, E2FUpdateImage
 
         this.imgview_photo.setOnClickListener(this)
         this.but_save.setOnClickListener(this)
+
+        // hide the skill input when customer
+        if (User.currentUser!!.type == User.USER_TYPE_CUSTOMER) {
+            this.edit_skill.visibility = View.GONE
+        }
     }
 
     override fun onClick(view: View?) {

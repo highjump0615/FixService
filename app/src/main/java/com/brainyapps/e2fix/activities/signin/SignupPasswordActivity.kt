@@ -90,8 +90,9 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
         when (view?.id) {
             // Next
             R.id.but_next -> {
-                val intent = Intent(this@SignupPasswordActivity, SignupRePasswordActivity::class.java)
+                val intent = Intent(this, SignupRePasswordActivity::class.java)
                 intent.putExtra(SignupRePasswordActivity.KEY_PASSWORD, medit.text.toString())
+                intent.putExtra(SignupBaseActivity.KEY_USER_TYPE, this.userType)
                 startActivity(intent)
             }
         }

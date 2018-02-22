@@ -63,7 +63,8 @@ class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
         when (view?.id) {
             // Next
             R.id.but_next -> {
-                val intent = Intent(this@SignupEmailActivity, SignupPasswordActivity::class.java)
+                val intent = Intent(this, SignupPasswordActivity::class.java)
+                intent.putExtra(SignupBaseActivity.KEY_USER_TYPE, this.userType)
                 startActivity(intent)
             }
         }
