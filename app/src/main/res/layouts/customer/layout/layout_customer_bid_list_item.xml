@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/job_margin"
+    android:layout_marginLeft="@dimen/job_margin"
+    android:layout_marginRight="@dimen/job_margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/job_margin"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- user photo -->
+            <ImageView
+                android:layout_width="@dimen/rate_item_photo_size"
+                android:layout_height="@dimen/rate_item_photo_size"
+                android:src="@drawable/user_default"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/admin_user_list_name_size"
+                    android:text="Oliver Cramb"
+                    android:textStyle="bold"/>
+
+                <!-- location -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/job_list_icons_height"
+                    android:layout_below="@id/text_name"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/job_list_icon_width"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/job_list_icon_margin"
+                        android:src="@drawable/user_detail_location" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.3 miles aray from you"
+                        android:textSize="@dimen/job_list_icon_text_size"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis posuere dui, a ornare lectus faucibus eu. Duis rutrum volutpat orci ac tincidunt. Proin nec erat eget urna eleifend fringilla et ut ante. Donec venenatis nisl a dolor dictum tempus. Etiam imperdiet a sapien ac fringilla."
+            android:maxLines="3"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <!-- time -->
+    <RelativeLayout
+        style="@style/BidDetailItem"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimated time to complete the job"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 days"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <!-- price -->
+    <RelativeLayout
+        style="@style/BidDetailItem"
+        android:background="@color/colorWhiteBackground">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total service price"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$200"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <!-- contact -->
+    <RelativeLayout
+        style="@style/BidDetailItem"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/white">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/user_detail_card"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/bid_detail_item_hori_padding"
+                android:text="Contact information" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+12 678 789 09"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <Button
+        android:theme="@style/PrimaryButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:layout_marginLeft="@dimen/but_choose_margin"
+        android:layout_marginRight="@dimen/but_choose_margin"
+        android:paddingLeft="@dimen/but_choose_padding"
+        android:paddingRight="@dimen/but_choose_padding"
+        android:drawableLeft="@drawable/bid_reply"
+        android:text="CHOOSE AS THE BID WINNER"
+        android:textSize="17sp"/>
+
+</LinearLayout>

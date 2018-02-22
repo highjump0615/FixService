@@ -50,18 +50,18 @@ open class BaseCustomerActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            // available jobs
-            R.id.layout_nav_available_job -> {
-//                if (this is JobActivity) {
-//                    drawer_layout.closeDrawer(GravityCompat.START)
-//                }
-//                else {
-//                    Utils.moveNextActivity(this, JobActivity::class.java, true)
-//                }
+            // posted jobs
+            R.id.layout_nav_posted_job -> {
+                if (this is JobActivity) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                }
+                else {
+                    Utils.moveNextActivity(this, JobActivity::class.java, true)
+                }
             }
 
-            // bids win
-            R.id.layout_nav_bid_won -> {
+            // post job
+            R.id.layout_nav_post -> {
 //                if (this is BidActivity && this.type == BidActivity.TYPE_BID_WON) {
 //                    drawer_layout.closeDrawer(GravityCompat.START)
 //                }
@@ -71,24 +71,6 @@ open class BaseCustomerActivity : BaseActivity(), View.OnClickListener {
 //                    startActivity(intent)
 //                    finish()
 //                }
-            }
-
-            // jobs applied
-            R.id.layout_nav_applied -> {
-//                if (this is BidActivity && this.type == BidActivity.TYPE_JOB_APPLIED) {
-//                    drawer_layout.closeDrawer(GravityCompat.START)
-//                }
-//                else {
-//                    val intent = Intent(this, BidActivity::class.java)
-//                    intent.putExtra(BidActivity.KEY_TYPE, BidActivity.TYPE_JOB_APPLIED)
-//                    startActivity(intent)
-//                    finish()
-//                }
-            }
-
-            // log out
-            R.id.layout_logout -> {
-                Utils.moveNextActivity(this, LoginActivity::class.java, true)
             }
 
             // setting

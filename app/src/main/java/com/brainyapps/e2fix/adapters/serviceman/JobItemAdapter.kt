@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
@@ -74,7 +75,12 @@ class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
         when (view?.id) {
             // bid button
             R.id.but_bid -> {
-                Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
+                if (this.aryJob[position].userPosted != null) {
+                    Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
+                }
+                else {
+                    Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
+                }
             }
         }
     }

@@ -94,4 +94,8 @@
     <dimen name="edit_profile_photo_button_padding">7dp</dimen>
     <dimen name="edit_profile_spacing">20dp</dimen>
 
+    <!-- customer bid detail activity -->
+    <dimen name="but_choose_margin">8dp</dimen>
+    <dimen name="but_choose_padding">30dp</dimen>
+
 </resources>
