@@ -51,14 +51,11 @@ open class BaseDrawerActivity : BaseActivity(), View.OnClickListener {
             layout = findViewById<RelativeLayout>(R.id.layout_nav_post)
             layout.setOnClickListener(this)
         }
-        else if (type == User.USER_TYPE_CUSTOMER) {
+        else if (type == User.USER_TYPE_SERVICEMAN) {
             layout = findViewById<RelativeLayout>(R.id.layout_nav_available_job)
             layout.setOnClickListener(this)
 
             layout = findViewById<RelativeLayout>(R.id.layout_nav_bid_won)
-            layout.setOnClickListener(this)
-
-            layout = findViewById<RelativeLayout>(R.id.layout_logout)
             layout.setOnClickListener(this)
 
             layout = findViewById<RelativeLayout>(R.id.layout_nav_applied)

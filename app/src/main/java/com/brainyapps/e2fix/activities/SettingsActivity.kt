@@ -15,16 +15,16 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
 
         if (User.currentUser!!.type == User.USER_TYPE_SERVICEMAN) {
             setContentView(R.layout.activity_serviceman_setting)
+            setNavbar()
             initDrawer(User.USER_TYPE_SERVICEMAN)
         }
         else {
             setContentView(R.layout.activity_customer_setting)
+            setNavbar()
             initDrawer(User.USER_TYPE_CUSTOMER)
 
             this.layout_payment.visibility = View.GONE
         }
-
-        setNavbar()
 
         this.layout_edit_profile.setOnClickListener(this)
         this.layout_logout.setOnClickListener(this)

@@ -218,36 +218,4 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- logout -->
-    <RelativeLayout
-        android:id="@+id/layout_logout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/navigation_menu_height"
-        android:clickable="true"
-        android:background="?attr/selectableItemBackground">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/admin_logout"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/admin_main_margin_title"
-                android:text="Log Out"
-                android:textSize="@dimen/navbar_title_text_size"
-                android:layout_centerVertical="true"/>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
 </LinearLayout>
