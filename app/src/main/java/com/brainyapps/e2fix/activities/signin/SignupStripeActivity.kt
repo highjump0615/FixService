@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_signup_stripe.*
 
 class SignupStripeActivity : BaseActivity(), View.OnClickListener {
 
-    private val TAG = SignupRePasswordActivity::class.java!!.getSimpleName()
+    private val TAG = SignupStripeActivity::class.java!!.getSimpleName()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
 
-                            user.saveToDatabase(FirebaseManager.mAuth.getCurrentUser()!!.uid)
+                            user.saveToDatabase(FirebaseManager.mAuth.currentUser!!.uid)
 
                             if (user.type == User.USER_TYPE_SERVICEMAN) {
                                 Utils.moveNextActivity(this, JobAvailableActivity::class.java, true, true)

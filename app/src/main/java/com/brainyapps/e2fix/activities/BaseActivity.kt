@@ -7,6 +7,11 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.admin.AdminMainActivity
+import com.brainyapps.e2fix.activities.customer.JobPostedActivity
+import com.brainyapps.e2fix.activities.serviceman.JobAvailableActivity
+import com.brainyapps.e2fix.models.User
+import com.brainyapps.e2fix.utils.Utils
 
 /**
  * Created by Administrator on 2/14/18.
@@ -36,6 +41,23 @@ open class BaseActivity : AppCompatActivity() {
 
             // back icon event
             toolbar.setNavigationOnClickListener { onBackPressed() }
+        }
+    }
+
+    /**
+     * go to main page according to user type
+     */
+    fun goToMain() {
+        when (User.currentUser!!.type) {
+            User.USER_TYPE_ADMIN -> {
+                Utils.moveNextActivity(this, AdminMainActivity::class.java, true)
+            }
+            User.USER_TYPE_SERVICEMAN -> {
+                Utils.moveNextActivity(this, JobAvailableActivity::class.java, true)
+            }
+            User.USER_TYPE_CUSTOMER -> {
+                Utils.moveNextActivity(this, JobPostedActivity::class.java, true)
+            }
         }
     }
 }

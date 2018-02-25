@@ -2,6 +2,11 @@ package com.brainyapps.e2fix.models
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+
+
 
 /**
  * Created by Administrator on 2/19/18.
@@ -18,6 +23,20 @@ class User {
 
         // table info
         val TABLE_NAME = "users"
+
+        fun initFromDatabase(userId: String): User {
+            val newUser = User(userId)
+
+
+            return newUser
+        }
+    }
+
+    constructor() {
+    }
+
+    constructor(id: String) {
+        this.id = id
     }
 
     var type: Int = USER_TYPE_ADMIN
@@ -44,7 +63,7 @@ class User {
     fun saveToDatabase(withId: String) {
         this.id = withId
 
-        val database = FirebaseDatabase.getInstance().getReference()
+        val database = FirebaseDatabase.getInstance().reference
         database.child(User.TABLE_NAME).child(withId).setValue(this)
     }
 }

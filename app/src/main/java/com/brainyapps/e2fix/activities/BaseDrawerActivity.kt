@@ -164,11 +164,6 @@ open class BaseDrawerActivity : BaseActivity(), View.OnClickListener {
                     finish()
                 }
             }
-
-            // log out
-            R.id.layout_logout -> {
-                Utils.moveNextActivity(this, LoginActivity::class.java, true)
-            }
         }
     }
 }
