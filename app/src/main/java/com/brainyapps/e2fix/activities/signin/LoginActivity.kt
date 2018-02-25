@@ -24,6 +24,7 @@ import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.admin.AdminMainActivity
+import com.brainyapps.e2fix.utils.Utils
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -163,17 +164,16 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, View.OnClick
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView?.requestFocus()
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            showProgress(true)
-//            mAuthTask = UserLoginTask(emailStr, passwordStr)
-//            mAuthTask!!.execute(null as Void?)
-
-            val intent = Intent(this@LoginActivity, AdminMainActivity::class.java)
-            startActivity(intent)
-            finish()
+            return
         }
+
+        // Show a progress spinner, and kick off a background task to
+        // perform the user login attempt.
+        val progress = Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
+
+        val intent = Intent(this@LoginActivity, AdminMainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun isEmailValid(email: String): Boolean {

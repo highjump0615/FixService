@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.utils.Utils
+import kotlinx.android.synthetic.main.activity_signup_email.*
 
 class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
 
@@ -70,6 +71,8 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
                 } else {
                     mchkLowercase.setChecked(false)
                 }
+
+                enableNextButton(true)
             }
             else {
                 mchkLength.setChecked(false)
@@ -77,8 +80,6 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
                 mchkLowercase.setChecked(false)
                 mchkNumber.setChecked(false)
             }
-
-//            enableNext(password)
         }
 
         override fun afterTextChanged(editable: Editable) {
@@ -91,8 +92,9 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
             // Next
             R.id.but_next -> {
                 val intent = Intent(this, SignupRePasswordActivity::class.java)
-                intent.putExtra(SignupRePasswordActivity.KEY_PASSWORD, medit.text.toString())
+                intent.putExtra(SignupBaseActivity.KEY_PASSWORD, medit.text.toString())
                 intent.putExtra(SignupBaseActivity.KEY_USER_TYPE, this.userType)
+                intent.putExtra(SignupBaseActivity.KEY_EMAIL, this.email)
                 startActivity(intent)
             }
         }

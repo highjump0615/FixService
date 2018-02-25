@@ -14,9 +14,13 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         val KEY_USER_TYPE = "bidType"
+        val KEY_EMAIL = "email"
+        val KEY_PASSWORD = "password"
     }
 
     var userType = User.USER_TYPE_ADMIN
+    var email: String? = null
+    var password: String? = null
 
     override fun onClick(view: View?) {
     }
@@ -29,6 +33,8 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
         // get user type from intent
         val bundle = intent.extras
         this.userType = bundle.getInt(SignupBaseActivity.KEY_USER_TYPE)
+        this.email = bundle.getString(SignupBaseActivity.KEY_EMAIL)
+        this.password = bundle.getString(SignupBaseActivity.KEY_PASSWORD)
     }
 
     fun initView(layoutResID: Int) {
@@ -38,5 +44,19 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
 
         mbutNext = findViewById<View>(R.id.but_next) as RelativeLayout
         mbutNext.setOnClickListener(this)
+
+        // disable next button
+        enableNextButton(false)
+    }
+
+    fun enableNextButton(enable: Boolean) {
+        mbutNext.isEnabled = enable
+
+        if (enable) {
+            mbutNext.alpha = 1.0f
+        }
+        else {
+            mbutNext.alpha = 0.6f
+        }
     }
 }

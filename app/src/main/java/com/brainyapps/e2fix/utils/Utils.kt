@@ -3,8 +3,13 @@ package com.brainyapps.e2fix.utils
 import android.Manifest
 import android.annotation.TargetApi
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
@@ -61,6 +66,35 @@ class Utils {
             } else {
                 return true
             }
+        }
+
+        fun checkConnection(context: Context): Boolean {
+            val networkStatus = isNetworkAvailable(context)
+            if (!networkStatus) {
+                createErrorAlertDialog(context, "Warning",
+                        "Oops! Please connect to the internet and try again.")
+            }
+            return networkStatus
+        }
+
+        fun isNetworkAvailable(context: Context): Boolean {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
+        /**
+         * Create error AlertDialog.
+         */
+        fun createErrorAlertDialog(context: Context, title: String, message: String, listener: DialogInterface.OnClickListener? = null): Dialog {
+            return AlertDialog.Builder(context)
+                    .setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.ok, listener).create()
+        }
+
+        fun createProgressDialog(context: Context, title:String, message: String): ProgressDialog {
+            return ProgressDialog.show(context, title, message);
         }
     }
 }

@@ -1,8 +1,10 @@
 package com.brainyapps.e2fix.activities.signin
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
@@ -30,6 +32,8 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
         if (this.userType == User.USER_TYPE_CUSTOMER) {
             this.edit_skill.visibility = View.GONE
         }
+
+        enableNextButton(true)
     }
 
     override fun onClick(view: View?) {
@@ -40,12 +44,12 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
             }
             // next
             R.id.but_next -> {
-                // make new user
-                val newUser = User()
-                newUser.type = this.userType
-                User.currentUser = newUser
+                if (checkValidation()) {
+                    // make new user
+                    initUser()
 
-                Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+                    Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+                }
             }
         }
     }
@@ -56,11 +60,98 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
         helper!!.onActivityResult(requestCode, resultCode, data)
     }
 
+    /**
+     * E2FUpdateImageListener
+     */
     override fun getActivity(): Activity {
         return this
     }
 
     override fun updatePhotoImageView(byteData: ByteArray) {
         Glide.with(this).load(byteData).into(this.imgview_photo)
+    }
+
+    /**
+     * check validation of input
+     */
+    private fun checkValidation(): Boolean {
+        // first name
+        if (TextUtils.isEmpty(this.edit_firstname.text.toString())) {
+            Utils.createErrorAlertDialog(this,
+                    resources.getString(R.string.error_fill_data),
+                    "First name cannot be empty",
+                    DialogInterface.OnClickListener {dialog, which ->
+                        this@SignupInfoActivity.edit_firstname.requestFocus()
+                    }
+            ).show()
+            return false
+        }
+        // last name
+        if (TextUtils.isEmpty(this.edit_lastname.text.toString())) {
+            Utils.createErrorAlertDialog(this,
+                    resources.getString(R.string.error_fill_data),
+                    "Last name cannot be empty",
+                    DialogInterface.OnClickListener {dialog, which ->
+                        this@SignupInfoActivity.edit_lastname.requestFocus()
+                    }
+            ).show()
+            return false
+        }
+        // contact
+        if (TextUtils.isEmpty(this.edit_contact.text.toString())) {
+            Utils.createErrorAlertDialog(this,
+                    resources.getString(R.string.error_fill_data),
+                    "Contact information cannot be empty",
+                    DialogInterface.OnClickListener {dialog, which ->
+                        this@SignupInfoActivity.edit_contact.requestFocus()
+                    }
+            ).show()
+            return false
+        }
+        // location
+        if (TextUtils.isEmpty(this.edit_location.text.toString())) {
+            Utils.createErrorAlertDialog(this,
+                    resources.getString(R.string.error_fill_data),
+                    "Location cannot be empty",
+                    DialogInterface.OnClickListener {dialog, which ->
+                        this@SignupInfoActivity.edit_location.requestFocus()
+                    }
+            ).show()
+            return false
+        }
+        // skill
+        if (this.userType == User.USER_TYPE_SERVICEMAN && TextUtils.isEmpty(this.edit_skill.text.toString())) {
+            Utils.createErrorAlertDialog(this,
+                    resources.getString(R.string.error_fill_data),
+                    "Skills cannot be empty",
+                    DialogInterface.OnClickListener {dialog, which ->
+                        this@SignupInfoActivity.edit_skill.requestFocus()
+                    }
+            ).show()
+            return false
+        }
+
+        return true
+    }
+
+    /**
+     * initialize user info
+     */
+    private fun initUser() {
+        val newUser = User()
+
+        newUser.email = this.email!!
+        newUser.password = this.password!!
+        newUser.type = this.userType
+        newUser.firstName = this.edit_firstname.text.toString()
+        newUser.lastName = this.edit_lastname.text.toString()
+        newUser.contact = this.edit_contact.text.toString()
+        newUser.location = this.edit_location.text.toString()
+
+        if (this.userType == User.USER_TYPE_SERVICEMAN) {
+            newUser.skill = this.edit_skill.text.toString()
+        }
+
+        User.currentUser = newUser
     }
 }
