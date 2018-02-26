@@ -66,8 +66,6 @@ class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
                         if (!dataSnapshot.exists()) {
                             this@SignupEmailActivity.chk_not_used.setChecked(true)
                             enableNextButton(true)
-
-                            return
                         }
                     }
 

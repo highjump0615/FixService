@@ -32,15 +32,17 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
 
         // get user type from intent
         val bundle = intent.extras
-        this.userType = bundle.getInt(SignupBaseActivity.KEY_USER_TYPE)
-        this.email = bundle.getString(SignupBaseActivity.KEY_EMAIL)
-        this.password = bundle.getString(SignupBaseActivity.KEY_PASSWORD)
+        if (bundle != null) {
+            this.userType = bundle.getInt(SignupBaseActivity.KEY_USER_TYPE)
+            this.email = bundle.getString(SignupBaseActivity.KEY_EMAIL)
+            this.password = bundle.getString(SignupBaseActivity.KEY_PASSWORD)
+        }
     }
 
-    fun initView(layoutResID: Int) {
+    fun initView(layoutResID: Int, title: String = "Sign up") {
         setContentView(layoutResID)
 
-        setNavbar("Sign up", true)
+        setNavbar(title, true)
 
         mbutNext = findViewById<View>(R.id.but_next) as RelativeLayout
         mbutNext.setOnClickListener(this)

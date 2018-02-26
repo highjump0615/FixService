@@ -48,7 +48,7 @@
 
             <!-- submit button -->
             <RelativeLayout
-                android:id="@+id/but_submit"
+                android:id="@+id/but_next"
                 style="@style/DirectionButStyle"
                 android:layout_marginTop="16dp">
 
