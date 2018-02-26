@@ -94,8 +94,10 @@ class Utils {
                     .setPositiveButton(android.R.string.ok, listener).create()
         }
 
-        fun createProgressDialog(context: Context, title:String, message: String) {
+        fun createProgressDialog(context: Context, title:String, message: String): ProgressDialog? {
             progressDlg = ProgressDialog.show(context, title, message);
+
+            return progressDlg
         }
 
         fun closeProgressDialog() {

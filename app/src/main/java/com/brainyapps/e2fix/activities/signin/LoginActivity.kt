@@ -21,6 +21,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.annotation.NonNull
 import com.brainyapps.e2fix.R
@@ -60,6 +61,8 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
     private var RC_SIGN_IN = 2000
 
     private var loginType:Int = 0
+
+    var progressDlg: ProgressDialog? = null
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -204,7 +207,12 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
 
         // Show a progress spinner, and kick off a background task to
         // perform the user login attempt.
-        Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
+        if (progressDlg != null) {
+            // already processing, exit
+            return
+        }
+
+        progressDlg = Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
         this.but_login.isEnabled = false
 
         FirebaseManager.mAuth.signInWithEmailAndPassword(emailStr, passwordStr)
@@ -213,7 +221,8 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Utils.createErrorAlertDialog(this, "Authentication failed.", task.exception?.localizedMessage!!).show()
-                        Utils.closeProgressDialog()
+                        closeProgressDialog()
+                        progressDlg = null
                         this.but_login.isEnabled = true
 
                         return@OnCompleteListener
@@ -254,7 +263,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                     intent.putExtra(SignupLandingActivity.KEY_LOGIN_TYPE, this@LoginActivity.loginType)
                     startActivity(intent)
 
-                    Utils.closeProgressDialog()
+                    closeProgressDialog()
                     return
                 }
 
@@ -263,13 +272,18 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
 
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
-                Utils.closeProgressDialog()
+                closeProgressDialog()
                 signOutClear()
                 this@LoginActivity.but_login.isEnabled = true
 
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+    }
+
+    private fun closeProgressDialog() {
+        Utils.closeProgressDialog()
+        progressDlg = null
     }
 
     private fun isEmailValid(email: String): Boolean {
@@ -365,7 +379,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCredential:failure", task.exception)
                         Utils.createErrorAlertDialog(this, "Authentication failed.", task.exception?.localizedMessage!!).show()
-                        Utils.closeProgressDialog()
+                        closeProgressDialog()
 
                         return@OnCompleteListener
                     }

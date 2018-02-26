@@ -22,6 +22,8 @@
         completions."
     </string>
 
+    <string name="error_oldpassword">Current Password is not correct</string>
+
     <!-- admin user detail -->
     <string name="ban_user">BAN USER</string>
     <string name="unban_user">UNBAN USER</string>

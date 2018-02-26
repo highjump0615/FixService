@@ -33,7 +33,8 @@ class AdminSettingActivity : BaseActivity(), View.OnClickListener {
             }
             // logout
             R.id.layout_logout-> {
-                Utils.moveNextActivity(this@AdminSettingActivity, LoginActivity::class.java, true)
+                signOutClear()
+                Utils.moveNextActivity(this@AdminSettingActivity, LoginActivity::class.java, true, true)
             }
         }
     }

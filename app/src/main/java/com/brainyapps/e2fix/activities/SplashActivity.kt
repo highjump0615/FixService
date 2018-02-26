@@ -32,6 +32,7 @@ class SplashActivity : BaseActivity() {
         // check login state
         val userId = FirebaseManager.mAuth.currentUser?.uid
         if (TextUtils.isEmpty(userId)) {
+            Log.d(TAG, "fetched user")
             bFetchedUser = true
         }
         else {
@@ -44,6 +45,8 @@ class SplashActivity : BaseActivity() {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                     User.currentUser = dataSnapshot.getValue(User::class.java)
+
+                    Log.d(TAG, "fetched user")
                     bFetchedUser = true
 
                     // do action only when time is up
@@ -54,6 +57,7 @@ class SplashActivity : BaseActivity() {
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.w(TAG, "Failed to read value.", error.toException())
+                    Log.d(TAG, "fetched user")
                     bFetchedUser = true
 
                     // do action only when time is up
@@ -68,6 +72,7 @@ class SplashActivity : BaseActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
+            Log.d(TAG, "time up")
             bTimeUp = true
 
             // do action only when user is determined
