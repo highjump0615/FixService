@@ -6,12 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_signup_info.*
 
 class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
@@ -34,6 +36,18 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
         }
 
         enableNextButton(true)
+
+        // fill user info
+        this.edit_firstname.setText(User.currentUser?.firstName, TextView.BufferType.EDITABLE)
+        this.edit_lastname.setText(User.currentUser?.lastName, TextView.BufferType.EDITABLE)
+
+        if (!TextUtils.isEmpty(User.currentUser?.photoUrl)) {
+            Glide.with(this)
+                    .load(User.currentUser?.photoUrl)
+                    .apply(RequestOptions.placeholderOf(R.drawable.user_default).fitCenter())
+                    .into(this.imgview_photo)
+            this.but_photo.visibility = View.INVISIBLE
+        }
     }
 
     override fun onClick(view: View?) {
@@ -69,6 +83,7 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
 
     override fun updatePhotoImageView(byteData: ByteArray) {
         Glide.with(this).load(byteData).into(this.imgview_photo)
+        this.but_photo.visibility = View.INVISIBLE
     }
 
     /**
@@ -147,6 +162,7 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
         newUser.lastName = this.edit_lastname.text.toString()
         newUser.contact = this.edit_contact.text.toString()
         newUser.location = this.edit_location.text.toString()
+        newUser.photoByteArray = helper!!.byteData
 
         if (this.userType == User.USER_TYPE_SERVICEMAN) {
             newUser.skill = this.edit_skill.text.toString()

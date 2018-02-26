@@ -46,6 +46,7 @@
                 android:text="Valid Email"
                 android:layout_marginTop="14dp"/>
             <CheckBox
+                android:id="@+id/chk_not_used"
                 style="@style/CheckboxStyle"
                 android:text="Not in Use" />
 

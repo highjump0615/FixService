@@ -29,16 +29,13 @@ class SignupRePasswordActivity : SignupBaseActivity() {
         override fun afterTextChanged(editable: Editable) {
             val password = editable.toString()
 
-            if (!TextUtils.isEmpty(password)) {
-                if (TextUtils.equals(this@SignupRePasswordActivity.password, password)) {
-                    chk_match.setChecked(true)
-                    enableNextButton(true)
-                }
-                else {
-                    chk_match.setChecked(false)
-                }
-            } else {
+            if (TextUtils.equals(this@SignupRePasswordActivity.password, password)) {
+                chk_match.setChecked(true)
+                enableNextButton(true)
+            }
+            else {
                 chk_match.setChecked(false)
+                enableNextButton(false)
             }
         }
     }

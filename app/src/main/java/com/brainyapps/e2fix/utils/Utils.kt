@@ -22,6 +22,7 @@ class Utils {
     companion object {
 
         val PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 9009
+        var progressDlg: ProgressDialog? = null
 
         fun isValidEmail(target: String): Boolean {
             return if (TextUtils.isEmpty(target)) {
@@ -93,8 +94,12 @@ class Utils {
                     .setPositiveButton(android.R.string.ok, listener).create()
         }
 
-        fun createProgressDialog(context: Context, title:String, message: String): ProgressDialog {
-            return ProgressDialog.show(context, title, message);
+        fun createProgressDialog(context: Context, title:String, message: String) {
+            progressDlg = ProgressDialog.show(context, title, message);
+        }
+
+        fun closeProgressDialog() {
+            progressDlg?.dismiss()
         }
     }
 }

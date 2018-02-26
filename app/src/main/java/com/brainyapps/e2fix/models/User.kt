@@ -23,13 +23,7 @@ class User {
 
         // table info
         val TABLE_NAME = "users"
-
-        fun initFromDatabase(userId: String): User {
-            val newUser = User(userId)
-
-
-            return newUser
-        }
+        val FILED_EMAIL = "email"
     }
 
     constructor() {
@@ -46,6 +40,9 @@ class User {
 
     @get:Exclude
     var password = ""
+
+    @get:Exclude
+    var photoByteArray: ByteArray? = null
 
     var email = ""
 

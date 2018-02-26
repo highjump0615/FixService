@@ -43,7 +43,7 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
             }
             // log out
             R.id.layout_logout -> {
-                FirebaseManager.mAuth.signOut()
+                signOutClear()
                 Utils.moveNextActivity(this, LoginActivity::class.java, true, true)
             }
         }

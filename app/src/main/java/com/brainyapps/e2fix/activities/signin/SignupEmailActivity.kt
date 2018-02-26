@@ -12,19 +12,21 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_signup_email.*
 
 class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
 
-    lateinit var mchkEmail: CheckBox
     lateinit var mchkUsed: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView(R.layout.activity_signup_email)
-
-        mchkEmail = findViewById<View>(R.id.chk_valid_email) as CheckBox
 
         this.edit.addTextChangedListener(mTextWatcher)
     }
@@ -38,25 +40,40 @@ class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
         override fun afterTextChanged(editable: Editable) {
             val email = editable.toString()
 
-            if (!TextUtils.isEmpty(email)) {
-                if (Utils.isValidEmail(email)) {
-                    mchkEmail.setChecked(true)
-                    checkUsedEmail(email)
-                }
-                else {
-                    enableNextButton(false)
-                    mchkEmail.setChecked(false)
-                }
-            }
-            else {
-                enableNextButton(false)
-                mchkEmail.setChecked(false)
+            enableNextButton(false)
+            this@SignupEmailActivity.chk_valid_email.setChecked(false)
+            this@SignupEmailActivity.chk_not_used.setChecked(false)
+
+            if (Utils.isValidEmail(email)) {
+                this@SignupEmailActivity.chk_valid_email.setChecked(true)
+                checkUsedEmail(email)
             }
         }
     }
 
+    /**
+     * check if email has been used
+     */
     private fun checkUsedEmail(email: String) {
-        enableNextButton(true)
+        val database = FirebaseDatabase.getInstance().reference
+        val query = database.child(User.TABLE_NAME)
+
+        // Read from the database
+        query.orderByChild(User.FILED_EMAIL)
+                .equalTo(email)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            this@SignupEmailActivity.chk_not_used.setChecked(true)
+                            enableNextButton(true)
+
+                            return
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                    }
+                })
     }
 
     override fun onClick(view: View?) {

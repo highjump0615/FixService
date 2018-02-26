@@ -11,7 +11,12 @@ import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_signup_stripe.*
 
 class SignupStripeActivity : BaseActivity(), View.OnClickListener {
@@ -31,7 +36,7 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.but_done -> {
 
-                val progress = Utils.createProgressDialog(this, "Signing up...", "Submitting user credentials")
+                Utils.createProgressDialog(this, "Signing up...", "Submitting user credentials")
                 val user = User.currentUser
 
                 // create new user
@@ -42,7 +47,7 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
                                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
                                 Utils.createErrorAlertDialog(this, "Signup failed.", task.exception?.localizedMessage!!).show()
 
-                                progress.dismiss()
+                                Utils.closeProgressDialog()
 
                                 return@OnCompleteListener
                             }
@@ -52,14 +57,34 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
 
                             user.saveToDatabase(FirebaseManager.mAuth.currentUser!!.uid)
 
-                            if (user.type == User.USER_TYPE_SERVICEMAN) {
-                                Utils.moveNextActivity(this, JobAvailableActivity::class.java, true, true)
+                            val userId = FirebaseManager.mAuth.currentUser!!.uid
+
+                            // save photo image
+                            if (user.photoByteArray != null) {
+                                val metadata = StorageMetadata.Builder()
+                                        .setContentType("image/jpeg")
+                                        .build()
+                                val storageReference = FirebaseStorage.getInstance().getReference(User.TABLE_NAME).child(userId + ".jpg")
+                                val uploadTask = storageReference.putBytes(user.photoByteArray!!, metadata)
+                                uploadTask.addOnSuccessListener(this@SignupStripeActivity, OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
+                                    user.photoUrl = taskSnapshot.downloadUrl.toString()
+                                    saveUserData(userId)
+                                }).addOnFailureListener(this@SignupStripeActivity, OnFailureListener {
+                                    Log.d(TAG, it.toString())
+
+                                    saveUserData(userId)
+                                })
                             }
                             else {
-                                Utils.moveNextActivity(this, JobPostedActivity::class.java, true, true)
+                                saveUserData(userId)
                             }
                         })
             }
         }
+    }
+
+    fun saveUserData(userId: String) {
+        User.currentUser!!.saveToDatabase(userId)
+        goToMain()
     }
 }
