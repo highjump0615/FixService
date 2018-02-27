@@ -49,8 +49,6 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         this.adapter = UserItemAdapter(this.activity!!, this.aryUser)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
-//
-//        Handler().postDelayed({ getUsers(false, true) }, 500)
 
         return rootView
     }
