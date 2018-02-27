@@ -1,17 +1,12 @@
 package com.brainyapps.e2fix.activities.signin
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.RelativeLayout
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.google.firebase.database.DataSnapshot
@@ -59,7 +54,7 @@ class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
         val query = database.child(User.TABLE_NAME)
 
         // Read from the database
-        query.orderByChild(User.FILED_EMAIL)
+        query.orderByChild(User.FIELD_EMAIL)
                 .equalTo(email)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {

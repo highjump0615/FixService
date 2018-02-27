@@ -1,29 +1,30 @@
 package com.brainyapps.e2fix.models
 
-import com.google.firebase.database.Exclude
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-
+import com.google.firebase.database.*
 
 
 /**
  * Created by Administrator on 2/19/18.
  */
 
-class User {
+class User : BaseModel {
 
     companion object {
         val USER_TYPE_ADMIN = 0
         val USER_TYPE_CUSTOMER = 1
         val USER_TYPE_SERVICEMAN = 2
 
+        val USER_STATUS_NORMAL = ""
+        val USER_STATUS_REPORTED = "reported"
+        val USER_STATUS_BANNED = "banned"
+
         var currentUser: User? = null
 
         // table info
         val TABLE_NAME = "users"
-        val FILED_EMAIL = "email"
+        val FIELD_EMAIL = "email"
+        val FIELD_TYPE = "type"
+        val FIELD_STATUS = "status"
     }
 
     constructor() {
@@ -34,9 +35,7 @@ class User {
     }
 
     var type: Int = USER_TYPE_ADMIN
-
-    @get:Exclude
-    var id = ""
+    var status: String = USER_STATUS_NORMAL
 
     @get:Exclude
     var password = ""
@@ -62,5 +61,17 @@ class User {
 
         val database = FirebaseDatabase.getInstance().reference
         database.child(User.TABLE_NAME).child(withId).setValue(this)
+    }
+
+    /**
+     * returns type name
+     */
+    fun getTypeString(): String {
+        return if (type == User.USER_TYPE_CUSTOMER) {
+            "Customer"
+        }
+        else {
+            "Serviceman"
+        }
     }
 }

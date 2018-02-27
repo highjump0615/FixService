@@ -16,6 +16,7 @@
 
         <!-- user photo -->
         <ImageView
+            android:id="@+id/imgview_photo"
             android:layout_width="@dimen/admin_user_list_photo_size"
             android:layout_height="@dimen/admin_user_list_photo_size"
             android:src="@drawable/user_default"/>
@@ -29,6 +30,7 @@
             android:layout_marginLeft="10dp">
 
             <TextView
+                android:id="@+id/text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/admin_user_list_name_size"
@@ -36,6 +38,7 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/text_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"

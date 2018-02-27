@@ -48,6 +48,7 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolderUserItem) {
+            holder.fillContent(this.aryUser[position])
         }
         else {
         }

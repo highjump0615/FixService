@@ -3,7 +3,6 @@ package com.brainyapps.e2fix.activities.signin
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -83,7 +82,7 @@ class ForgetActivity : SignupBaseActivity(), View.OnClickListener {
                 val query = database.child(User.TABLE_NAME)
 
                 // Read from the database
-                query.orderByChild(User.FILED_EMAIL)
+                query.orderByChild(User.FIELD_EMAIL)
                         .equalTo(email)
                         .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {

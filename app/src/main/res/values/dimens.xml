@@ -98,4 +98,6 @@
     <dimen name="but_choose_margin">8dp</dimen>
     <dimen name="but_choose_padding">30dp</dimen>
 
+    <dimen name="notice_top_margin">50dp</dimen>
+
 </resources>

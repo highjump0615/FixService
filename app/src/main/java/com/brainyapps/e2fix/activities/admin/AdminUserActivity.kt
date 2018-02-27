@@ -21,6 +21,11 @@ class AdminUserActivity : BaseActivity() {
      */
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
+    companion object {
+        val USER_ALL = 0
+        val USER_BANNED = 1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_user)
@@ -47,7 +52,7 @@ class AdminUserActivity : BaseActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return AdminUserFragment.newInstance(position + 1)
+            return AdminUserFragment.newInstance(position)
         }
 
         override fun getCount(): Int {
