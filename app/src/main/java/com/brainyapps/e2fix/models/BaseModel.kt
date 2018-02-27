@@ -1,5 +1,6 @@
 package com.brainyapps.e2fix.models
 
+import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.ServerValue
 import java.util.*

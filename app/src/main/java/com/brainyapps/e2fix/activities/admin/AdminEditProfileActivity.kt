@@ -32,7 +32,7 @@ class AdminEditProfileActivity : BaseActivity(), View.OnClickListener {
 
         // email
         this.edit_email.isEnabled = false
-        this.edit_email.setText(User.currentUser!!.email, TextView.BufferType.EDITABLE)
+        this.edit_email.setText(User.currentUser!!.email)
 
         this.but_save.setOnClickListener(this)
     }

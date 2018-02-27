@@ -21,13 +21,18 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-open class BaseItemAdapter()
+open class BaseItemAdapter(ctx: Context)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), E2FItemClickListener {
 
+    var context: Context? = null
     var mbNeedMore = false
 
     companion object {
         val ITEM_VIEW_TYPE_FOOTER = 10
+    }
+
+    init {
+        this.context = ctx
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {

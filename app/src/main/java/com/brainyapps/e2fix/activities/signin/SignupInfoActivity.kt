@@ -38,8 +38,8 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
         enableNextButton(true)
 
         // fill user info
-        this.edit_firstname.setText(User.currentUser?.firstName, TextView.BufferType.EDITABLE)
-        this.edit_lastname.setText(User.currentUser?.lastName, TextView.BufferType.EDITABLE)
+        this.edit_firstname.setText(User.currentUser?.firstName)
+        this.edit_lastname.setText(User.currentUser?.lastName)
 
         if (!TextUtils.isEmpty(User.currentUser?.photoUrl)) {
             Glide.with(this)

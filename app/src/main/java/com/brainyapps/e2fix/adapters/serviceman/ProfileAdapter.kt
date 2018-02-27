@@ -26,7 +26,7 @@ import java.util.ArrayList
  */
 
 class ProfileAdapter(val ctx: Context, val aryReview: ArrayList<Review>)
-    : BaseItemAdapter() {
+    : BaseItemAdapter(ctx) {
 
     companion object {
         val ITEM_VIEW_TYPE_USER = 0

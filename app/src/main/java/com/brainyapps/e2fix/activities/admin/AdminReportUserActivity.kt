@@ -33,7 +33,7 @@ class AdminReportUserActivity : BaseActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = UserItemAdapter(this, this.aryUser, UserItemAdapter.ITEM_VIEW_TYPE_USER_REPORTED)
+        this.adapter = UserItemAdapter(this, this.aryUser)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
     }

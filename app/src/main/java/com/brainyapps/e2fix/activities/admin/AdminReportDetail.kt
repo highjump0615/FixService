@@ -2,9 +2,9 @@ package com.brainyapps.e2fix.activities.admin
 
 import android.os.Bundle
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.activities.BaseUserDetailActivity
 
-class AdminReportDetail : BaseActivity() {
+class AdminReportDetail : BaseUserDetailActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

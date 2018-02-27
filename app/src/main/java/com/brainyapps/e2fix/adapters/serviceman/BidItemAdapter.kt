@@ -23,7 +23,7 @@ import java.util.ArrayList
  */
 
 class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: Int)
-    : BaseItemAdapter() {
+    : BaseItemAdapter(ctx) {
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0

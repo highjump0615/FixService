@@ -1,12 +1,13 @@
 package com.brainyapps.e2fix.adapters.admin
 
-import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseUserDetailActivity
 import com.brainyapps.e2fix.activities.admin.AdminReportDetail
 import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
@@ -21,12 +22,11 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: Int)
-    : BaseItemAdapter() {
+class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>)
+    : BaseItemAdapter(ctx) {
 
     companion object {
-        val ITEM_VIEW_TYPE_USER = 0
-        val ITEM_VIEW_TYPE_USER_REPORTED = 1
+        val ITEM_VIEW_TYPE_USER = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,7 +38,7 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
             val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_user_list_item, parent, false)
             // set the view's size, margins, paddings and layout parameters
 
-            val vh = ViewHolderUserItem(v, ctx, viewType == ITEM_VIEW_TYPE_USER_REPORTED)
+            val vh = ViewHolderUserItem(v, ctx)
             vh.setOnItemClickListener(this)
             vhRes = vh
         }
@@ -67,7 +67,7 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
     override fun getItemViewType(position: Int): Int {
 
         return if (position < aryUser.size) {
-            type
+            ITEM_VIEW_TYPE_USER
         }
         else {
             ITEM_VIEW_TYPE_FOOTER
@@ -77,11 +77,17 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>, val type: 
     override fun onItemClick(view: View?, position: Int) {
         val id = view!!.id
 
-        if (type == ITEM_VIEW_TYPE_USER) {
-            Utils.moveNextActivity(ctx as Activity, AdminUserDetailActivity::class.java)
-        }
-        else if (type == ITEM_VIEW_TYPE_USER_REPORTED) {
-            Utils.moveNextActivity(ctx as Activity, AdminReportDetail::class.java)
-        }
+        val user = aryUser[position]
+
+//        if (user.reported) {
+//            val intent = Intent(this.context, AdminReportDetail::class.java)
+//            intent.putExtra(BaseUserDetailActivity.KEY_USER, user)
+//            this.context!!.startActivity(intent)
+//        }
+//        else {
+            val intent = Intent(this.context, AdminUserDetailActivity::class.java)
+            intent.putExtra(BaseUserDetailActivity.KEY_USER, user)
+            this.context!!.startActivity(intent)
+//        }
     }
 }

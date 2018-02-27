@@ -1,5 +1,7 @@
 package com.brainyapps.e2fix.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.firebase.database.*
 
 
@@ -7,35 +9,38 @@ import com.google.firebase.database.*
  * Created by Administrator on 2/19/18.
  */
 
-class User : BaseModel {
+class User() : BaseModel(), Parcelable {
 
     companion object {
         val USER_TYPE_ADMIN = 0
         val USER_TYPE_CUSTOMER = 1
         val USER_TYPE_SERVICEMAN = 2
 
-        val USER_STATUS_NORMAL = ""
-        val USER_STATUS_REPORTED = "reported"
-        val USER_STATUS_BANNED = "banned"
-
         var currentUser: User? = null
 
+        //
         // table info
+        //
         val TABLE_NAME = "users"
         val FIELD_EMAIL = "email"
         val FIELD_TYPE = "type"
-        val FIELD_STATUS = "status"
-    }
+        val FIELD_BANNED = "banned"
 
-    constructor() {
-    }
 
-    constructor(id: String) {
-        this.id = id
+        @JvmField
+        val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
+            override fun createFromParcel(parcel: Parcel): User {
+                return User(parcel)
+            }
+
+            override fun newArray(size: Int): Array<User?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 
     var type: Int = USER_TYPE_ADMIN
-    var status: String = USER_STATUS_NORMAL
+    var banned: Boolean = false
 
     @get:Exclude
     var password = ""
@@ -56,6 +61,26 @@ class User : BaseModel {
 
     var skill = ""
 
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readString()
+        type = parcel.readInt()
+        banned = parcel.readByte().toInt() != 0
+        password = parcel.readString()
+        photoByteArray = parcel.createByteArray()
+        email = parcel.readString()
+        facebookId = parcel.readString()
+        firstName = parcel.readString()
+        lastName = parcel.readString()
+        photoUrl = parcel.readString()
+        contact = parcel.readString()
+        location = parcel.readString()
+        skill = parcel.readString()
+    }
+
+    constructor(id: String) : this() {
+        this.id = id
+    }
+
     fun saveToDatabase(withId: String) {
         this.id = withId
 
@@ -66,12 +91,39 @@ class User : BaseModel {
     /**
      * returns type name
      */
-    fun getTypeString(): String {
+    fun userTypeString(): String {
         return if (type == User.USER_TYPE_CUSTOMER) {
             "Customer"
         }
         else {
             "Serviceman"
         }
+    }
+
+    /**
+     * returns full name
+     */
+    fun userFullName(): String {
+        return "${this.firstName} ${this.lastName}"
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeInt(type)
+        parcel.writeByte((if (banned) 1 else 0).toByte())
+        parcel.writeString(password)
+        parcel.writeByteArray(photoByteArray)
+        parcel.writeString(email)
+        parcel.writeString(facebookId)
+        parcel.writeString(firstName)
+        parcel.writeString(lastName)
+        parcel.writeString(photoUrl)
+        parcel.writeString(contact)
+        parcel.writeString(location)
+        parcel.writeString(skill)
+    }
+
+    override fun describeContents(): Int {
+        return 0
     }
 }

@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.activity_signup_email.*
 
 class SignupEmailActivity : SignupBaseActivity(), View.OnClickListener {
 
-    lateinit var mchkUsed: CheckBox
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView(R.layout.activity_signup_email)

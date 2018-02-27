@@ -20,7 +20,7 @@ import java.util.ArrayList
  */
 
 class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
-    : BaseItemAdapter() {
+    : BaseItemAdapter(ctx) {
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0

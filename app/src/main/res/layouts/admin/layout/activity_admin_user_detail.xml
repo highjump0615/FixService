@@ -25,6 +25,7 @@
 
             <!-- top bar -->
             <TextView
+                android:id="@+id/text_user_type"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/view_toolbar"
@@ -54,6 +55,7 @@
                     android:background="@drawable/round_corner_white_bg">
 
                     <ImageView
+                        android:id="@+id/imgview_photo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="3dp"
@@ -62,6 +64,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -103,6 +106,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/user_detail_card"/>
                 <TextView
+                    android:id="@+id/text_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -120,6 +124,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/user_detail_location"/>
                 <TextView
+                    android:id="@+id/text_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -129,13 +134,25 @@
         </LinearLayout>
 
         <!-- button -->
-        <Button
-            android:id="@+id/but_login"
-            android:theme="@style/PrimaryButtonStyle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:text="@string/unban_user" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/but_unban"
+                android:theme="@style/PrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/unban_user"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/but_ban"
+                android:theme="@style/DangerButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/ban_user" />
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.brainyapps.e2fix.activities.admin
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,8 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     var adapter: UserItemAdapter? = null
     var aryUser = ArrayList<User>()
 
+    var isInitialzied = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_admin_user, container, false)
@@ -42,11 +46,11 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         val layoutManager = LinearLayoutManager(this.activity)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = UserItemAdapter(this.activity!!, this.aryUser, UserItemAdapter.ITEM_VIEW_TYPE_USER)
+        this.adapter = UserItemAdapter(this.activity!!, this.aryUser)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
-
-        Handler().postDelayed({ getUsers(false, true) }, 500)
+//
+//        Handler().postDelayed({ getUsers(false, true) }, 500)
 
         return rootView
     }
@@ -66,7 +70,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         var query = database.child(User.TABLE_NAME).orderByChild(BaseModel.FILED_DATE)
 
         if (this.arguments!!.getInt(ARG_USER_LIST_TYPE) == AdminUserActivity.USER_BANNED) {
-            query = database.child(User.TABLE_NAME).orderByChild(User.FIELD_STATUS).equalTo(User.USER_STATUS_BANNED)
+            query = database.child(User.TABLE_NAME).orderByChild(User.FIELD_BANNED).equalTo(true)
         }
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -82,6 +86,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
                 for (userItem in dataSnapshot.children) {
                     val user = userItem.getValue(User::class.java)
+                    user!!.id = userItem.key
                     aryUser.add(user!!)
                 }
 
@@ -92,6 +97,8 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 stopRefresh()
             }
         })
+
+        isInitialzied = true
     }
 
     fun stopRefresh() {
