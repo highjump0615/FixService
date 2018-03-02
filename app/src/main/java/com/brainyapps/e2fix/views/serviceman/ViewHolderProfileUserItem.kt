@@ -14,7 +14,7 @@ import com.brainyapps.e2fix.views.admin.ViewHolderBase
  * Created by Administrator on 2/19/18.
  */
 
-class ViewHolderProfileUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView) {
+class ViewHolderProfileUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView, ctx) {
 
     init {
     }

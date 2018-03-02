@@ -97,6 +97,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         // Set up the login form.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -237,46 +238,39 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
 
     private fun fetchUserInfo(acct: GoogleSignInAccount? = null) {
         val userId = FirebaseManager.mAuth.currentUser!!.uid
-        val database = FirebaseDatabase.getInstance().reference
-        val query = database.child(User.TABLE_NAME + "/" + userId)
 
-        // Read from the database
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                User.currentUser = dataSnapshot.getValue(User::class.java)
-                if (User.currentUser == null) {
-                    // get user info, from facebook account info
-                    if (acct != null) {
-                        val newUser = User(userId)
-                        newUser.firstName = acct.givenName!!
-                        newUser.lastName = acct.familyName!!
-                        newUser.email = acct.email!!
-                        newUser.photoUrl = acct.photoUrl.toString()
+        User.readFromDatabase(userId, object: User.FetchDatabaseListener {
+            override fun onFetchedUser(user: User?, success: Boolean) {
+                User.currentUser = user
 
-                        User.currentUser = newUser
+                if (!success) {
+                    signOutClear()
+                    this@LoginActivity.but_login.isEnabled = true
+                }
+                else {
+                    if (User.currentUser == null) {
+                        // get user info, from facebook account info
+                        if (acct != null) {
+                            val newUser = User(userId)
+                            newUser.firstName = acct.givenName!!
+                            newUser.lastName = acct.familyName!!
+                            newUser.email = acct.email!!
+                            newUser.photoUrl = acct.photoUrl.toString()
+
+                            User.currentUser = newUser
+                        }
+
+                        // social login, go to user type page
+                        val intent = Intent(this@LoginActivity, SignupLandingActivity::class.java)
+                        intent.putExtra(SignupLandingActivity.KEY_LOGIN_TYPE, this@LoginActivity.loginType)
+                        startActivity(intent)
                     }
-
-                    // social login, go to user type page
-                    val intent = Intent(this@LoginActivity, SignupLandingActivity::class.java)
-                    intent.putExtra(SignupLandingActivity.KEY_LOGIN_TYPE, this@LoginActivity.loginType)
-                    startActivity(intent)
-
-                    closeProgressDialog()
-                    return
+                    else {
+                        goToMain()
+                    }
                 }
 
-                goToMain()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
                 closeProgressDialog()
-                signOutClear()
-                this@LoginActivity.but_login.isEnabled = true
-
-                Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
     }

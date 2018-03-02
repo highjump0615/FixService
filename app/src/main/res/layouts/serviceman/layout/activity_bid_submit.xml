@@ -58,8 +58,9 @@
                     <ImageView
                         android:layout_width="@dimen/job_list_photo_size"
                         android:layout_height="match_parent"
-                        android:src="@drawable/job_thumbnail"
-                        android:scaleType="centerCrop"/>
+                        android:src="@drawable/job_default"
+                        android:scaleType="center"
+                        android:background="@color/colorBackground"/>
 
                     <!-- content -->
                     <RelativeLayout

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.layout_bid_list_item.view.*
  * Created by Administrator on 2/19/18.
  */
 
-class ViewHolderBidItem(itemView: View, ctx: Context, type: Int) : ViewHolderBase(itemView) {
+class ViewHolderBidItem(itemView: View, ctx: Context, type: Int) : ViewHolderBase(itemView, ctx) {
 
     init {
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)

@@ -13,12 +13,9 @@ import kotlinx.android.synthetic.main.layout_user_list_item.view.*
  * Created by Administrator on 2/19/18.
  */
 
-class ViewHolderUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView) {
-
-    var context: Context? = null
+class ViewHolderUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView, ctx) {
 
     init {
-        this.context = ctx
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)
         viewMain.setOnClickListener(this)
     }

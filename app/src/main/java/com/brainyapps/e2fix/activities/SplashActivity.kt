@@ -12,14 +12,11 @@ import com.brainyapps.e2fix.activities.signin.LoginActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+
 
 class SplashActivity : BaseActivity() {
 
-    private val TAG = SplashActivity::class.java!!.getSimpleName()
+    private val TAG = SplashActivity::class.java.getSimpleName()
 
     private val SPLASH_TIME_OUT = 3000
     private var bTimeUp = false
@@ -29,6 +26,9 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        // init firebase setting
+        FirebaseManager.initServerTime()
+
         // check login state
         val userId = FirebaseManager.mAuth.currentUser?.uid
         if (TextUtils.isEmpty(userId)) {
@@ -36,27 +36,10 @@ class SplashActivity : BaseActivity() {
             bFetchedUser = true
         }
         else {
-            val database = FirebaseDatabase.getInstance().reference
-            val query = database.child(User.TABLE_NAME + "/" + userId)
+            User.readFromDatabase(userId!!, object: User.FetchDatabaseListener {
+                override fun onFetchedUser(user: User?, success: Boolean) {
+                    User.currentUser = user
 
-            // Read from the database
-            query.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-                    User.currentUser = dataSnapshot.getValue(User::class.java)
-
-                    Log.d(TAG, "fetched user")
-                    bFetchedUser = true
-
-                    // do action only when time is up
-                    if (bTimeUp) {
-                        goToMainPage()
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(TAG, "Failed to read value.", error.toException())
                     Log.d(TAG, "fetched user")
                     bFetchedUser = true
 

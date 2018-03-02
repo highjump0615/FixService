@@ -1,14 +1,11 @@
 package com.brainyapps.e2fix.activities.admin
 
-import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +62,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         }
 
         val database = FirebaseDatabase.getInstance().reference
-        var query = database.child(User.TABLE_NAME).orderByChild(BaseModel.FILED_DATE)
+        var query = database.child(User.TABLE_NAME).orderByChild(BaseModel.FIELD_DATE)
 
         if (this.arguments!!.getInt(ARG_USER_LIST_TYPE) == AdminUserActivity.USER_BANNED) {
             query = database.child(User.TABLE_NAME).orderByChild(User.FIELD_BANNED).equalTo(true)
@@ -85,7 +82,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 for (userItem in dataSnapshot.children) {
                     val user = userItem.getValue(User::class.java)
                     user!!.id = userItem.key
-                    aryUser.add(user!!)
+                    aryUser.add(user)
                 }
 
                 this@AdminUserFragment.adapter!!.notifyItemRangeInserted(0, aryUser.count())

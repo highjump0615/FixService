@@ -30,10 +30,16 @@
     
     
     <string-array name="jobtypes_array">
-        <item>Plumbings</item>
         <item>Construction jobs</item>
         <item>Paint jobs</item>
         <item>Tile jobs</item>
+        <item>Plumbings</item>
+        <item>Roofings</item>
+        <item>Repair Jobs</item>
+        <item>Mechanic Jobs</item>
+        <item>Technical Jobs</item>
+        <item>Electrical Jobs</item>
+        <item>Others</item>
     </string-array>
     
     

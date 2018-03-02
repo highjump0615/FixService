@@ -39,15 +39,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:theme="@style/SignupPhotoButtonStyle"
-                    android:paddingTop="14dp"
                     android:text="+ ADD PHOTO"
                     android:textSize="12sp"
-                    android:drawableTop="@drawable/signup_user_default"/>
+                    android:drawableTop="@drawable/job_default" />
 
                 <ImageView
                     android:id="@+id/imgview_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
 
             </RelativeLayout>
 

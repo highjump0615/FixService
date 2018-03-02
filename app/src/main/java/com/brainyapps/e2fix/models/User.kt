@@ -2,6 +2,9 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
+import com.google.android.gms.tasks.TaskCompletionSource
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.*
 
 
@@ -15,8 +18,33 @@ class User() : BaseModel(), Parcelable {
         val USER_TYPE_ADMIN = 0
         val USER_TYPE_CUSTOMER = 1
         val USER_TYPE_SERVICEMAN = 2
+        val TAG = BaseModel::class.java.getSimpleName()
 
         var currentUser: User? = null
+
+        fun readFromDatabase(withId: String, fetchListener: FetchDatabaseListener) {
+
+            val database = FirebaseDatabase.getInstance().reference
+            val query = database.child(User.TABLE_NAME + "/" + withId)
+
+            // Read from the database
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    val u = dataSnapshot.getValue(User::class.java)
+                    u?.id = withId
+
+                    fetchListener.onFetchedUser(u, true)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "failed to read from database.", error.toException())
+                    fetchListener.onFetchedUser(null, false)
+                }
+            })
+        }
 
         //
         // table info
@@ -60,6 +88,9 @@ class User() : BaseModel(), Parcelable {
     var location = ""
 
     var skill = ""
+
+    @get:Exclude
+    var posts: ArrayList<Job> = ArrayList()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
@@ -125,5 +156,12 @@ class User() : BaseModel(), Parcelable {
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    /**
+     * interface for reading from database
+     */
+    interface FetchDatabaseListener {
+        fun onFetchedUser(user: User?, success: Boolean)
     }
 }
