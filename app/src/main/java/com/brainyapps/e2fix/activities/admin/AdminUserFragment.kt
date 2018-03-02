@@ -73,7 +73,6 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 stopRefresh()
 
                 var bEmpty = false
-
                 // if empty, use animation for add
                 if (aryUser.isEmpty()) {
                     bEmpty = true

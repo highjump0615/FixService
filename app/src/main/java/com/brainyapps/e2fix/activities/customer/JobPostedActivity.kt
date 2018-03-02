@@ -77,7 +77,11 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 stopRefresh()
 
-                this@JobPostedActivity.adapter!!.notifyItemRangeRemoved(0, User.currentUser!!.posts.count())
+                var bEmpty = false
+                // if empty, use animation for add
+                if (User.currentUser!!.posts.isEmpty()) {
+                    bEmpty = true
+                }
                 User.currentUser!!.posts.clear()
 
                 if (!dataSnapshot.exists()) {
@@ -95,7 +99,12 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
                 // sort
                 Collections.sort(User.currentUser!!.posts, Collections.reverseOrder())
 
-                this@JobPostedActivity.adapter!!.notifyItemRangeInserted(0, User.currentUser!!.posts.count())
+                if (bEmpty) {
+                    this@JobPostedActivity.adapter!!.notifyItemRangeInserted(0, User.currentUser!!.posts.count())
+                }
+                else {
+                    this@JobPostedActivity.adapter!!.notifyDataSetChanged()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -38,7 +38,7 @@ open class BaseActivity : AppCompatActivity() {
         // set title
         if (!TextUtils.isEmpty(title)) {
             val textTitle = findViewById<View>(R.id.text_title) as TextView
-            textTitle.setText(title)
+            textTitle.text = title
         }
 
         // back button
