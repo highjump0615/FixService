@@ -35,10 +35,9 @@ class PhotoActivityHelper(val owner: E2FUpdateImageListener) {
     var actionSheet: BottomSheet? = null
     var byteData: ByteArray? = null
 
-    var activity: Activity
+    var activity: Activity = owner.getActivity()
 
     init {
-        this.activity= owner.getActivity()
         initMenuDialog()
     }
 

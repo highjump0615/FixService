@@ -54,14 +54,17 @@
                     android:background="@drawable/round_corner_white_bg">
 
                     <ImageView
+                        android:id="@+id/imgview_photo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="3dp"
-                        android:src="@drawable/user_default"/>
+                        android:src="@drawable/user_default"
+                        android:background="@color/colorBackground"/>
 
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -103,6 +106,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/user_detail_card"/>
                 <TextView
+                    android:id="@+id/text_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -120,6 +124,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/user_detail_location"/>
                 <TextView
+                    android:id="@+id/text_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"

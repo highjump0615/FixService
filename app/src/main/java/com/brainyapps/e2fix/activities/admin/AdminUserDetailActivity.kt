@@ -5,7 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseUserDetailActivity
+import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.activities.BaseUserDetailHelper
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
@@ -14,33 +15,21 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_admin_user_detail.*
 
-class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
+class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
 
     private val TAG = AdminUserDetailActivity::class.java.getSimpleName()
+    var helper: BaseUserDetailHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_user_detail)
 
+        this.helper = BaseUserDetailHelper(this)
+
         setNavbar("USER INFO", true)
 
         // user type
-        this.text_user_type.setText("REGISTERD AS " + this.user!!.userTypeString().toUpperCase())
-
-        // name
-        this.text_name.setText(this.user!!.userFullName())
-
-        // photo
-        Glide.with(this)
-                .load(this.user!!.photoUrl)
-                .apply(RequestOptions.placeholderOf(R.drawable.user_default).fitCenter())
-                .into(this.imgview_photo)
-
-        // phone
-        this.text_phone.setText(this.user!!.contact)
-
-        // location
-        this.text_location.setText(this.user!!.location)
+        this.text_user_type.text = "REGISTERD AS " + this.helper!!.user!!.userTypeString().toUpperCase()
 
         // button
         this.but_ban.setOnClickListener(this)
@@ -53,7 +42,7 @@ class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
      * update buttons according to user status
      */
     fun updateButton() {
-        if (this.user!!.banned) {
+        if (this.helper!!.user!!.banned) {
             this.but_ban.visibility = View.GONE
             this.but_unban.visibility = View.VISIBLE
         }
@@ -71,7 +60,7 @@ class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
 
                 val database = FirebaseDatabase.getInstance().reference
                 database.child(User.TABLE_NAME)
-                        .child(this.user!!.id)
+                        .child(this.helper!!.user!!.id)
                         .child(User.FIELD_BANNED)
                         .setValue(true)
                         .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
@@ -82,7 +71,7 @@ class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
                             }
                             else {
                                 // success
-                                this.user!!.banned = true
+                                this.helper!!.user!!.banned = true
 
                                 Toast.makeText(this, "Banned user successfully", Toast.LENGTH_SHORT).show()
                                 updateButton()
@@ -98,7 +87,7 @@ class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
 
                 val database = FirebaseDatabase.getInstance().reference
                 database.child(User.TABLE_NAME)
-                        .child(this.user!!.id)
+                        .child(this.helper!!.user!!.id)
                         .child(User.FIELD_BANNED)
                         .setValue(false)
                         .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
@@ -109,7 +98,7 @@ class AdminUserDetailActivity : BaseUserDetailActivity(), View.OnClickListener {
                             }
                             else {
                                 // success
-                                this.user!!.banned = false
+                                this.helper!!.user!!.banned = false
 
                                 Toast.makeText(this, "Unbanned user successfully", Toast.LENGTH_SHORT).show()
                                 updateButton()

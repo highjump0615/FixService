@@ -72,7 +72,13 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 stopRefresh()
 
-                this@AdminUserFragment.adapter!!.notifyItemRangeRemoved(0, aryUser.count())
+                var bEmpty = false
+
+                // if empty, use animation for add
+                if (aryUser.isEmpty()) {
+                    bEmpty = true
+                }
+
                 aryUser.clear()
 
                 if (!dataSnapshot.exists()) {
@@ -85,7 +91,12 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     aryUser.add(user)
                 }
 
-                this@AdminUserFragment.adapter!!.notifyItemRangeInserted(0, aryUser.count())
+                if (bEmpty) {
+                    this@AdminUserFragment.adapter!!.notifyItemRangeInserted(0, aryUser.count())
+                }
+                else {
+                    this@AdminUserFragment.adapter!!.notifyDataSetChanged()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseUserDetailActivity
+import com.brainyapps.e2fix.activities.BaseUserDetailHelper
 import com.brainyapps.e2fix.activities.admin.AdminReportDetail
 import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
@@ -22,7 +22,7 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>)
+class UserItemAdapter(val ctx: Context, private val aryUser: ArrayList<User>)
     : BaseItemAdapter(ctx) {
 
     companion object {
@@ -86,7 +86,7 @@ class UserItemAdapter(val ctx: Context, val aryUser: ArrayList<User>)
 //        }
 //        else {
             val intent = Intent(this.context, AdminUserDetailActivity::class.java)
-            intent.putExtra(BaseUserDetailActivity.KEY_USER, user)
+            intent.putExtra(BaseUserDetailHelper.KEY_USER, user)
             this.context!!.startActivity(intent)
 //        }
     }
