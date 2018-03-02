@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.admin.ViewHolderBase
 import com.bumptech.glide.Glide
@@ -48,7 +49,7 @@ class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView,
         itemView.text_location.setText(data.userPosted?.location)
 
         // check if posted job
-        if (data.userPosted != null) {
+        if (TextUtils.equals(data.userId, User.currentUser!!.id)) {
             itemView.but_bid.setText("VIEW BIDS")
         }
         else {

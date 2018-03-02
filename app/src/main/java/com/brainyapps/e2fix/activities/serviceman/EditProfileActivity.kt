@@ -58,6 +58,7 @@ class EditProfileActivity : BaseEditProfileActivity(), View.OnClickListener, E2F
         this.edit_location.setText(user.location)
 
         // hide the skill input when customer
+        this.edit_skill.setText(user.skill)
         if (User.currentUser!!.type == User.USER_TYPE_CUSTOMER) {
             this.edit_skill.visibility = View.GONE
         }

@@ -60,16 +60,6 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
             }
         }
 
-        val thread = object : Thread() {
-            override fun run() {
-                try {
-                }
-                catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
         val database = FirebaseDatabase.getInstance().reference
         val query = database.child(Job.TABLE_NAME).orderByChild(Job.FIELD_USERID).equalTo(User.currentUser!!.id)
 

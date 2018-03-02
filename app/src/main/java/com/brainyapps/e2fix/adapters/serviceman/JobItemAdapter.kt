@@ -3,6 +3,7 @@ package com.brainyapps.e2fix.adapters.serviceman
 import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
 import java.util.ArrayList
@@ -75,7 +77,7 @@ class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
         when (view?.id) {
             // bid button
             R.id.but_bid -> {
-                if (this.aryJob[position].userPosted != null) {
+                if (TextUtils.equals(this.aryJob[position].userId, User.currentUser!!.id)) {
                     Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
                 }
                 else {
