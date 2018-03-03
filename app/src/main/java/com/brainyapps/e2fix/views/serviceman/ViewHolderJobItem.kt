@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
@@ -22,31 +23,19 @@ import kotlinx.android.synthetic.main.layout_job_list_item.view.*
 
 class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView, ctx) {
 
+    var helper: JobDetailHelper? = null
+
     init {
         val viewMain = itemView.findViewById<CardView>(R.id.view_main)
         viewMain.setOnClickListener(this)
 
         itemView.but_bid.setOnClickListener(this)
+
+        helper = JobDetailHelper(itemView)
     }
 
     fun fillContent(data: Job) {
-        // photo
-        Glide.with(this.context!!)
-                .load(data.photoUrl)
-                .apply(RequestOptions.placeholderOf(R.drawable.job_default).fitCenter())
-                .into(itemView.imgview_photo)
-
-        // title
-        itemView.text_title.setText(data.title)
-
-        // time
-        itemView.text_time.setText(Utils.getFormattedDate(data.dateCreated!!))
-
-        // description
-        itemView.text_desc.setText(data.description)
-
-        // location
-        itemView.text_location.setText(data.userPosted?.location)
+        helper!!.fillJobInfo(data)
 
         // check if posted job
         if (TextUtils.equals(data.userId, User.currentUser!!.id)) {

@@ -93,7 +93,6 @@ class User() : BaseModel(), Parcelable {
     var posts: ArrayList<Job> = ArrayList()
 
     constructor(parcel: Parcel) : this() {
-        id = parcel.readString()
         type = parcel.readInt()
         banned = parcel.readByte().toInt() != 0
         password = parcel.readString()
@@ -106,6 +105,8 @@ class User() : BaseModel(), Parcelable {
         contact = parcel.readString()
         location = parcel.readString()
         skill = parcel.readString()
+
+        readFromParcelBase(parcel)
     }
 
     constructor(id: String) : this() {
@@ -139,7 +140,6 @@ class User() : BaseModel(), Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
         parcel.writeInt(type)
         parcel.writeByte((if (banned) 1 else 0).toByte())
         parcel.writeString(password)
@@ -152,6 +152,8 @@ class User() : BaseModel(), Parcelable {
         parcel.writeString(contact)
         parcel.writeString(location)
         parcel.writeString(skill)
+
+        writeToParcelBase(parcel, flags)
     }
 
     override fun describeContents(): Int {

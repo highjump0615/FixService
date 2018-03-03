@@ -6,11 +6,9 @@ import android.view.View
 import android.widget.Toast
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
-import com.brainyapps.e2fix.activities.BaseUserDetailHelper
+import com.brainyapps.e2fix.activities.UserDetailHelper
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_admin_user_detail.*
@@ -18,13 +16,13 @@ import kotlinx.android.synthetic.main.activity_admin_user_detail.*
 class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
 
     private val TAG = AdminUserDetailActivity::class.java.getSimpleName()
-    var helper: BaseUserDetailHelper? = null
+    var helper: UserDetailHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_user_detail)
 
-        this.helper = BaseUserDetailHelper(this)
+        this.helper = UserDetailHelper(this)
 
         setNavbar("USER INFO", true)
 

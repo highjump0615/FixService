@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +14,7 @@ import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
 import com.brainyapps.e2fix.models.BaseModel
+import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
 import com.google.firebase.database.DataSnapshot
@@ -68,6 +70,13 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
 
     override fun onRefresh() {
         getJobs(true, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // update bid list
+        fetchJobBidInfo()
     }
 
     /**
@@ -142,6 +151,9 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
 
         // set user info
         fetchJobUserInfo()
+
+        // set bid info
+        fetchJobBidInfo()
     }
 
     /**
@@ -149,6 +161,49 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
      */
     private fun fetchJobUserInfo() {
         for (jobItem in aryJob) {
+            User.readFromDatabase(jobItem.userId, object: User.FetchDatabaseListener {
+                override fun onFetchedUser(user: User?, success: Boolean) {
+                    jobItem.userPosted = user
+
+                    // update the list
+                    this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
+                }
+            })
+        }
+    }
+
+    /**
+     * fetch bid info for each job
+     */
+    private fun fetchJobBidInfo() {
+        for (jobItem in aryJob) {
+
+            val database = FirebaseDatabase.getInstance().reference
+            val query = database.child(Bid.TABLE_NAME).orderByChild(Bid.FIELD_JOBID).equalTo(jobItem.id)
+
+            // Read from the database
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    jobItem.bidArray.clear()
+
+                    for (bidItem in dataSnapshot.children) {
+                        val bid = bidItem.getValue(Bid::class.java)
+                        bid!!.id = bidItem.key
+
+                        jobItem.bidArray.add(bid)
+                    }
+
+                    // update the list
+                    this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(User.TAG, "failed to read from database.", error.toException())
+                }
+            })
+
             User.readFromDatabase(jobItem.userId, object: User.FetchDatabaseListener {
                 override fun onFetchedUser(user: User?, success: Boolean) {
                     jobItem.userPosted = user

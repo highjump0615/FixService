@@ -7,14 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseUserDetailHelper
-import com.brainyapps.e2fix.activities.admin.AdminReportDetail
+import com.brainyapps.e2fix.activities.UserDetailHelper
 import com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.User
-import com.brainyapps.e2fix.utils.E2FItemClickListener
-import com.brainyapps.e2fix.utils.Utils
-import com.brainyapps.e2fix.views.ViewHolderLoading
 import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
 import java.util.ArrayList
 
@@ -86,7 +82,7 @@ class UserItemAdapter(val ctx: Context, private val aryUser: ArrayList<User>)
 //        }
 //        else {
             val intent = Intent(this.context, AdminUserDetailActivity::class.java)
-            intent.putExtra(BaseUserDetailHelper.KEY_USER, user)
+            intent.putExtra(UserDetailHelper.KEY_USER, user)
             this.context!!.startActivity(intent)
 //        }
     }

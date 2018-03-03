@@ -1,5 +1,8 @@
 package com.brainyapps.e2fix.models
 
+import android.annotation.SuppressLint
+import android.os.Parcel
+import android.os.Parcelable
 import com.brainyapps.e2fix.utils.Utils
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.ServerValue
@@ -8,7 +11,7 @@ import java.util.*
 /**
  * Created by Administrator on 2/27/18.
  */
-open class BaseModel : Comparable<BaseModel> {
+open class BaseModel() : Comparable<BaseModel> {
 
     companion object {
         val FIELD_DATE = "createdAt"
@@ -45,4 +48,13 @@ open class BaseModel : Comparable<BaseModel> {
         }
     }
 
+    fun readFromParcelBase(parcel: Parcel) {
+        id = parcel.readString()
+        dateCreated = parcel.readSerializable() as Date?
+    }
+
+    fun writeToParcelBase(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeSerializable(dateCreated)
+    }
 }

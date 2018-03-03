@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 /**
  * Created by Administrator on 3/2/18.
  */
-class BaseUserDetailHelper(val owner: Activity) {
+class UserDetailHelper(val owner: Activity) {
 
     companion object {
         val KEY_USER = "user"

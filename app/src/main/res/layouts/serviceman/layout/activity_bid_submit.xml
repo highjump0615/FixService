@@ -56,10 +56,11 @@
 
                     <!-- photo -->
                     <ImageView
+                        android:id="@+id/imgview_photo"
                         android:layout_width="@dimen/job_list_photo_size"
                         android:layout_height="match_parent"
                         android:src="@drawable/job_default"
-                        android:scaleType="center"
+                        android:scaleType="centerCrop"
                         android:background="@color/colorBackground"/>
 
                     <!-- content -->
@@ -100,7 +101,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis posuere dui, a ornare lectus faucibus eu. Duis rutrum volutpat orci ac tincidunt. Proin nec erat eget urna eleifend fringilla et ut ante. Donec venenatis nisl a dolor dictum tempus. Etiam imperdiet a sapien ac fringilla."
-                                android:maxLines="2"
+                                android:lines="2"
                                 android:textSize="13sp" />
 
                             <!-- location -->
@@ -115,6 +116,7 @@
                                     android:layout_marginRight="@dimen/job_list_icon_margin"
                                     android:src="@drawable/user_detail_location"/>
                                 <TextView
+                                    android:id="@id/text_location"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Miami, Florida"
@@ -133,6 +135,7 @@
                                     android:layout_marginRight="@dimen/job_list_icon_margin"
                                     android:src="@drawable/job_bid_icon"/>
                                 <TextView
+                                    android:id="@+id/text_bid"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Bids: 0"

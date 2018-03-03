@@ -2,13 +2,17 @@ package com.brainyapps.e2fix.adapters.serviceman
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.activities.customer.BidDetailActivity
+import com.brainyapps.e2fix.activities.serviceman.BidActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
@@ -81,7 +85,9 @@ class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
                     Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
                 }
                 else {
-                    Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
+                    val intent = Intent(ctx, BidSubmitActivity::class.java)
+                    intent.putExtra(JobDetailHelper.KEY_JOB, this.aryJob[position])
+                    ctx.startActivity(intent)
                 }
             }
         }

@@ -26,7 +26,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.layout_content_post.*
-import java.util.*
 
 class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
 
