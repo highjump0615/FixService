@@ -26,10 +26,11 @@
 
             <!-- top bar -->
             <TextView
+                android:id="@+id/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:text="BIDS WON JOB DETAILS"
+                android:text="APPLIED JOB DETAILS"
                 android:textSize="16sp"
                 android:background="@color/colorSemiTran"/>
 
@@ -44,46 +45,107 @@
             <include
                 layout="@layout/layout_bid_detail_job" />
 
-            <!-- your bid -->
-            <RelativeLayout
-                style="@style/BidDetailItem"
-                android:layout_marginTop="5dp"
+            <!-- stripe layout -->
+            <LinearLayout
+                android:id="@+id/layout_stripe_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:background="@android:color/white">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="YOUR BID"/>
-            </RelativeLayout>
+                <!-- your bid -->
+                <RelativeLayout
+                    android:id="@+id/layout_your_bid"
+                    style="@style/BidDetailItem"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/white">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YOUR BID"/>
+                </RelativeLayout>
 
-            <!-- time -->
-            <RelativeLayout
-                style="@style/BidDetailItem"
-                android:background="@color/colorWhiteBackground">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Estimated time to complete the job"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2 days"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
+                <!-- time -->
+                <RelativeLayout
+                    style="@style/BidDetailItem">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estimated time to complete the job"/>
+                    <TextView
+                        android:id="@+id/text_bid_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 days"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
 
-            <!-- price -->
-            <RelativeLayout
-                style="@style/BidDetailItem"
-                android:background="@android:color/white">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total service price"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$200"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
+                <!-- price -->
+                <RelativeLayout
+                    style="@style/BidDetailItem">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total service price"/>
+                    <TextView
+                        android:id="@+id/text_bid_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$200"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <!-- client name -->
+                <RelativeLayout
+                    android:id="@+id/layout_client_name"
+                    style="@style/BidDetailItem"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client's name"/>
+                    <TextView
+                        android:id="@+id/text_client_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <!-- job location -->
+                <RelativeLayout
+                    android:id="@+id/layout_job_location"
+                    style="@style/BidDetailItem"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Job location"/>
+                    <TextView
+                        android:id="@+id/text_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <!-- client contact number -->
+                <RelativeLayout
+                    android:id="@+id/layout_client_contact"
+                    style="@style/BidDetailItem"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client's contact number"/>
+                    <TextView
+                        android:id="@+id/text_client_contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <RelativeLayout
                 style="@style/BidDetailItem"

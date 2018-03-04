@@ -37,7 +37,7 @@
 
                 <!-- title -->
                 <TextView
-                    android:id="@+id/text_title"
+                    android:id="@+id/text_job_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Exprienced Plumber"
@@ -49,14 +49,14 @@
                     android:id="@+id/text_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/text_title"
+                    android:layout_below="@id/text_job_title"
                     android:textSize="@dimen/admin_user_list_type_size"
                     android:textColor="@color/colorGrey"
                     android:text="Today at 07:42 AM" />
 
                 <!-- description -->
                 <TextView
-                    android:id="@+id/text_desc"
+                    android:id="@+id/text_job_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_time"
@@ -81,7 +81,7 @@
                             android:layout_marginRight="@dimen/job_list_icon_margin"
                             android:src="@drawable/user_detail_location"/>
                         <TextView
-                            android:id="@id/text_location"
+                            android:id="@id/text_job_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Miami, Florida"
@@ -100,7 +100,7 @@
                             android:layout_marginRight="@dimen/job_list_icon_margin"
                             android:src="@drawable/job_bid_icon"/>
                         <TextView
-                            android:id="@+id/text_bid"
+                            android:id="@+id/text_job_bid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bids: 0"

@@ -31,7 +31,7 @@ class JobDetailHelper(val contentView: View) {
                 .into(imgview)
 
         // title
-        var textview = contentView.findViewById<TextView>(R.id.text_title)
+        var textview = contentView.findViewById<TextView>(R.id.text_job_title)
         textview.text = job.title
 
         // time
@@ -39,15 +39,15 @@ class JobDetailHelper(val contentView: View) {
         textview.text = Utils.getFormattedDateTime(job.dateCreated!!)
 
         // description
-        textview = contentView.findViewById<TextView>(R.id.text_desc)
+        textview = contentView.findViewById<TextView>(R.id.text_job_desc)
         textview.text = job.description
 
         // location
-        textview = contentView.findViewById<TextView>(R.id.text_location)
+        textview = contentView.findViewById<TextView>(R.id.text_job_location)
         textview.text = job.location
 
         // bid
-        textview = contentView.findViewById<TextView>(R.id.text_bid)
-        textview.text = "Bids: ${job.bidArray.count()}"
+        textview = contentView.findViewById<TextView>(R.id.text_job_bid)
+        textview?.text = "Bids: ${job.bidArray.count()}"
     }
 }

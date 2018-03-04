@@ -2,17 +2,15 @@ package com.brainyapps.e2fix.adapters.serviceman
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.serviceman.BidActivity
 import com.brainyapps.e2fix.activities.serviceman.BidDetailActivity
-import com.brainyapps.e2fix.activities.serviceman.BidDetailApplyActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
-import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.serviceman.ViewHolderBidItem
@@ -28,6 +26,7 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
     : BaseItemAdapter(ctx) {
 
     val formatNew = SimpleDateFormat("yyyy-MM-dd")
+    val ACTION_GOTO_DETAIL = 1
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0
@@ -59,7 +58,7 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
         return vhRes
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    private fun handleItemViewHolder(holder: RecyclerView.ViewHolder?, position: Int, action: Int = 0) {
         //
         // calculate bid item
         //
@@ -72,22 +71,34 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
                 dateTemp = bidItem.dateCreated!!
 
                 // update view
-                if (holder is ViewHolderHeader) {
-                    holder.fillContent(dateTemp)
+                if (nIndex == position) {
+                    if (holder is ViewHolderHeader) {
+                        holder.fillContent(dateTemp)
+                    }
                 }
 
                 nIndex++
                 nDateIndex++
             }
 
-            if (holder is ViewHolderBidItem) {
+            if (nIndex == position) {
                 // update view
-                if (nIndex == position) {
+                if (holder is ViewHolderBidItem) {
                     holder.fillContent(aryBid[position - nDateIndex])
                 }
+                else if (action == ACTION_GOTO_DETAIL) {
+                    val intent = Intent(ctx, BidDetailActivity::class.java)
+                    intent.putExtra(BidDetailActivity.KEY_BID, aryBid[position - nDateIndex])
+                    ctx.startActivity(intent)
+                }
             }
+
             nIndex++
         }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+        handleItemViewHolder(holder, position)
     }
 
     override fun getItemCount(): Int {
@@ -130,12 +141,7 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
     override fun onItemClick(view: View?, position: Int) {
         when (view?.id) {
             R.id.view_main -> {
-                if (type == BidActivity.TYPE_BID_WON) {
-                    Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
-                }
-                else if (type == BidActivity.TYPE_JOB_APPLIED) {
-                    Utils.moveNextActivity(ctx as Activity, BidDetailApplyActivity::class.java)
-                }
+                handleItemViewHolder(null, position, ACTION_GOTO_DETAIL)
             }
             // bid button
             R.id.but_bid -> {

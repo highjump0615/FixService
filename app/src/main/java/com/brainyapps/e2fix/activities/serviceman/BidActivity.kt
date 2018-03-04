@@ -5,7 +5,6 @@ import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseDrawerActivity
@@ -13,7 +12,6 @@ import com.brainyapps.e2fix.adapters.serviceman.BidItemAdapter
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
-import com.brainyapps.e2fix.utils.Utils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -48,7 +46,7 @@ class BidActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         // set title
         if (this.bidType == TYPE_JOB_APPLIED) {
-            this.text_title.text = "JOBS APPLIED"
+            this.text_job_title.text = "JOBS APPLIED"
             this.text_empty_notice.text = "There is no applied jobs yet"
         }
 

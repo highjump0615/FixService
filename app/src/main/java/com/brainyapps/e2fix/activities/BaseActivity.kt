@@ -37,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
 
         // set title
         if (!TextUtils.isEmpty(title)) {
-            val textTitle = findViewById<View>(R.id.text_title) as TextView
+            val textTitle = findViewById<View>(R.id.text_job_title) as TextView
             textTitle.text = title
         }
 

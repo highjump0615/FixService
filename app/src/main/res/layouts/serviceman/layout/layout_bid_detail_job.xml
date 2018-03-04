@@ -11,6 +11,7 @@
 
         <!-- photo -->
         <ImageView
+            android:id="@+id/imgview_photo"
             android:layout_width="@dimen/job_list_photo_size"
             android:layout_height="match_parent"
             android:src="@drawable/job_default"
@@ -32,7 +33,7 @@
 
                 <!-- title -->
                 <TextView
-                    android:id="@+id/text_title"
+                    android:id="@+id/text_job_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Exprienced Plumber"
@@ -44,14 +45,14 @@
                     android:id="@+id/text_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/text_title"
+                    android:layout_below="@id/text_job_title"
                     android:textSize="@dimen/admin_user_list_type_size"
                     android:textColor="@color/colorGrey"
                     android:text="Today at 07:42 AM" />
 
                 <!-- description -->
                 <TextView
-                    android:id="@+id/text_desc"
+                    android:id="@+id/text_job_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis posuere dui, a ornare lectus faucibus eu. Duis rutrum volutpat orci ac tincidunt. Proin nec erat eget urna eleifend fringilla et ut ante. Donec venenatis nisl a dolor dictum tempus. Etiam imperdiet a sapien ac fringilla."
@@ -71,6 +72,7 @@
                         android:src="@drawable/user_detail_location"
                         android:tint="@android:color/black"/>
                     <TextView
+                        android:id="@+id/text_job_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Miami, Florida"

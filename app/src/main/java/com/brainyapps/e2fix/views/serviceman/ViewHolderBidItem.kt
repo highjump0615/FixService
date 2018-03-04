@@ -1,7 +1,6 @@
 package com.brainyapps.e2fix.views.serviceman
 
 import android.content.Context
-import android.content.res.Resources
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.text.TextUtils
@@ -41,24 +40,24 @@ class ViewHolderBidItem(itemView: View, ctx: Context, type: Int) : ViewHolderBas
 
         // bid
         if (TextUtils.isEmpty(data.job!!.bidTakenId)) {
-            itemView.text_bid.text = "Waiting for a Bid winners"
+            itemView.text_job_bid.text = "Waiting for a Bid winners"
 
             // color
-            itemView.text_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorTheme))
+            itemView.text_job_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorTheme))
             itemView.imgview_bid_icon.setColorFilter(ContextCompat.getColor(context!!, R.color.colorTheme))
         }
         else if (TextUtils.equals(data.job!!.bidTakenId, data.id)) {
-            itemView.text_bid.text = "You got this job!"
+            itemView.text_job_bid.text = "You got this job!"
 
             // color
-            itemView.text_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorGoogle))
+            itemView.text_job_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorGoogle))
             itemView.imgview_bid_icon.setColorFilter(ContextCompat.getColor(context!!, R.color.colorGoogle))
         }
         else {
-            itemView.text_bid.text = "Job taken"
+            itemView.text_job_bid.text = "Job taken"
 
             // color
-            itemView.text_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorGrey))
+            itemView.text_job_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorGrey))
             itemView.imgview_bid_icon.setColorFilter(ContextCompat.getColor(context!!, R.color.colorGrey))
         }
     }

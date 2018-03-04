@@ -1,7 +1,6 @@
 package com.brainyapps.e2fix.activities
 
 import android.app.Activity
-import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
@@ -49,7 +48,7 @@ class UserDetailHelper(val owner: Activity) {
         text.text = this.user!!.contact
 
         // location
-        text = owner.findViewById<TextView>(R.id.text_location)
+        text = owner.findViewById<TextView>(R.id.text_job_location)
         text.text = this.user!!.location
     }
 }
