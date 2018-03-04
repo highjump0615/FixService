@@ -150,7 +150,7 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
         }
 
         // set user info
-        fetchJobUserInfo()
+//        fetchJobUserInfo()
 
         // set bid info
         fetchJobBidInfo()

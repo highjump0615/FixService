@@ -2,6 +2,7 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
 
 /**
@@ -15,6 +16,7 @@ class Bid() : BaseModel(), Parcelable {
         //
         const val TABLE_NAME = "bids"
         const val FIELD_JOBID = "jobId"
+        const val FIELD_USERID = "userId"
 
 
         @JvmField
@@ -33,14 +35,21 @@ class Bid() : BaseModel(), Parcelable {
     var price = ""
     var contact = ""
 
+    var isTaken = false
+
     var jobId = ""
+    @get:Exclude
+    var job: Job? = null
+
     var userId = ""
 
     constructor(parcel: Parcel) : this() {
         time = parcel.readString()
         price = parcel.readString()
         contact = parcel.readString()
+        isTaken = parcel.readByte().toInt() != 0
         jobId = parcel.readString()
+        job = parcel.readParcelable(Job::class.java.classLoader)
         userId = parcel.readString()
 
         readFromParcelBase(parcel)
@@ -57,7 +66,9 @@ class Bid() : BaseModel(), Parcelable {
         parcel.writeString(time)
         parcel.writeString(price)
         parcel.writeString(contact)
+        parcel.writeByte((if (isTaken) 1 else 0).toByte())
         parcel.writeString(jobId)
+        parcel.writeParcelable(job, flags)
         parcel.writeString(userId)
 
         writeToParcelBase(parcel, flags)

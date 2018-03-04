@@ -136,6 +136,7 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
         newJob.description = this.edit_description.text.toString()
         newJob.photoUrl = this.strPhotoUrl
         newJob.category = this.spinner.selectedItemPosition
+        newJob.location = User.currentUser!!.location
         newJob.userPosted = User.currentUser
         newJob.userId = User.currentUser!!.id
 

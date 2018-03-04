@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
+
 /**
  * Created by Administrator on 2/15/18.
  */
@@ -116,7 +118,7 @@ class Utils {
             return Date(estimatedServerTimeMs.toLong())
         }
 
-        fun getFormattedDate(date: Date): String {
+        fun getFormattedDateTime(date: Date): String {
             val period = Utils.getServerTime().time - date.time
             val value = TimeUnit.MINUTES.convert(period, TimeUnit.MILLISECONDS)
             if (value == 0L) {
@@ -136,6 +138,43 @@ class Utils {
             }
 
             return SimpleDateFormat("MM/dd, yyyy").format(date)
+        }
+
+        fun getFormattedDate(date: Date): String {
+            val dateFormat = SimpleDateFormat("MM/dd, yyyy")
+            var result = dateFormat.format(date)
+
+            val period = Utils.getServerTime().time - date.time
+            val diffDay = TimeUnit.DAYS.convert(period, TimeUnit.MILLISECONDS)
+
+            if (diffDay == 0L) {
+                result = "Today"
+            }
+            else if (diffDay == 1L) {
+                result = "Yesterday"
+            }
+
+            return result
+        }
+
+        /**
+         * compare date only
+         */
+        fun equalDate(date: Date, dateWith: Date): Boolean {
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+
+            val calendarWith = Calendar.getInstance()
+            calendarWith.time = dateWith
+
+            if (calendar.get(Calendar.DAY_OF_MONTH) == calendarWith.get(Calendar.DAY_OF_MONTH) &&
+                calendar.get(Calendar.MONTH) == calendarWith.get(Calendar.MONTH) &&
+                calendar.get(Calendar.YEAR) == calendarWith.get(Calendar.YEAR)) {
+
+                return true
+            }
+
+            return false
         }
     }
 }

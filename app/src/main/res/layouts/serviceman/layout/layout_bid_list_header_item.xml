@@ -9,6 +9,7 @@
     android:layout_marginRight="@dimen/job_margin">
 
     <TextView
+        android:id="@+id/text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Today"/>

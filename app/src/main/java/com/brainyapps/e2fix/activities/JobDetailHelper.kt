@@ -1,13 +1,10 @@
 package com.brainyapps.e2fix.activities
 
-import android.app.Activity
-import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -39,7 +36,7 @@ class JobDetailHelper(val contentView: View) {
 
         // time
         textview = contentView.findViewById<TextView>(R.id.text_time)
-        textview.text = Utils.getFormattedDate(job.dateCreated!!)
+        textview.text = Utils.getFormattedDateTime(job.dateCreated!!)
 
         // description
         textview = contentView.findViewById<TextView>(R.id.text_desc)
@@ -47,7 +44,7 @@ class JobDetailHelper(val contentView: View) {
 
         // location
         textview = contentView.findViewById<TextView>(R.id.text_location)
-        textview.text = job.userPosted?.location
+        textview.text = job.location
 
         // bid
         textview = contentView.findViewById<TextView>(R.id.text_bid)

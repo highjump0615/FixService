@@ -87,7 +87,8 @@
                 android:paddingRight="@dimen/navigation_banner_hori_padding"
                 android:paddingTop="@dimen/navigation_banner_vert_padding"
                 android:paddingBottom="@dimen/navigation_banner_vert_padding"
-                android:background="@drawable/round_banner_bg"/>
+                android:background="@drawable/round_banner_bg"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

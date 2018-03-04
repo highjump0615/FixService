@@ -2,8 +2,8 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.firebase.database.Exclude
-import com.google.firebase.database.FirebaseDatabase
+import android.util.Log
+import com.google.firebase.database.*
 
 /**
  * Created by Administrator on 2/21/18.
@@ -16,6 +16,28 @@ class Job() : BaseModel(), Parcelable {
         //
         const val TABLE_NAME = "jobs"
         const val FIELD_USERID = "userId"
+
+        fun readFromDatabase(withId: String, fetchListener: FetchDatabaseListener) {
+
+            val database = FirebaseDatabase.getInstance().reference
+            val query = database.child(Job.TABLE_NAME + "/" + withId)
+
+            // Read from the database
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val j = dataSnapshot.getValue(Job::class.java)
+                    j?.id = withId
+
+                    fetchListener.onFetchedJob(j, true)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(User.TAG, "failed to read from database.", error.toException())
+                    fetchListener.onFetchedJob(null, false)
+                }
+            })
+        }
 
 
         @JvmField
@@ -45,6 +67,10 @@ class Job() : BaseModel(), Parcelable {
     var photoUrl = ""
     var category = 0
 
+    var location = ""
+
+    var bidTakenId = ""
+
     constructor(parcel: Parcel) : this() {
         userPosted = parcel.readParcelable(User::class.java.classLoader)
         userId = parcel.readString()
@@ -52,6 +78,8 @@ class Job() : BaseModel(), Parcelable {
         description = parcel.readString()
         photoUrl = parcel.readString()
         category = parcel.readInt()
+        location = parcel.readString()
+        bidTakenId = parcel.readString()
         parcel.readList(bidArray, Bid::class.java.classLoader)
 
         readFromParcelBase(parcel)
@@ -71,6 +99,8 @@ class Job() : BaseModel(), Parcelable {
         parcel.writeString(description)
         parcel.writeString(photoUrl)
         parcel.writeInt(category)
+        parcel.writeString(location)
+        parcel.writeString(bidTakenId)
         parcel.writeList(bidArray)
 
         writeToParcelBase(parcel, flags)
@@ -78,6 +108,13 @@ class Job() : BaseModel(), Parcelable {
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    /**
+     * interface for reading from database
+     */
+    interface FetchDatabaseListener {
+        fun onFetchedJob(job: Job?, success: Boolean)
     }
 
 }

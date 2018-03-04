@@ -13,17 +13,21 @@ import com.brainyapps.e2fix.activities.serviceman.BidDetailApplyActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.serviceman.ViewHolderBidItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderHeader
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Administrator on 2/19/18.
  */
 
-class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: Int)
+class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val type: Int)
     : BaseItemAdapter(ctx) {
+
+    val formatNew = SimpleDateFormat("yyyy-MM-dd")
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0
@@ -56,21 +60,38 @@ class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: In
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ViewHolderBidItem) {
-            // set new mark visibility
-            if (position == 1) {
-                holder.setNewMarkVisible(View.VISIBLE)
+        //
+        // calculate bid item
+        //
+        var dateTemp: Date = formatNew.parse("2018-01-01")
+        var nIndex = 0
+        var nDateIndex = 0
+
+        for (bidItem in aryBid) {
+            if (!Utils.equalDate(dateTemp, bidItem.dateCreated!!)) {
+                dateTemp = bidItem.dateCreated!!
+
+                // update view
+                if (holder is ViewHolderHeader) {
+                    holder.fillContent(dateTemp)
+                }
+
+                nIndex++
+                nDateIndex++
             }
-            else {
-                holder.setNewMarkVisible(View.INVISIBLE)
+
+            if (holder is ViewHolderBidItem) {
+                // update view
+                if (nIndex == position) {
+                    holder.fillContent(aryBid[position - nDateIndex])
+                }
             }
-        }
-        else {
+            nIndex++
         }
     }
 
     override fun getItemCount(): Int {
-        var nCount = aryUser.size
+        var nCount = getCount()
 
         if (mbNeedMore) {
             nCount++
@@ -80,18 +101,30 @@ class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: In
     }
 
     override fun getItemViewType(position: Int): Int {
+        //
+        // calculate data index
+        //
+        var viewType = ITEM_VIEW_TYPE_FOOTER
+        var dateTemp: Date = formatNew.parse("2018-01-01")
+        var nIndex = 0
 
-        return if (position < aryUser.size) {
-            if (position % 3 == 0) {
-                ITEM_VIEW_TYPE_HEADER
+        for (jobItem in aryBid) {
+            if (!Utils.equalDate(dateTemp, jobItem.dateCreated!!)) {
+                dateTemp = jobItem.dateCreated!!
+
+                if (nIndex == position) {
+                    viewType = ITEM_VIEW_TYPE_HEADER
+                }
+                nIndex++
             }
-            else {
-                ITEM_VIEW_TYPE_JOB
+
+            if (nIndex == position) {
+                viewType = ITEM_VIEW_TYPE_JOB
             }
+            nIndex++
         }
-        else {
-            ITEM_VIEW_TYPE_FOOTER
-        }
+
+        return viewType
     }
 
     override fun onItemClick(view: View?, position: Int) {
@@ -109,5 +142,22 @@ class BidItemAdapter(val ctx: Context, val aryUser: ArrayList<Job>, val type: In
                 Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
             }
         }
+    }
+
+    /**
+     * get list item count
+     */
+    fun getCount(): Int {
+        var nDateCount = 0
+        var dateTemp: Date = formatNew.parse("2018-01-01")
+
+        for (jobItem in aryBid) {
+            if (!Utils.equalDate(dateTemp, jobItem.dateCreated!!)) {
+                dateTemp = jobItem.dateCreated!!
+                nDateCount++
+            }
+        }
+
+        return nDateCount + aryBid.count()
     }
 }

@@ -60,7 +60,7 @@
     <dimen name="job_list_content_margin">11dp</dimen>
     <dimen name="job_list_desc_text_size">13sp</dimen>
     <dimen name="job_list_icons_margin">5dp</dimen>
-    <dimen name="job_list_icons_height">14dp</dimen>
+    <dimen name="job_list_icons_height">16dp</dimen>
     <dimen name="job_list_icons_spacing">4dp</dimen>
     <dimen name="job_list_icon_width">12dp</dimen>
     <dimen name="job_list_icon_margin">8dp</dimen>
