@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_customer_bid_detail.*
 
 class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
+    var aryBid = ArrayList<Bid>()
     var adapter: BidItemAdapter? = null
 
     var job: Job? = null

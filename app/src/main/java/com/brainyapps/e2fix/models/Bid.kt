@@ -51,7 +51,6 @@ class Bid() : BaseModel(), Parcelable {
         contact = parcel.readString()
         isTaken = parcel.readByte().toInt() != 0
         jobId = parcel.readString()
-        job = parcel.readParcelable(Job::class.java.classLoader)
         userId = parcel.readString()
         user = parcel.readParcelable(User::class.java.classLoader)
 
@@ -71,7 +70,6 @@ class Bid() : BaseModel(), Parcelable {
         parcel.writeString(contact)
         parcel.writeByte((if (isTaken) 1 else 0).toByte())
         parcel.writeString(jobId)
-        parcel.writeParcelable(job, flags)
         parcel.writeString(userId)
         parcel.writeParcelable(user, flags)
 

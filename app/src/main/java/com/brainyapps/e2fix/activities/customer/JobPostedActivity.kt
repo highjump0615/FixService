@@ -49,6 +49,13 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // update bid info
+        fetchJobBidInfo()
+    }
+
     /**
      * get User data
      */

@@ -2,6 +2,7 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.TextUtils
 import android.util.Log
 import com.google.firebase.database.*
 
@@ -110,6 +111,20 @@ class Job() : BaseModel(), Parcelable {
         return 0
     }
 
+    /**
+     * get bid taken
+     */
+    fun jobBidTaken() : Bid? {
+        var bid: Bid? = null
+        for (bidItem in this.bidArray) {
+            if (TextUtils.equals(bidItem.id, this.bidTakenId)) {
+                bid = bidItem
+            }
+        }
+
+        return bid
+    }
+
     fun fetchBidList(fetchListener: FetchBidInfoListener) {
         val database = FirebaseDatabase.getInstance().reference
         val query = database.child(Bid.TABLE_NAME).orderByChild(Bid.FIELD_JOBID).equalTo(this.id)
@@ -123,8 +138,14 @@ class Job() : BaseModel(), Parcelable {
                 for (bidItem in dataSnapshot.children) {
                     val bid = bidItem.getValue(Bid::class.java)
                     bid!!.id = bidItem.key
+                    bid.job = this@Job
 
-                    this@Job.bidArray.add(bid)
+                    if (bid.isTaken) {
+                        this@Job.bidArray.add(0, bid)
+                    }
+                    else {
+                        this@Job.bidArray.add(bid)
+                    }
                 }
 
                 // update the list

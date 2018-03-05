@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,7 @@ class BidItemAdapter(ctx: Context) : BaseItemAdapter(ctx) {
             holder.fillContent(this.job!!)
         }
         else if (holder is ViewHolderBidUserItem) {
-            holder.fillContent(this.job!!.bidArray[position - 1])
+            holder.fillContent(this.job!!.bidArray[position - 1], TextUtils.isEmpty(this.job!!.bidTakenId))
         }
     }
 
@@ -105,11 +106,27 @@ class BidItemAdapter(ctx: Context) : BaseItemAdapter(ctx) {
     }
 
     override fun onItemClick(view: View?, position: Int) {
+        val bid = this.job!!.bidArray[position - 1]
+
         when (view?.id) {
             R.id.view_main -> {
                 val intent = Intent(this.context, BidderProfileActivity::class.java)
-                intent.putExtra(UserDetailHelper.KEY_USER, this.job!!.bidArray[position - 1].user)
+                intent.putExtra(UserDetailHelper.KEY_USER, bid.user)
                 this.context!!.startActivity(intent)
+            }
+
+            // choose as bidder -> {
+            R.id.but_choose_bidder -> {
+                // save bid
+                bid.isTaken = true
+                bid.saveToDatabase(bid.id)
+
+                // save job
+                this.job!!.bidTakenId = bid.id
+                this.job!!.saveToDatabase(this.job!!.id)
+
+                // refresh list
+                notifyDataSetChanged()
             }
         }
     }

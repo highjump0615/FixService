@@ -29,15 +29,26 @@ class ViewHolderBidUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemV
         val viewMain = itemView.findViewById<LinearLayout>(R.id.view_main)
         viewMain.setOnClickListener(this)
 
+        itemView.but_choose_bidder.setOnClickListener(this)
+
         this.helper = UserDetailHelper(itemView)
     }
 
-    fun fillContent(data: Bid) {
+    fun fillContent(data: Bid, bidAvailable: Boolean) {
         this.helper!!.fillUserInfo(data.user!!)
 
         // bid info
         itemView.text_bid_time.text = data.time
         itemView.text_bid_price.text = "$${data.price}"
         itemView.text_bid_contact.text = data.contact
+
+        // choose bidder button
+        if (data.isTaken) {
+            itemView.but_choose_bidder.text = "BID WINNER"
+        }
+        else {
+            itemView.but_choose_bidder.text = "CHOOSE AS THE BID WINNER"
+        }
+        itemView.but_choose_bidder.isEnabled = bidAvailable
     }
 }

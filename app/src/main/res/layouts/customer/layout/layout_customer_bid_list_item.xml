@@ -135,6 +135,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/but_choose_bidder"
         android:theme="@style/PrimaryButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

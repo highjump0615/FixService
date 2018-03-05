@@ -1,6 +1,7 @@
 package com.brainyapps.e2fix.views.serviceman
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.JobDetailHelper
+import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
@@ -37,6 +39,27 @@ class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView,
     fun fillContent(data: Job) {
         helper!!.fillJobInfo(data)
 
+        // bid
+        itemView.imgview_bid_icon.setColorFilter(ContextCompat.getColor(context!!, R.color.colorTheme))
+        itemView.text_job_bid.setTextColor(itemView.text_job_location.textColors)
+
+        val bid = data.jobBidTaken()
+        if (bid != null) {
+            // fetch user if not fetched
+            if (bid.user != null) {
+                updateBidText(bid)
+            }
+            else {
+                User.readFromDatabase(bid.userId, object : User.FetchDatabaseListener {
+                    override fun onFetchedUser(user: User?, success: Boolean) {
+                        bid.user = user
+
+                        updateBidText(bid)
+                    }
+                })
+            }
+        }
+
         // check if posted job
         if (TextUtils.equals(data.userId, User.currentUser!!.id)) {
             itemView.but_bid.setText("VIEW BIDS")
@@ -44,5 +67,11 @@ class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView,
         else {
             itemView.but_bid.setText("BID")
         }
+    }
+
+    fun updateBidText(bid: Bid) {
+        itemView.text_job_bid.text = bid.user!!.userFullName()
+        itemView.imgview_bid_icon.setColorFilter(ContextCompat.getColor(context!!, R.color.colorGoogle))
+        itemView.text_job_bid.setTextColor(ContextCompat.getColor(context!!, R.color.colorGoogle))
     }
 }
