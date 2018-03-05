@@ -1,14 +1,11 @@
 package com.brainyapps.e2fix.views.serviceman
 
 import android.content.Context
-import android.support.v7.widget.CardView
-import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.UserDetailHelper
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.views.admin.ViewHolderBase
+import kotlinx.android.synthetic.main.layout_sm_profile_info_item.view.*
 
 /**
  * Created by Administrator on 2/19/18.
@@ -16,7 +13,21 @@ import com.brainyapps.e2fix.views.admin.ViewHolderBase
 
 class ViewHolderProfileUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView, ctx) {
 
+    var helper: UserDetailHelper? = null
+
     init {
+        this.helper = UserDetailHelper(itemView)
+        this.helper!!.fillUserInfo(User.currentUser!!)
+
+        // rate
+        itemView.text_rate.text = "${User.currentUser!!.rating}/5.0"
+
+        // rate
+        itemView.ratestar.updateStar(User.currentUser!!.rating)
+
+        // empty notice
+        itemView.text_empty_notice.visibility = View.VISIBLE
+
     }
 
 }

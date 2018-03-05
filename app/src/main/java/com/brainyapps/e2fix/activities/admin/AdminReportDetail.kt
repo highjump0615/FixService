@@ -13,8 +13,6 @@ class AdminReportDetail : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_report_detail)
 
-        this.helper = UserDetailHelper(this)
-
         setNavbar("DAVID HASKINS", true)
     }
 }

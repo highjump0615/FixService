@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorBackground">
 
@@ -33,6 +33,7 @@
                 android:background="@drawable/round_corner_white_bg">
 
                 <ImageView
+                    android:id="@+id/imgview_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
@@ -44,11 +45,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="PLUMBER"
+                android:text="Serviceman"
                 android:textSize="12sp"
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
+                android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -90,6 +92,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/user_detail_card"/>
             <TextView
+                android:id="@+id/text_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/profile_user_info_margin"
@@ -108,6 +111,7 @@
                 android:src="@drawable/profile_skill"
                 android:scaleType="center"/>
             <TextView
+                android:id="@+id/text_skill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/profile_user_info_margin"
@@ -126,15 +130,18 @@
                 android:src="@drawable/setting_rate"
                 android:tint="@color/colorTheme"/>
             <TextView
+                android:id="@+id/text_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/profile_user_info_margin"
                 android:text="5.0/5.0"/>
 
             <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+                android:id="@+id/ratestar"
                 android:layout_width="@dimen/rate_star_width"
                 android:layout_height="@dimen/rate_star_height"
-                android:layout_marginLeft="@dimen/profile_user_info_margin"/>
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                app:starValue="2.0"/>
 
         </LinearLayout>
 
@@ -147,6 +154,17 @@
         android:layout_margin="@dimen/profile_user_info_title_margin"
         android:layout_gravity="center"
         android:text="RATINGS AND REVIEWS"/>
+
+    <TextView
+        android:id="@+id/text_empty_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="There is no bids won yet"
+        android:textColor="@color/colorGrey"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

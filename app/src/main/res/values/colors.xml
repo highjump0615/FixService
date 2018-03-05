@@ -26,4 +26,6 @@
     <color name="colorGoogleDark">#ba2020</color>
 
     <color name="colorBack">#eeeeee</color>
+    <color name="colorStar">#f2c618</color>
+
 </resources>

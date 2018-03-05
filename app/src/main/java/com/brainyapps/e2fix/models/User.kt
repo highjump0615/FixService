@@ -88,6 +88,7 @@ class User() : BaseModel(), Parcelable {
     var location = ""
 
     var skill = ""
+    var rating = 0.0
 
     @get:Exclude
     var posts: ArrayList<Job> = ArrayList()
@@ -105,6 +106,7 @@ class User() : BaseModel(), Parcelable {
         contact = parcel.readString()
         location = parcel.readString()
         skill = parcel.readString()
+        rating = parcel.readDouble()
 
         readFromParcelBase(parcel)
     }
@@ -152,6 +154,7 @@ class User() : BaseModel(), Parcelable {
         parcel.writeString(contact)
         parcel.writeString(location)
         parcel.writeString(skill)
+        parcel.writeDouble(rating)
 
         writeToParcelBase(parcel, flags)
     }

@@ -17,21 +17,28 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
 
     private val TAG = AdminUserDetailActivity::class.java.getSimpleName()
     var helper: UserDetailHelper? = null
+    var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_user_detail)
 
-        this.helper = UserDetailHelper(this)
-
         setNavbar("USER INFO", true)
 
+        // get user from intent
+        val bundle = intent.extras
+        this.user = bundle?.getParcelable<User>(UserDetailHelper.KEY_USER)
+
         // user type
-        this.text_user_type.text = "REGISTERD AS " + this.helper!!.user!!.userTypeString().toUpperCase()
+        this.text_user_type.text = "REGISTERD AS " + this.user!!.userTypeString().toUpperCase()
 
         // button
         this.but_ban.setOnClickListener(this)
         this.but_unban.setOnClickListener(this)
+
+        // user info
+        this.helper = UserDetailHelper(findViewById<View>(android.R.id.content))
+        this.helper!!.fillUserInfo(this.user!!)
 
         updateButton()
     }
@@ -40,7 +47,7 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
      * update buttons according to user status
      */
     fun updateButton() {
-        if (this.helper!!.user!!.banned) {
+        if (this.user!!.banned) {
             this.but_ban.visibility = View.GONE
             this.but_unban.visibility = View.VISIBLE
         }
@@ -58,7 +65,7 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
 
                 val database = FirebaseDatabase.getInstance().reference
                 database.child(User.TABLE_NAME)
-                        .child(this.helper!!.user!!.id)
+                        .child(this.user!!.id)
                         .child(User.FIELD_BANNED)
                         .setValue(true)
                         .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
@@ -69,7 +76,7 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
                             }
                             else {
                                 // success
-                                this.helper!!.user!!.banned = true
+                                this.user!!.banned = true
 
                                 Toast.makeText(this, "Banned user successfully", Toast.LENGTH_SHORT).show()
                                 updateButton()
@@ -85,7 +92,7 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
 
                 val database = FirebaseDatabase.getInstance().reference
                 database.child(User.TABLE_NAME)
-                        .child(this.helper!!.user!!.id)
+                        .child(this.user!!.id)
                         .child(User.FIELD_BANNED)
                         .setValue(false)
                         .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
@@ -96,7 +103,7 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
                             }
                             else {
                                 // success
-                                this.helper!!.user!!.banned = false
+                                this.user!!.banned = false
 
                                 Toast.makeText(this, "Unbanned user successfully", Toast.LENGTH_SHORT).show()
                                 updateButton()

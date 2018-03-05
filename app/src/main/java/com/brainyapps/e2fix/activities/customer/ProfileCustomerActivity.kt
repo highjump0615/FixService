@@ -1,6 +1,7 @@
 package com.brainyapps.e2fix.activities.customer
 
 import android.os.Bundle
+import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import com.brainyapps.e2fix.activities.UserDetailHelper
@@ -17,6 +18,8 @@ class ProfileCustomerActivity : BaseDrawerActivity() {
         setNavbar()
         initDrawer(User.USER_TYPE_CUSTOMER)
 
-        this.helper = UserDetailHelper(this)
+        // user info
+        this.helper = UserDetailHelper(findViewById<View>(android.R.id.content))
+        this.helper!!.fillUserInfo(User.currentUser!!)
     }
 }
