@@ -7,26 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
-import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.models.Review
-import com.brainyapps.e2fix.utils.E2FItemClickListener
-import com.brainyapps.e2fix.utils.Utils
-import com.brainyapps.e2fix.views.ViewHolderLoading
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.views.admin.ViewHolderUserItem
-import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderProfileUserItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderReviewItem
-import com.bumptech.glide.util.Util
-import java.util.ArrayList
 
 /**
  * Created by Administrator on 2/19/18.
  */
 
-class ProfileAdapter(val ctx: Context, val aryReview: ArrayList<Review>)
-    : BaseItemAdapter(ctx) {
+class ProfileAdapter(val ctx: Context, var user: User) : BaseItemAdapter(ctx) {
 
     companion object {
         val ITEM_VIEW_TYPE_USER = 0
@@ -62,14 +53,15 @@ class ProfileAdapter(val ctx: Context, val aryReview: ArrayList<Review>)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ViewHolderUserItem) {
+        if (holder is ViewHolderProfileUserItem) {
+            holder.fillContent(user)
         }
         else {
         }
     }
 
     override fun getItemCount(): Int {
-        var nCount = aryReview.size + 1
+        var nCount = user.reviews.size + 1
 
         if (mbNeedMore) {
             nCount++
@@ -83,7 +75,7 @@ class ProfileAdapter(val ctx: Context, val aryReview: ArrayList<Review>)
         return if (position == 0) {
             ITEM_VIEW_TYPE_USER
         }
-        else if (position < aryReview.size + 1) {
+        else if (position < user.reviews.size + 1) {
             ITEM_VIEW_TYPE_REVIEW
         }
         else {
@@ -92,11 +84,5 @@ class ProfileAdapter(val ctx: Context, val aryReview: ArrayList<Review>)
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        when (view?.id) {
-            // bid button
-            R.id.but_bid -> {
-                Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
-            }
-        }
     }
 }

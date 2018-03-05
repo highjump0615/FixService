@@ -91,7 +91,10 @@ class User() : BaseModel(), Parcelable {
     var rating = 0.0
 
     @get:Exclude
-    var posts: ArrayList<Job> = ArrayList()
+    var posts = ArrayList<Job>()
+
+    @get:Exclude
+    var reviews = ArrayList<Review>()
 
     constructor(parcel: Parcel) : this() {
         type = parcel.readInt()

@@ -17,17 +17,18 @@ class ViewHolderProfileUserItem(itemView: View, ctx: Context) : ViewHolderBase(i
 
     init {
         this.helper = UserDetailHelper(itemView)
-        this.helper!!.fillUserInfo(User.currentUser!!)
+    }
+
+    fun fillContent(data: User) {
+        this.helper!!.fillUserInfo(data)
 
         // rate
-        itemView.text_rate.text = "${User.currentUser!!.rating}/5.0"
+        itemView.text_rate.text = "${data.rating}/5.0"
 
         // rate
-        itemView.ratestar.updateStar(User.currentUser!!.rating)
+        itemView.ratestar.updateStar(data.rating)
 
         // empty notice
         itemView.text_empty_notice.visibility = View.VISIBLE
-
     }
-
 }

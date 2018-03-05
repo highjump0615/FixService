@@ -30,6 +30,7 @@
             <RelativeLayout
                 android:layout_width="@dimen/admin_user_detail_photo_size"
                 android:layout_height="@dimen/admin_user_detail_photo_size"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_corner_white_bg">
 
                 <ImageView
@@ -109,7 +110,7 @@
                 android:layout_width="@dimen/admin_user_detail_icon_width"
                 android:layout_height="match_parent"
                 android:src="@drawable/profile_skill"
-                android:scaleType="center"/>
+                android:scaleType="centerInside"/>
             <TextView
                 android:id="@+id/text_skill"
                 android:layout_width="match_parent"

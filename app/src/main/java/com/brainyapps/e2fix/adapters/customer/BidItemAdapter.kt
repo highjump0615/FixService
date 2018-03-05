@@ -2,12 +2,14 @@ package com.brainyapps.e2fix.adapters.customer
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.UserDetailHelper
 import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.activities.customer.BidderProfileActivity
 import com.brainyapps.e2fix.activities.serviceman.*
@@ -22,7 +24,7 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class BidItemAdapter(val ctx: Context) : BaseItemAdapter(ctx) {
+class BidItemAdapter(ctx: Context) : BaseItemAdapter(ctx) {
 
     var job: Job? = null
 
@@ -46,7 +48,7 @@ class BidItemAdapter(val ctx: Context) : BaseItemAdapter(ctx) {
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_bid_list_item, parent, false)
                 // set the view's size, margins, paddings and layout parameters
 
-                val vh = ViewHolderBidItem(v, ctx, BidActivity.TYPE_JOB_APPLIED)
+                val vh = ViewHolderBidItem(v, this.context!!, BidActivity.TYPE_JOB_APPLIED)
                 vhRes = vh
             }
             else if (viewType == ITEM_VIEW_TYPE_BID) {
@@ -54,7 +56,7 @@ class BidItemAdapter(val ctx: Context) : BaseItemAdapter(ctx) {
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_customer_bid_list_item, parent, false)
                 // set the view's size, margins, paddings and layout parameters
 
-                val vh = ViewHolderBidUserItem(v, ctx)
+                val vh = ViewHolderBidUserItem(v, this.context!!)
                 vh.setOnItemClickListener(this)
                 vhRes = vh
             }
@@ -105,7 +107,9 @@ class BidItemAdapter(val ctx: Context) : BaseItemAdapter(ctx) {
     override fun onItemClick(view: View?, position: Int) {
         when (view?.id) {
             R.id.view_main -> {
-                Utils.moveNextActivity(ctx as Activity, BidderProfileActivity::class.java)
+                val intent = Intent(this.context, BidderProfileActivity::class.java)
+                intent.putExtra(UserDetailHelper.KEY_USER, this.job!!.bidArray[position - 1].user)
+                this.context!!.startActivity(intent)
             }
         }
     }

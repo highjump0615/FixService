@@ -1,7 +1,7 @@
 package com.brainyapps.e2fix.activities.customer
 
-import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -14,12 +14,10 @@ import com.brainyapps.e2fix.adapters.customer.BidItemAdapter
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
-import com.brainyapps.e2fix.utils.Utils
 import kotlinx.android.synthetic.main.activity_customer_bid_detail.*
 
 class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    var aryBid = ArrayList<Bid>()
     var adapter: BidItemAdapter? = null
 
     var job: Job? = null
@@ -48,11 +46,18 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         // check bid status
         showEmptyNotice()
-        fetchBidUserInfo()
+
+        Handler().postDelayed({ fetchBidUserInfo(true) }, 500)
     }
 
-    fun fetchBidUserInfo() {
+    fun fetchBidUserInfo(animated: Boolean) {
         for (bidItem in this.job!!.bidArray) {
+            if (animated) {
+                if (!this.swiperefresh.isRefreshing) {
+                    this.swiperefresh.isRefreshing = true
+                }
+            }
+
             User.readFromDatabase(bidItem.userId, object: User.FetchDatabaseListener {
                 override fun onFetchedUser(user: User?, success: Boolean) {
                     bidItem.user = user
@@ -98,7 +103,7 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
             override fun onFetchedBid(success: Boolean) {
                 if (success) {
                     showEmptyNotice()
-                    fetchBidUserInfo()
+                    fetchBidUserInfo(false)
                 }
             }
         })

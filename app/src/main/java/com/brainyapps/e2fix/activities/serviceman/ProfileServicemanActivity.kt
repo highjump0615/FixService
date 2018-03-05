@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.layout_content_serviceman_profile.*
 
 class ProfileServicemanActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    var aryReview = ArrayList<Review>()
     var adapter: ProfileAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +31,7 @@ class ProfileServicemanActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRef
         val layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
 
-        this.adapter = ProfileAdapter(this, this.aryReview)
+        this.adapter = ProfileAdapter(this, User.currentUser!!)
         recyclerView.setAdapter(this.adapter)
         recyclerView.setItemAnimator(DefaultItemAnimator())
 
@@ -43,7 +42,7 @@ class ProfileServicemanActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRef
         getReviews(true, false)
     }
 
-    fun getReviews(bRefresh: Boolean, bAnimation: Boolean) {
+    private fun getReviews(bRefresh: Boolean, bAnimation: Boolean) {
 
         if (bAnimation) {
             if (!this.swiperefresh.isRefreshing) {

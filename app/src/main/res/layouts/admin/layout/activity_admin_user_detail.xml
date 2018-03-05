@@ -52,6 +52,7 @@
                 <RelativeLayout
                     android:layout_width="@dimen/admin_user_detail_photo_size"
                     android:layout_height="@dimen/admin_user_detail_photo_size"
+                    android:layout_centerHorizontal="true"
                     android:background="@drawable/round_corner_white_bg">
 
                     <ImageView
