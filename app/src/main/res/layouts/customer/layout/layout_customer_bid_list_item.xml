@@ -22,6 +22,7 @@
 
             <!-- user photo -->
             <ImageView
+                android:id="@+id/imgview_photo"
                 android:layout_width="@dimen/rate_item_photo_size"
                 android:layout_height="@dimen/rate_item_photo_size"
                 android:src="@drawable/user_default"/>
@@ -49,8 +50,10 @@
                         android:layout_width="@dimen/job_list_icon_width"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/job_list_icon_margin"
+                        android:padding="2dp"
                         android:src="@drawable/user_detail_location" />
                     <TextView
+                        android:id="@+id/text_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2.3 miles aray from you"
@@ -62,7 +65,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/text_job_desc"
+            android:id="@+id/text_skill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -82,6 +85,7 @@
             android:layout_height="wrap_content"
             android:text="Estimated time to complete the job"/>
         <TextView
+            android:id="@+id/text_bid_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2 days"
@@ -97,6 +101,7 @@
             android:layout_height="wrap_content"
             android:text="Total service price"/>
         <TextView
+            android:id="@+id/text_bid_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$200"
@@ -122,6 +127,7 @@
                 android:text="Contact information" />
         </LinearLayout>
         <TextView
+            android:id="@+id/text_bid_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+12 678 789 09"

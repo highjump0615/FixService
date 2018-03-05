@@ -110,11 +110,44 @@ class Job() : BaseModel(), Parcelable {
         return 0
     }
 
+    fun fetchBidList(fetchListener: FetchBidInfoListener) {
+        val database = FirebaseDatabase.getInstance().reference
+        val query = database.child(Bid.TABLE_NAME).orderByChild(Bid.FIELD_JOBID).equalTo(this.id)
+
+        // Read from the database
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                this@Job.bidArray.clear()
+
+                for (bidItem in dataSnapshot.children) {
+                    val bid = bidItem.getValue(Bid::class.java)
+                    bid!!.id = bidItem.key
+
+                    this@Job.bidArray.add(bid)
+                }
+
+                // update the list
+                fetchListener.onFetchedBid(true)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(User.TAG, "failed to read from database.", error.toException())
+
+                fetchListener.onFetchedBid(false)
+            }
+        })
+    }
+
+
     /**
      * interface for reading from database
      */
     interface FetchDatabaseListener {
         fun onFetchedJob(job: Job?, success: Boolean)
     }
-
+    interface FetchBidInfoListener {
+        fun onFetchedBid(success: Boolean)
+    }
 }

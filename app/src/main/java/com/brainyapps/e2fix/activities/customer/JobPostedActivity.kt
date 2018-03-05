@@ -95,6 +95,9 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
                 else {
                     this@JobPostedActivity.adapter!!.notifyDataSetChanged()
                 }
+
+                // set bid info
+                fetchJobBidInfo()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -109,5 +112,21 @@ class JobPostedActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshList
 
     override fun onRefresh() {
         getJobs(true, false)
+    }
+
+    /**
+     * fetch bid info for each job
+     */
+    private fun fetchJobBidInfo() {
+        for (jobItem in User.currentUser!!.posts) {
+            jobItem.fetchBidList(object: Job.FetchBidInfoListener {
+                override fun onFetchedBid(success: Boolean) {
+                    if (success) {
+                        // update the list
+                        this@JobPostedActivity.adapter!!.notifyDataSetChanged()
+                    }
+                }
+            })
+        }
     }
 }

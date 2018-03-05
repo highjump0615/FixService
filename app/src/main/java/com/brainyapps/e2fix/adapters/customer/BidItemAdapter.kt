@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.activities.customer.BidderProfileActivity
 import com.brainyapps.e2fix.activities.serviceman.*
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
@@ -21,12 +22,18 @@ import java.util.ArrayList
  * Created by Administrator on 2/19/18.
  */
 
-class BidItemAdapter(val ctx: Context, val aryBid: ArrayList<Bid>)
-    : BaseItemAdapter(ctx) {
+class BidItemAdapter(val ctx: Context) : BaseItemAdapter(ctx) {
+
+    var job: Job? = null
 
     companion object {
         val ITEM_VIEW_TYPE_JOB = 0
         val ITEM_VIEW_TYPE_BID = 1
+    }
+
+    init {
+        val activity = ctx as BidDetailActivity
+        this.job = activity.job
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,13 +65,22 @@ class BidItemAdapter(val ctx: Context, val aryBid: ArrayList<Bid>)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolderBidItem) {
+            holder.fillContent(this.job!!)
         }
-        else {
+        else if (holder is ViewHolderBidUserItem) {
+            holder.fillContent(this.job!!.bidArray[position - 1])
         }
     }
 
     override fun getItemCount(): Int {
-        var nCount = aryBid.size + 1
+        var nCount = 1
+
+        // adds user-fetched bids only
+        for (bidItem in this.job!!.bidArray) {
+            if (bidItem.user != null) {
+                nCount++
+            }
+        }
 
         if (mbNeedMore) {
             nCount++
@@ -77,7 +93,8 @@ class BidItemAdapter(val ctx: Context, val aryBid: ArrayList<Bid>)
 
         return if (position == 0) {
             ITEM_VIEW_TYPE_JOB
-        } else if (position < aryBid.size + 1) {
+        }
+        else if (position < this.job!!.bidArray.size + 1) {
             ITEM_VIEW_TYPE_BID
         }
         else {

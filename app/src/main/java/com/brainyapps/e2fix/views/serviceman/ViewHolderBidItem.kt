@@ -9,6 +9,7 @@ import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.activities.serviceman.BidActivity
 import com.brainyapps.e2fix.models.Bid
+import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.views.admin.ViewHolderBase
 import kotlinx.android.synthetic.main.layout_bid_list_item.view.*
 
@@ -33,6 +34,10 @@ class ViewHolderBidItem(itemView: View, ctx: Context, type: Int) : ViewHolderBas
 
     fun setNewMarkVisible(visibility: Int) {
         itemView.text_banner.visibility = visibility
+    }
+
+    fun fillContent(job: Job) {
+        helper!!.fillJobInfo(job)
     }
 
     fun fillContent(data: Bid) {

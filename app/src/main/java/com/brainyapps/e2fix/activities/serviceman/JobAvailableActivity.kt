@@ -177,39 +177,12 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
      */
     private fun fetchJobBidInfo() {
         for (jobItem in aryJob) {
-
-            val database = FirebaseDatabase.getInstance().reference
-            val query = database.child(Bid.TABLE_NAME).orderByChild(Bid.FIELD_JOBID).equalTo(jobItem.id)
-
-            // Read from the database
-            query.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    jobItem.bidArray.clear()
-
-                    for (bidItem in dataSnapshot.children) {
-                        val bid = bidItem.getValue(Bid::class.java)
-                        bid!!.id = bidItem.key
-
-                        jobItem.bidArray.add(bid)
+            jobItem.fetchBidList(object: Job.FetchBidInfoListener {
+                override fun onFetchedBid(success: Boolean) {
+                    if (success) {
+                        // update the list
+                        this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
                     }
-
-                    // update the list
-                    this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Failed to read value
-                    Log.w(User.TAG, "failed to read from database.", error.toException())
-                }
-            })
-
-            User.readFromDatabase(jobItem.userId, object: User.FetchDatabaseListener {
-                override fun onFetchedUser(user: User?, success: Boolean) {
-                    jobItem.userPosted = user
-
-                    // update the list
-                    this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
                 }
             })
         }

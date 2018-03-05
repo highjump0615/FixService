@@ -39,7 +39,7 @@ class UserDetailHelper(private val contentView: View) {
 
         // phone
         text = contentView.findViewById<TextView>(R.id.text_phone)
-        text.text = user.contact
+        text?.text = user.contact
 
         // location
         text = contentView.findViewById<TextView>(R.id.text_location)

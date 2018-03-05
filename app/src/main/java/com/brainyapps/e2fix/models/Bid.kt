@@ -42,6 +42,8 @@ class Bid() : BaseModel(), Parcelable {
     var job: Job? = null
 
     var userId = ""
+    @get:Exclude
+    var user: User? = null
 
     constructor(parcel: Parcel) : this() {
         time = parcel.readString()
@@ -51,6 +53,7 @@ class Bid() : BaseModel(), Parcelable {
         jobId = parcel.readString()
         job = parcel.readParcelable(Job::class.java.classLoader)
         userId = parcel.readString()
+        user = parcel.readParcelable(User::class.java.classLoader)
 
         readFromParcelBase(parcel)
     }
@@ -70,6 +73,7 @@ class Bid() : BaseModel(), Parcelable {
         parcel.writeString(jobId)
         parcel.writeParcelable(job, flags)
         parcel.writeString(userId)
+        parcel.writeParcelable(user, flags)
 
         writeToParcelBase(parcel, flags)
     }

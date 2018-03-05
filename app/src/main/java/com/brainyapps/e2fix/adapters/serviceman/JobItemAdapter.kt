@@ -82,7 +82,9 @@ class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
             // bid button
             R.id.but_bid -> {
                 if (TextUtils.equals(this.aryJob[position].userId, User.currentUser!!.id)) {
-                    Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
+                    val intent = Intent(ctx, BidDetailActivity::class.java)
+                    intent.putExtra(JobDetailHelper.KEY_JOB, this.aryJob[position])
+                    ctx.startActivity(intent)
                 }
                 else {
                     val intent = Intent(ctx, BidSubmitActivity::class.java)
