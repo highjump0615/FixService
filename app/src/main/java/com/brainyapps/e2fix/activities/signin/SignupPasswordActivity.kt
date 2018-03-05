@@ -39,11 +39,18 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            val password = charSequence.toString()
+        }
+
+        override fun afterTextChanged(editable: Editable) {
+            val password = editable.toString()
+
+            var nCondition = 0;
+            enableNextButton(false)
 
             if (!TextUtils.isEmpty(password)) {
                 if (password.length >= 6) {
                     mchkLength.setChecked(true)
+                    nCondition++
                 }
                 else {
                     mchkLength.setChecked(false)
@@ -51,6 +58,7 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
 
                 if (Utils.containsNumber(password)) {
                     mchkNumber.setChecked(true)
+                    nCondition++
                 }
                 else {
                     mchkNumber.setChecked(false)
@@ -60,6 +68,7 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
                 val hasUppercase = password != tempLower
                 if (hasUppercase) {
                     mchkUppercase.setChecked(true)
+                    nCondition++
                 } else {
                     mchkUppercase.setChecked(false)
                 }
@@ -68,11 +77,14 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
                 val hasLowercase = password != tempUpper
                 if (hasLowercase) {
                     mchkLowercase.setChecked(true)
+                    nCondition++
                 } else {
                     mchkLowercase.setChecked(false)
                 }
 
-                enableNextButton(true)
+                if (nCondition >= 4) {
+                    enableNextButton(true)
+                }
             }
             else {
                 mchkLength.setChecked(false)
@@ -80,10 +92,6 @@ class SignupPasswordActivity : SignupBaseActivity(), View.OnClickListener {
                 mchkLowercase.setChecked(false)
                 mchkNumber.setChecked(false)
             }
-        }
-
-        override fun afterTextChanged(editable: Editable) {
-
         }
     }
 

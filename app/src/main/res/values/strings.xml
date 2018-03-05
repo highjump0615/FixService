@@ -41,6 +41,8 @@
         <item>Electrical Jobs</item>
         <item>Others</item>
     </string-array>
-    
-    
+
+    <string name="facebook_app_id">1924679874510574</string>
+    <string name="fb_login_protocol_scheme">fb1924679874510574</string>
+
 </resources>

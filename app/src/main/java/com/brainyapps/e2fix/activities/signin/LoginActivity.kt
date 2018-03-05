@@ -1,15 +1,12 @@
 package com.brainyapps.e2fix.activities.signin
 
-import android.annotation.TargetApi
 import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.CursorLoader
 import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -23,9 +20,7 @@ import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.app.ProgressDialog
 import android.content.Intent
-import android.support.annotation.NonNull
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.admin.AdminMainActivity
 import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
 
@@ -34,6 +29,11 @@ import com.google.firebase.auth.AuthResult
 import android.util.Log
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.models.User
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -42,12 +42,9 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 
 /**
@@ -62,6 +59,8 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
 
     private var loginType:Int = 0
 
+    private var mFbCallbackManager: CallbackManager? = null
+
     var progressDlg: ProgressDialog? = null
 
     override fun onClick(view: View?) {
@@ -69,6 +68,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
             // Facebook login
             R.id.but_facebook -> {
                 this.loginType = SignupLandingActivity.LOGIN_TYPE_FACEBOOK
+                this.but_fb_login.performClick()
             }
             // Google login
             R.id.but_gplus -> {
@@ -111,6 +111,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
         this.but_login.setOnClickListener(this)
         this.but_forget.setOnClickListener(this)
         this.but_signup.setOnClickListener(this)
+        this.but_facebook.setOnClickListener(this)
         this.but_gplus.setOnClickListener(this)
 
         // Configure Google Sign In
@@ -123,6 +124,26 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build()
+
+        // Initialize Facebook Login button
+        mFbCallbackManager = CallbackManager.Factory.create();
+        this.but_fb_login.setReadPermissions("email", "public_profile");
+        this.but_fb_login.registerCallback(mFbCallbackManager, object: FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult?) {
+                Log.d(TAG, "facebook:onSuccess: $result")
+                handleFacebookAccessToken(result?.accessToken!!);
+            }
+
+            override fun onCancel() {
+                Log.d(TAG, "facebook:onCancel")
+            }
+
+            override fun onError(error: FacebookException?) {
+                Log.d(TAG, "facebook:onError", error)
+            }
+
+        })
+
     }
 
     private fun populateAutoComplete() {
@@ -236,7 +257,7 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                 })
     }
 
-    private fun fetchUserInfo(acct: GoogleSignInAccount? = null) {
+    private fun fetchUserInfo(userInfo: FirebaseUser? = null) {
         val userId = FirebaseManager.mAuth.currentUser!!.uid
 
         User.readFromDatabase(userId, object: User.FetchDatabaseListener {
@@ -250,12 +271,16 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                 else {
                     if (User.currentUser == null) {
                         // get user info, from facebook account info
-                        if (acct != null) {
+                        if (userInfo != null) {
                             val newUser = User(userId)
-                            newUser.firstName = acct.givenName!!
-                            newUser.lastName = acct.familyName!!
-                            newUser.email = acct.email!!
-                            newUser.photoUrl = acct.photoUrl.toString()
+                            if (!TextUtils.isEmpty(userInfo.displayName)) {
+                                val names = userInfo.displayName!!.split(" ")
+                                newUser.firstName = names[0]
+                                newUser.lastName = names[1]
+                            }
+
+                            newUser.email = userInfo.email!!
+                            newUser.photoUrl = userInfo.photoUrl.toString()
 
                             User.currentUser = newUser
                         }
@@ -358,13 +383,19 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                 // ...
             }
         }
+
+        // Pass the activity result back to the Facebook SDK
+        mFbCallbackManager!!.onActivityResult(requestCode, resultCode, data);
     }
 
-    fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+    /**
+     * google log in
+     */
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
 
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id);
 
-        Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
+        progressDlg = Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null);
         FirebaseManager.mAuth.signInWithCredential(credential)
@@ -381,10 +412,36 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
 
-                    fetchUserInfo(acct)
+                    fetchUserInfo(task.result.user)
                 })
     }
 
+    /**
+     * facebook log in
+     */
+    fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d(TAG, "handleFacebookAccessToken:$token")
+
+        progressDlg = Utils.createProgressDialog(this, "Loggin in...", "Submitting user credentials")
+
+        val credential = FacebookAuthProvider.getCredential(token.getToken());
+        FirebaseManager.mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+                    if (!task.isSuccessful) {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        Utils.createErrorAlertDialog(this, "Authentication failed.", task.exception?.localizedMessage!!).show()
+                        closeProgressDialog()
+
+                        return@OnCompleteListener
+                    }
+
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+
+                    fetchUserInfo(task.result.user)
+                })
+    }
 
     companion object {
 

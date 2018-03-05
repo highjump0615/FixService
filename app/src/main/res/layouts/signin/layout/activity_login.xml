@@ -105,6 +105,12 @@
             android:paddingTop="20dp"
             android:orientation="vertical">
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/but_fb_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <!-- facebook button -->
             <RelativeLayout
                 android:id="@+id/but_facebook"
