@@ -113,9 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/signup_skill"
-                    android:hint="Qualification, Skills and Job Experience"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:hint="Qualification, Skills and Job Experience" />
 
                 <!-- email -->
                 <EditText

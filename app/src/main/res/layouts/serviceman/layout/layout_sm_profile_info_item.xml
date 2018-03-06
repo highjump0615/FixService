@@ -163,7 +163,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:text="There is no bids won yet"
+        android:text="There is no reviews yet"
         android:textColor="@color/colorGrey"
         android:visibility="gone"/>
 

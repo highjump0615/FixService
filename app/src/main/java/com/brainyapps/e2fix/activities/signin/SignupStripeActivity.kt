@@ -1,6 +1,7 @@
 package com.brainyapps.e2fix.activities.signin
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.brainyapps.e2fix.R
@@ -36,11 +37,18 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.but_done -> {
 
-                Utils.createProgressDialog(this, "Signing up...", "Submitting user credentials")
                 val user = User.currentUser
 
+                // social log in, make it success directly
+                if (!TextUtils.isEmpty(user!!.id)) {
+                    saveUserData(user.id)
+                    return
+                }
+
+                Utils.createProgressDialog(this, "Signing up...", "Submitting user credentials")
+
                 // create new user
-                FirebaseManager.mAuth.createUserWithEmailAndPassword(user!!.email, user.password)
+                FirebaseManager.mAuth.createUserWithEmailAndPassword(user.email, user.password)
                         .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
                             if (!task.isSuccessful) {
                                 // If sign in fails, display a message to the user.
@@ -54,8 +62,6 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
 
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
-
-                            user.saveToDatabase(FirebaseManager.mAuth.currentUser!!.uid)
 
                             val userId = FirebaseManager.mAuth.currentUser!!.uid
 
@@ -83,7 +89,7 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun saveUserData(userId: String) {
+    private fun saveUserData(userId: String) {
         User.currentUser!!.saveToDatabase(userId)
         goToMain()
     }

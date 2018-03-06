@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout
 import android.util.AttributeSet
 import android.view.View
 import android.support.v7.widget.Toolbar
+import android.widget.ImageView
 import com.brainyapps.e2fix.R
 import kotlinx.android.synthetic.main.app_bar_serviceman.view.*
 
@@ -25,6 +26,10 @@ class ViewToolbar : Toolbar {
         val imgRight = a.getDrawable(R.styleable.ViewToolbar_rightImage)
 
         this.imgview_right.setImageDrawable(imgRight)
+        this.imgview_right.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(view: View?) {
+            }
+        })
 
         a.recycle()
     }

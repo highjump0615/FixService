@@ -153,13 +153,15 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
      * initialize user info
      */
     private fun initUser() {
-        val newUser = User()
+        val newUser = User.currentUser ?: User()
 
-        newUser.email = this.email!!
-        newUser.password = this.password!!
-        newUser.type = this.userType
+        this.email?.let { email -> newUser.email = email }
+        this.password?.let { password -> newUser.password= password }
+
         newUser.firstName = this.edit_firstname.text.toString()
         newUser.lastName = this.edit_lastname.text.toString()
+
+        newUser.type = this.userType
         newUser.contact = this.edit_contact.text.toString()
         newUser.location = this.edit_location.text.toString()
         newUser.photoByteArray = helper!!.byteData
