@@ -49,14 +49,13 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.BaseActivity"
             android:screenOrientation="portrait" />
@@ -124,7 +123,6 @@
         <activity
             android:name=".activities.serviceman.EditProfileActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.customer.JobPostedActivity"
             android:screenOrientation="portrait" />
@@ -142,6 +140,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.serviceman.ServicemanFilterActivity"
             android:screenOrientation="portrait" />
     </application>
 
