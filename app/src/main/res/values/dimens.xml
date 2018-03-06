@@ -98,4 +98,7 @@
     <dimen name="but_choose_margin">8dp</dimen>
     <dimen name="but_choose_padding">30dp</dimen>
 
+    <!-- filter activity -->
+    <dimen name="filter_tick_adding">12dp</dimen>
+
 </resources>
