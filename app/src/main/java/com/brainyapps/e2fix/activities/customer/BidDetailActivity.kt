@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.activities.GeoLocationHelper
 import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.adapters.customer.BidItemAdapter
 import com.brainyapps.e2fix.models.Bid
@@ -20,6 +21,8 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     var aryBid = ArrayList<Bid>()
     var adapter: BidItemAdapter? = null
+
+    var locationHelper: GeoLocationHelper? = null
 
     var job: Job? = null
 
@@ -49,6 +52,9 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         showEmptyNotice()
 
         Handler().postDelayed({ fetchBidUserInfo(true) }, 500)
+
+        // init location
+        this.locationHelper = GeoLocationHelper(this, "Location is needed for showing distance from bidders")
     }
 
     fun fetchBidUserInfo(animated: Boolean) {

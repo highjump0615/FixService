@@ -3,23 +3,24 @@ package com.brainyapps.e2fix.activities.serviceman
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.TextureView
 import android.view.View
-import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.activities.JobDetailHelper
+import com.brainyapps.e2fix.activities.GeoLocationHelper
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
-import com.bumptech.glide.Glide
+import com.firebase.geofire.GeoLocation
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_bid_submit.*
 
 class BidSubmitActivity : BaseActivity(), View.OnClickListener {
 
-    var helper: JobDetailHelper? = null
+    private var jobHelper: JobDetailHelper? = null
+    private var locationHelper: GeoLocationHelper? = null
+
     var job: Job? = null
     var bid: Bid? = null
 
@@ -31,13 +32,13 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
 
         this.but_submit.setOnClickListener(this)
 
-        helper = JobDetailHelper(findViewById<View>(android.R.id.content))
+        jobHelper = JobDetailHelper(findViewById<View>(android.R.id.content))
 
         // get job from intent
         val bundle = intent.extras
         this.job = bundle.getParcelable(JobDetailHelper.KEY_JOB)
 
-        helper!!.fillJobInfo(this.job!!)
+        jobHelper!!.fillJobInfo(this.job!!)
 
         // fill bid content if already bidded
         for (bidItem in this.job!!.bidArray) {
@@ -51,6 +52,9 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
                 break
             }
         }
+
+        // init location
+        this.locationHelper = GeoLocationHelper(this, "Bid submit needs location for showing distance")
     }
 
     override fun onClick(view: View?) {
@@ -117,6 +121,11 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         newBid.time = strTime
         newBid.price = strPrice
         newBid.contact = strContact
+
+        this.locationHelper!!.location?.let {
+            newBid!!.latitude = it.latitude
+            newBid!!.longitude = it.longitude
+        }
 
         newBid.saveToDatabase(newBid.id)
 

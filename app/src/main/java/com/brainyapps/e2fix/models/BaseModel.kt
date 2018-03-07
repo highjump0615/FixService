@@ -20,28 +20,16 @@ open class BaseModel() : Comparable<BaseModel> {
     @get:Exclude
     var id = ""
 
-    @get:Exclude
-    var dateCreated: Date? = null
+    var createdAt: Long
 
     init {
-        this.dateCreated = Utils.getServerTime()
-    }
-
-    /**
-     * get/set timestamp
-     */
-    fun getCreatedAt(): Map<String, String>? {
-        return ServerValue.TIMESTAMP
-    }
-
-    fun setCreatedAt(value: Long) {
-        this.dateCreated = Date(value)
+        this.createdAt = Utils.getServerLongTime()
     }
 
     override operator fun compareTo(other: BaseModel): Int {
-        return if (this.dateCreated!!.after(other.dateCreated)) {
+        return if (this.createdAt > other.createdAt) {
             1
-        } else if (this.dateCreated!!.before(other.dateCreated)) {
+        } else if (this.createdAt < other.createdAt) {
             -1
         } else {
             0
@@ -50,11 +38,11 @@ open class BaseModel() : Comparable<BaseModel> {
 
     fun readFromParcelBase(parcel: Parcel) {
         id = parcel.readString()
-        dateCreated = parcel.readSerializable() as Date?
+        createdAt = parcel.readLong()
     }
 
     fun writeToParcelBase(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeSerializable(dateCreated)
+        parcel.writeLong(createdAt)
     }
 }

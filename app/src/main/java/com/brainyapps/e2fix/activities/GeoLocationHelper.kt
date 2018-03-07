@@ -9,22 +9,14 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.customer.PostJobActivity
-import com.brainyapps.e2fix.models.Job
-import com.brainyapps.e2fix.utils.Utils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
 
 /**
  * Created by Administrator on 3/2/18.
  */
-class LocationHelper(var ctx: Context) {
+class GeoLocationHelper(var ctx: Context, message: String?) {
 
     private val TAG = PostJobActivity::class.java.getSimpleName()
 
@@ -41,7 +33,7 @@ class LocationHelper(var ctx: Context) {
                     // show confirm dialog
                     AlertDialog.Builder(context)
                             .setTitle("Will you grant location permission?")
-                            .setMessage("Posting job needs location for showing distance")
+                            .setMessage(message)
                             .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, which ->
                                 executor.execute()
                             })
@@ -90,13 +82,13 @@ class LocationHelper(var ctx: Context) {
         override fun onLocationChanged(location: Location) {
             Log.d(TAG, "onLocationChanged");
 
-            this@LocationHelper.location = location
+            this@GeoLocationHelper.location = location
         }
 
         override fun onProviderDisabled(provider: String) {
             Log.d(TAG, "onProviderDisabled");
 
-            this@LocationHelper.location = null
+            this@GeoLocationHelper.location = null
         }
 
         override fun onProviderEnabled(provider: String) {

@@ -2,6 +2,7 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.firebase.geofire.GeoLocation
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
 
@@ -45,6 +46,10 @@ class Bid() : BaseModel(), Parcelable {
     @get:Exclude
     var user: User? = null
 
+    // location
+    var latitude = 300.0
+    var longitude = 300.0
+
     constructor(parcel: Parcel) : this() {
         time = parcel.readString()
         price = parcel.readString()
@@ -53,6 +58,8 @@ class Bid() : BaseModel(), Parcelable {
         jobId = parcel.readString()
         userId = parcel.readString()
         user = parcel.readParcelable(User::class.java.classLoader)
+        latitude = parcel.readDouble()
+        longitude = parcel.readDouble()
 
         readFromParcelBase(parcel)
     }
@@ -64,6 +71,14 @@ class Bid() : BaseModel(), Parcelable {
         database.child(Bid.TABLE_NAME).child(withId).setValue(this)
     }
 
+    fun bidGeoLocation() : GeoLocation? {
+        if (GeoLocation.coordinatesValid(latitude, longitude)) {
+            return GeoLocation(latitude, longitude)
+        }
+
+        return null
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(time)
         parcel.writeString(price)
@@ -72,6 +87,8 @@ class Bid() : BaseModel(), Parcelable {
         parcel.writeString(jobId)
         parcel.writeString(userId)
         parcel.writeParcelable(user, flags)
+        parcel.writeDouble(latitude)
+        parcel.writeDouble(longitude)
 
         writeToParcelBase(parcel, flags)
     }

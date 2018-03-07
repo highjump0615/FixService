@@ -13,6 +13,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
+import com.firebase.geofire.GeoLocation
 import com.google.firebase.iid.FirebaseInstanceId
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
@@ -32,6 +33,8 @@ class Utils {
         var progressDlg: ProgressDialog? = null
 
         var ServerOffset = 0.0
+
+        internal var EARTH_MEAN_RADIUS_MILE = 3958.8
 
         fun isValidEmail(target: String): Boolean {
             return if (TextUtils.isEmpty(target)) {
@@ -118,6 +121,11 @@ class Utils {
             return Date(estimatedServerTimeMs.toLong())
         }
 
+        fun getServerLongTime(): Long {
+            val estimatedServerTimeMs = System.currentTimeMillis() + Utils.ServerOffset
+            return estimatedServerTimeMs.toLong()
+        }
+
         fun getFormattedDateTime(date: Date): String {
             val period = Utils.getServerTime().time - date.time
             val value = TimeUnit.MINUTES.convert(period, TimeUnit.MILLISECONDS)
@@ -175,6 +183,32 @@ class Utils {
             }
 
             return false
+        }
+
+        /**
+         * calculate distance between 2 points
+         */
+        fun distanceInMilesTo(point1: GeoLocation?, point2: GeoLocation?): Double {
+
+            if (point1 == null || point2 == null) {
+                return -1.0
+            }
+
+            val d2r = 0.017453292519943295
+            val lat1rad = point1.latitude * d2r
+            val long1rad = point1.longitude * d2r
+            val lat2rad = point2.latitude * d2r
+            val long2rad = point2.longitude * d2r
+            val deltaLat = lat1rad - lat2rad
+            val deltaLong = long1rad - long2rad
+            val sinDeltaLatDiv2 = Math.sin(deltaLat / 2.0)
+            val sinDeltaLongDiv2 = Math.sin(deltaLong / 2.0)
+            var a = sinDeltaLatDiv2 * sinDeltaLatDiv2 + Math.cos(lat1rad) * Math.cos(lat2rad) * sinDeltaLongDiv2 * sinDeltaLongDiv2
+            a = Math.min(1.0, a)
+
+            val distance = 2.0 * Math.asin(Math.sqrt(a))
+
+            return distance * EARTH_MEAN_RADIUS_MILE
         }
     }
 }

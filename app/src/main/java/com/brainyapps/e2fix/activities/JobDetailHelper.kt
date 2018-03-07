@@ -8,6 +8,7 @@ import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.utils.Utils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import java.util.*
 
 /**
  * Created by Administrator on 3/2/18.
@@ -36,7 +37,7 @@ class JobDetailHelper(val contentView: View) {
 
         // time
         textview = contentView.findViewById<TextView>(R.id.text_time)
-        textview.text = Utils.getFormattedDateTime(job.dateCreated!!)
+        textview.text = Utils.getFormattedDateTime(Date(job.createdAt))
 
         // description
         textview = contentView.findViewById<TextView>(R.id.text_job_desc)

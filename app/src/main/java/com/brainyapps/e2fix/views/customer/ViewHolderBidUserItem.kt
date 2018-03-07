@@ -1,20 +1,15 @@
 package com.brainyapps.e2fix.views.customer
 
 import android.content.Context
-import android.support.v7.widget.CardView
-import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.UserDetailHelper
-import com.brainyapps.e2fix.activities.serviceman.BidActivity
+import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.models.Bid
+import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.admin.ViewHolderBase
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.firebase.geofire.GeoLocation
 import kotlinx.android.synthetic.main.layout_customer_bid_list_item.view.*
 
 /**
@@ -37,6 +32,17 @@ class ViewHolderBidUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemV
     fun fillContent(data: Bid, bidAvailable: Boolean) {
         this.helper!!.fillUserInfo(data.user!!)
 
+        // distance
+        val activity = itemView.context as BidDetailActivity
+        var dDistance = -1.0;
+        activity.locationHelper!!.location?.let {
+            dDistance = Utils.distanceInMilesTo(GeoLocation(it.latitude, it.longitude), data.bidGeoLocation())
+        }
+
+        if (dDistance >= 0) {
+            itemView.text_location.text = String.format("%.1f miles away from you", dDistance)
+        }
+
         // bid info
         itemView.text_bid_time.text = data.time
         itemView.text_bid_price.text = "$${data.price}"
@@ -49,6 +55,15 @@ class ViewHolderBidUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemV
         else {
             itemView.but_choose_bidder.text = "CHOOSE AS THE BID WINNER"
         }
+
+        // button enable status
         itemView.but_choose_bidder.isEnabled = bidAvailable
+        if (bidAvailable) {
+            itemView.but_choose_bidder.alpha = 1.0f
+        }
+        else {
+            itemView.but_choose_bidder.alpha = 0.6f
+        }
+
     }
 }

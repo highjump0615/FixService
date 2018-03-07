@@ -67,8 +67,9 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
         var nDateIndex = 0
 
         for (bidItem in aryBid) {
-            if (!Utils.equalDate(dateTemp, bidItem.dateCreated!!)) {
-                dateTemp = bidItem.dateCreated!!
+            val dtCreatedAt = Date(bidItem.createdAt)
+            if (!Utils.equalDate(dateTemp, dtCreatedAt)) {
+                dateTemp = dtCreatedAt
 
                 // update view
                 if (nIndex == position) {
@@ -120,8 +121,9 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
         var nIndex = 0
 
         for (jobItem in aryBid) {
-            if (!Utils.equalDate(dateTemp, jobItem.dateCreated!!)) {
-                dateTemp = jobItem.dateCreated!!
+            val dtCreatedAt = Date(jobItem.createdAt)
+            if (!Utils.equalDate(dateTemp, dtCreatedAt)) {
+                dateTemp = dtCreatedAt
 
                 if (nIndex == position) {
                     viewType = ITEM_VIEW_TYPE_HEADER
@@ -158,8 +160,9 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
         var dateTemp: Date = formatNew.parse("2018-01-01")
 
         for (jobItem in aryBid) {
-            if (!Utils.equalDate(dateTemp, jobItem.dateCreated!!)) {
-                dateTemp = jobItem.dateCreated!!
+            val dtCreatedAt = Date(jobItem.createdAt)
+            if (!Utils.equalDate(dateTemp, dtCreatedAt)) {
+                dateTemp = dtCreatedAt
                 nDateCount++
             }
         }

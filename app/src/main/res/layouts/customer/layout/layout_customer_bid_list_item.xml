@@ -25,7 +25,8 @@
                 android:id="@+id/imgview_photo"
                 android:layout_width="@dimen/rate_item_photo_size"
                 android:layout_height="@dimen/rate_item_photo_size"
-                android:src="@drawable/user_default"/>
+                android:src="@drawable/user_default"
+                android:background="@color/colorBackground"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

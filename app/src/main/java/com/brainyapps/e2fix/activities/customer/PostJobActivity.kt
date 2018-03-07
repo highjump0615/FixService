@@ -1,14 +1,8 @@
 package com.brainyapps.e2fix.activities.customer
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -17,7 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseDrawerActivity
-import com.brainyapps.e2fix.activities.LocationHelper
+import com.brainyapps.e2fix.activities.GeoLocationHelper
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
@@ -33,16 +27,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.UploadTask
-import com.yanzhenjie.permission.AndPermission
-import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.layout_content_post.*
 
 class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
 
     private val TAG = PostJobActivity::class.java.getSimpleName()
 
-    var photoHelper: PhotoActivityHelper? = null
-    var locationHelper: LocationHelper? = null
+    private var photoHelper: PhotoActivityHelper? = null
+    private var locationHelper: GeoLocationHelper? = null
     private var strPhotoUrl = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +57,7 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
         this.but_post.setOnClickListener(this)
 
         // init location
-        this.locationHelper = LocationHelper(this)
+        this.locationHelper = GeoLocationHelper(this, "Posting job needs location for showing distance")
     }
 
     override fun onClick(view: View?) {
@@ -145,6 +137,7 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
 
     override fun updatePhotoImageView(byteData: ByteArray) {
         Glide.with(this).load(byteData).into(this.imgview_photo)
+        this.but_photo.visibility = View.INVISIBLE
     }
 
     private fun savePost(withId: String) {
@@ -161,6 +154,10 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
         // geofire
         val geoFire = GeoFire(FirebaseManager.mGeoRef)
         if (this.locationHelper!!.location != null) {
+
+            // progress view
+            Utils.createProgressDialog(this, "Submitting Job", "Your job will is being posted right now")
+
             this.but_post.isEnabled = false
 
             geoFire.setLocation(withId, GeoLocation(this.locationHelper!!.location!!.latitude, this.locationHelper!!.location!!.longitude)) { key, error ->
@@ -168,24 +165,22 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
                     Log.w(TAG, "setLocation:failure", error.toException())
 
                     this.but_post.isEnabled = true
-                    return@setLocation
+                }
+                else {
+                    newJob.saveToDatabase(withId)
+                    User.currentUser!!.posts.add(0, newJob)
+
+                    // go to posted job page
+                    Utils.moveNextActivity(this, JobPostedActivity::class.java, true)
                 }
 
-                newJob.saveToDatabase(withId)
-                User.currentUser!!.posts.add(0, newJob)
-
-                // go to posted job page
-                Utils.moveNextActivity(this, JobPostedActivity::class.java, true)
+                // close progress view
+                Utils.closeProgressDialog()
             }
         }
         else {
             Toast.makeText(this, "Cannot get current location", Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun initLocation() {
-
-    }
-
 
 }
