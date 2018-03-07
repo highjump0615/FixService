@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener
 object FirebaseManager {
 
     var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    var mGeoRef = FirebaseDatabase.getInstance().getReference("geolocation")
 
     private val serverTimeListener = object : ValueEventListener {
         override fun onCancelled(error: DatabaseError?) {
