@@ -8,6 +8,7 @@ import android.view.View
 import android.support.v7.widget.Toolbar
 import android.widget.ImageView
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseDrawerActivity
 import kotlinx.android.synthetic.main.app_bar_serviceman.view.*
 
 /**
@@ -25,11 +26,11 @@ class ViewToolbar : Toolbar {
         val a = context.obtainStyledAttributes(attrs, R.styleable.ViewToolbar)
         val imgRight = a.getDrawable(R.styleable.ViewToolbar_rightImage)
 
-        this.imgview_right.setImageDrawable(imgRight)
-        this.imgview_right.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(view: View?) {
-            }
-        })
+        this.imgview_right?.setImageDrawable(imgRight)
+
+        if (context is BaseDrawerActivity) {
+            this.imgview_right?.setOnClickListener(context)
+        }
 
         a.recycle()
     }

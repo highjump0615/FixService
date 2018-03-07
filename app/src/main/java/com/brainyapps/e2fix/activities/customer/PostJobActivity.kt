@@ -1,6 +1,7 @@
 package com.brainyapps.e2fix.activities.customer
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -36,6 +37,8 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
     private var photoHelper: PhotoActivityHelper? = null
     private var locationHelper: GeoLocationHelper? = null
     private var strPhotoUrl = ""
+
+    var progressDlg: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +103,8 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
 
                 // save photo image
                 if (photoHelper!!.byteData != null) {
+                    showSaveProgress()
+
                     val metadata = StorageMetadata.Builder()
                             .setContentType("image/jpeg")
                             .build()
@@ -140,6 +145,17 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
         this.but_photo.visibility = View.INVISIBLE
     }
 
+    private fun showSaveProgress() {
+        if (progressDlg == null) {
+            progressDlg = Utils.createProgressDialog(this, "Submitting Job", "Your job will is being posted right now")
+        }
+    }
+
+    private fun closeSaveProgress() {
+        Utils.closeProgressDialog()
+        progressDlg = null
+    }
+
     private fun savePost(withId: String) {
         val newJob = Job()
 
@@ -152,11 +168,10 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
         newJob.userId = User.currentUser!!.id
 
         // geofire
-        val geoFire = GeoFire(FirebaseManager.mGeoRef)
+        val geoFire = GeoFire(FirebaseDatabase.getInstance().getReference(Job.TABLE_NAME))
         if (this.locationHelper!!.location != null) {
 
-            // progress view
-            Utils.createProgressDialog(this, "Submitting Job", "Your job will is being posted right now")
+            showSaveProgress()
 
             this.but_post.isEnabled = false
 
@@ -175,7 +190,7 @@ class PostJobActivity : BaseDrawerActivity(), E2FUpdateImageListener {
                 }
 
                 // close progress view
-                Utils.closeProgressDialog()
+                closeSaveProgress()
             }
         }
         else {

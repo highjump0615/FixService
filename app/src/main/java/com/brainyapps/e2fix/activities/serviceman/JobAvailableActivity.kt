@@ -1,5 +1,6 @@
 package com.brainyapps.e2fix.activities.serviceman
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
@@ -12,23 +13,37 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseDrawerActivity
+import com.brainyapps.e2fix.activities.GeoLocationHelper
 import com.brainyapps.e2fix.adapters.serviceman.JobItemAdapter
 import com.brainyapps.e2fix.models.BaseModel
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
+import com.brainyapps.e2fix.utils.FirebaseManager
+import com.brainyapps.e2fix.utils.PrefUtils
+import com.brainyapps.e2fix.utils.Utils
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
+import com.firebase.geofire.GeoQueryDataEventListener
+import com.firebase.geofire.GeoQueryEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.app_bar_serviceman.view.*
 import kotlinx.android.synthetic.main.layout_content_job.*
 
 class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    var aryJob = ArrayList<Job>()
+    private val TAG = JobAvailableActivity::class.java.getSimpleName()
+
+    private var aryJob = ArrayList<Job>()
     var adapter: JobItemAdapter? = null
 
-    var dataFetched: DataSnapshot? = null
+    private var locationHelper: GeoLocationHelper? = null
+
+    // job filter radius
+    var mRadius = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +58,11 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
         this.spinner.adapter = adapterSpinner
         this.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parentView: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
-                filterJobs(true)
+                getJobs(true, true)
             }
-
         }
 
         // init list
@@ -64,76 +77,52 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
 
         this.swiperefresh.setOnRefreshListener(this)
 
-        // load data
-        Handler().postDelayed({ getJobs(true, true) }, 500)
+        // init location
+        this.locationHelper = GeoLocationHelper(this, "Browsing jobs needs location for distance filter")
     }
 
     override fun onRefresh() {
-        getJobs(true, false)
+        getJobs(false, false)
     }
 
     override fun onResume() {
         super.onResume()
 
-        // update bid list
-        fetchJobBidInfo()
+        // load radius from shared preference
+        val nRadius = PrefUtils.instance!!.getInt(PrefUtils.PREF_FILTER_RADIUS, -1)
+        if (mRadius != nRadius) {
+            mRadius = nRadius
+
+            // load data
+            Handler().postDelayed({ getJobs(true, true) }, 500)
+        }
+        else {
+            // update bid list
+            fetchJobBidInfo()
+        }
     }
 
-    /**
-     * get User data
-     */
-    fun getJobs(bRefresh: Boolean, bAnimation: Boolean) {
+    private fun clearJobList(bAnimation: Boolean) {
         if (bAnimation) {
-            if (!this.swiperefresh.isRefreshing) {
-                this.swiperefresh.isRefreshing = true
-            }
-        }
-
-        val database = FirebaseDatabase.getInstance().reference
-        val query = database.child(Job.TABLE_NAME).orderByChild(BaseModel.FIELD_DATE)
-
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                stopRefresh()
-
-                this@JobAvailableActivity.dataFetched = dataSnapshot
-
-                filterJobs(bAnimation)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                stopRefresh()
-            }
-        })
-    }
-
-    /**
-     * filter jobs according to cateogry
-     */
-    private fun filterJobs(bAnimation: Boolean) {
-
-        // not fetched data yet, return
-        if (this.dataFetched == null) {
-            return
-        }
-
-        if (bAnimation) {
-            this.adapter!!.notifyItemRangeRemoved(0, aryJob.count())
+            this@JobAvailableActivity.adapter!!.notifyItemRangeRemoved(0, aryJob.count())
         }
         aryJob.clear()
+    }
 
-
-        for (jobItem in this.dataFetched!!.children) {
-            val job = jobItem.getValue(Job::class.java)
-            job!!.id = jobItem.key
+    private fun addJobItem(data: DataSnapshot?) {
+        data?.let {
+            val job = it.getValue(Job::class.java)
+            job!!.id = it.key
 
             if (job.category != this.spinner.selectedItemPosition) {
-                continue
+                return
             }
 
             aryJob.add(0, job)
         }
+    }
 
+    private fun updateList(bAnimation: Boolean) {
         // show empty notice if list is empty
         if (aryJob.isEmpty()) {
             this.text_empty_notice.visibility = View.VISIBLE
@@ -149,11 +138,98 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
             this@JobAvailableActivity.adapter!!.notifyDataSetChanged()
         }
 
-        // set user info
-//        fetchJobUserInfo()
-
         // set bid info
         fetchJobBidInfo()
+    }
+
+    /**
+     * get User data
+     */
+    private fun getJobs(bRefresh: Boolean, bAnimation: Boolean) {
+
+        // exit if in processing,
+        if (this.swiperefresh.isRefreshing) {
+            return
+        }
+
+        if (bRefresh) {
+            if (!this.swiperefresh.isRefreshing) {
+                this.swiperefresh.isRefreshing = true
+            }
+        }
+
+        //
+        // query jobs based on distance
+        //
+        if (this.locationHelper!!.location != null && mRadius > 0) {
+            // geofire
+            val geoFire = GeoFire(FirebaseDatabase.getInstance().getReference(Job.TABLE_NAME))
+            val geoQuery = geoFire.queryAtLocation(GeoLocation(this.locationHelper!!.location!!.latitude, this.locationHelper!!.location!!.longitude), mRadius * 1.60934)
+
+            clearJobList(bAnimation)
+
+            geoQuery.addGeoQueryDataEventListener(object: GeoQueryDataEventListener {
+                override fun onGeoQueryReady() {
+                    Log.d(TAG, "addGeoQueryEventListener:onGeoQueryReady")
+
+                    stopRefresh()
+                    updateList(bAnimation)
+                }
+
+                override fun onDataExited(dataSnapshot: DataSnapshot?) {
+                    Log.d(TAG, "addGeoQueryEventListener:onDataExited $dataSnapshot")
+                }
+
+                override fun onDataChanged(dataSnapshot: DataSnapshot?, location: GeoLocation?) {
+                    Log.d(TAG, "addGeoQueryEventListener:onDataChanged$dataSnapshot")
+                }
+
+                override fun onDataEntered(dataSnapshot: DataSnapshot?, location: GeoLocation?) {
+                    Log.d(TAG, "addGeoQueryEventListener:onDataEntered$dataSnapshot")
+
+                    addJobItem(dataSnapshot)
+                }
+
+                override fun onDataMoved(dataSnapshot: DataSnapshot?, location: GeoLocation?) {
+                    Log.d(TAG, "addGeoQueryEventListener:onDataMoved$dataSnapshot")
+                }
+
+                override fun onGeoQueryError(error: DatabaseError?) {
+                    Log.w(TAG, "addGeoQueryEventListener:failure", error?.toException())
+                }
+            })
+        }
+        //
+        // normal job query
+        //
+        else {
+            val database = FirebaseDatabase.getInstance().reference
+            val query = database.child(Job.TABLE_NAME).orderByChild(BaseModel.FIELD_DATE)
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    stopRefresh()
+
+                    clearJobList(bAnimation)
+
+                    for (jobItem in dataSnapshot.children) {
+                        addJobItem(jobItem)
+                    }
+
+                    updateList(bAnimation)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    stopRefresh()
+                }
+            })
+        }
+    }
+
+    /**
+     * filter jobs according to cateogry
+     */
+    private fun filterJobs(bAnimation: Boolean) {
     }
 
     /**
@@ -190,5 +266,16 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
 
     fun stopRefresh() {
         this.swiperefresh.isRefreshing = false
+    }
+
+    override fun onClick(view: View?) {
+        super.onClick(view)
+
+        when (view?.id) {
+            // posted jobs
+            R.id.imgview_right -> {
+                Utils.moveNextActivity(this, ServicemanFilterActivity::class.java)
+            }
+        }
     }
 }

@@ -1,13 +1,15 @@
 package com.brainyapps.e2fix.activities.serviceman
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.utils.PrefUtils
 import kotlinx.android.synthetic.main.activity_serviceman_filter.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 
 class ServicemanFilterActivity : BaseActivity(), DiscreteSeekBar.OnProgressChangeListener {
+
+    var mRadius: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,11 +17,18 @@ class ServicemanFilterActivity : BaseActivity(), DiscreteSeekBar.OnProgressChang
 
         setNavbar(null, true)
 
+        // load radius from shared preference
+        mRadius = PrefUtils.instance!!.getInt(PrefUtils.PREF_FILTER_RADIUS, 0)
+
+        this.seekbar.progress = mRadius
         this.seekbar.setOnProgressChangeListener(this)
+
+        updateText()
     }
 
     override fun onProgressChanged(seekBar: DiscreteSeekBar?, value: Int, fromUser: Boolean) {
-        this.text_filter_distance.text = "$value miles"
+        mRadius = value
+        updateText()
     }
 
     override fun onStartTrackingTouch(seekBar: DiscreteSeekBar?) {
@@ -28,4 +37,14 @@ class ServicemanFilterActivity : BaseActivity(), DiscreteSeekBar.OnProgressChang
     override fun onStopTrackingTouch(seekBar: DiscreteSeekBar?) {
     }
 
+    fun updateText() {
+        this.text_filter_distance.text = "$mRadius miles"
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        // save radius to shared preference
+        PrefUtils.instance!!.putInt(PrefUtils.PREF_FILTER_RADIUS, mRadius)
+    }
 }

@@ -53,7 +53,7 @@ import com.google.firebase.auth.GoogleAuthProvider
  */
 class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
-    private val TAG = LoginActivity::class.java!!.getSimpleName()
+    private val TAG = LoginActivity::class.java.getSimpleName()
 
     private var googleApiClient: GoogleApiClient? = null
     private var RC_SIGN_IN = 2000

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import com.brainyapps.e2fix.utils.Utils
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.ServerValue
 import java.util.*
@@ -44,5 +45,9 @@ open class BaseModel() : Comparable<BaseModel> {
     fun writeToParcelBase(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeLong(createdAt)
+    }
+
+    fun saveToDatabaseBase(node: DatabaseReference) {
+        node.child(FIELD_DATE).setValue(this.createdAt)
     }
 }

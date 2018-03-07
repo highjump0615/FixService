@@ -16,7 +16,13 @@ class Job() : BaseModel(), Parcelable {
         // table info
         //
         const val TABLE_NAME = "jobs"
+        const val FIELD_TITLE = "title"
+        const val FIELD_DESC = "description"
         const val FIELD_USERID = "userId"
+        const val FIELD_PHOTO_URL = "photoUrl"
+        const val FIELD_CATEGORY = "category"
+        const val FIELD_LOCATION = "location"
+        const val FIELD_BIDID_TAKEN = "bidTakenId"
 
         fun readFromDatabase(withId: String, fetchListener: FetchDatabaseListener) {
 
@@ -90,7 +96,17 @@ class Job() : BaseModel(), Parcelable {
         this.id = withId
 
         val database = FirebaseDatabase.getInstance().reference
-        database.child(Job.TABLE_NAME).child(withId).setValue(this)
+        val node = database.child(Job.TABLE_NAME).child(withId)
+
+        node.child(FIELD_TITLE).setValue(this.title)
+        node.child(FIELD_DESC).setValue(this.description)
+        node.child(FIELD_USERID).setValue(this.userId)
+        node.child(FIELD_PHOTO_URL).setValue(this.photoUrl)
+        node.child(FIELD_CATEGORY).setValue(this.category)
+        node.child(FIELD_LOCATION).setValue(this.location)
+        node.child(FIELD_BIDID_TAKEN).setValue(this.bidTakenId)
+
+        saveToDatabaseBase(node)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
