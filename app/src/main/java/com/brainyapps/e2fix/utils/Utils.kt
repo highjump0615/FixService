@@ -13,6 +13,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.brainyapps.e2fix.R
 import com.firebase.geofire.GeoLocation
@@ -232,6 +233,14 @@ class Utils {
             val distance = 2.0 * Math.asin(Math.sqrt(a))
 
             return distance * EARTH_MEAN_RADIUS_MILE
+        }
+
+        fun hideKeyboard(context: Context) {
+            val view = (context as Activity).getCurrentFocus()
+            view?.let {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(it.getWindowToken(), 0)
+            }
         }
     }
 }

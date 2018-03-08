@@ -54,6 +54,9 @@ class BidDetailActivity : BaseActivity(), View.OnClickListener {
             this.layout_client_contact.visibility = View.GONE
 
             User.readFromDatabase(this.bid!!.job!!.userId, object: User.FetchDatabaseListener {
+                override fun onFetchedReviews() {
+                }
+
                 override fun onFetchedUser(user: User?, success: Boolean) {
 
                     // update view

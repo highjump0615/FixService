@@ -66,6 +66,9 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             User.readFromDatabase(bidItem.userId, object: User.FetchDatabaseListener {
+                override fun onFetchedReviews() {
+                }
+
                 override fun onFetchedUser(user: User?, success: Boolean) {
                     bidItem.user = user
 

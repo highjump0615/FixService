@@ -52,6 +52,8 @@ class BidderProfileActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListen
         this.swiperefresh.setOnRefreshListener(this)
 
         this.reportHelper = ReportHelper(this)
+
+        getReviews(false, false)
     }
 
     override fun onRefresh() {
@@ -66,7 +68,21 @@ class BidderProfileActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListen
             }
         }
 
-        stopRefresh()
+        this.user?.fetchReviews(object: User.FetchDatabaseListener {
+            override fun onFetchedUser(user: User?, success: Boolean) {
+            }
+
+            override fun onFetchedReviews() {
+                if (bRefresh) {
+                    this@BidderProfileActivity.adapter?.notifyDataSetChanged()
+                }
+                else {
+                    this@BidderProfileActivity.adapter?.notifyItemRangeInserted(1, this@BidderProfileActivity.user!!.reviews.count())
+                }
+
+                stopRefresh()
+            }
+        })
     }
 
     fun stopRefresh() {

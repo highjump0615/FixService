@@ -65,19 +65,7 @@ class Bid() : BaseModel(), Parcelable {
         readFromParcelBase(parcel)
     }
 
-    fun saveToDatabase(withId: String? = null) {
-        if (!TextUtils.isEmpty(withId)) {
-            this.id = withId!!
-        }
-        else if (TextUtils.isEmpty(this.id)) {
-            // generate new id
-            val database = FirebaseDatabase.getInstance().reference
-            this.id = database.child(Bid.TABLE_NAME).push().key
-        }
-
-        val database = FirebaseDatabase.getInstance().reference
-        database.child(Bid.TABLE_NAME).child(this.id).setValue(this)
-    }
+    override fun tableName() = TABLE_NAME
 
     fun bidGeoLocation() : GeoLocation? {
         if (GeoLocation.coordinatesValid(latitude, longitude)) {

@@ -268,6 +268,9 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
         val userId = FirebaseManager.mAuth.currentUser!!.uid
 
         User.readFromDatabase(userId, object: User.FetchDatabaseListener {
+            override fun onFetchedReviews() {
+            }
+
             override fun onFetchedUser(user: User?, success: Boolean) {
                 User.currentUser = user
 

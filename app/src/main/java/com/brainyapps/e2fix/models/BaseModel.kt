@@ -3,9 +3,11 @@ package com.brainyapps.e2fix.models
 import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.TextUtils
 import com.brainyapps.e2fix.utils.Utils
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import java.util.*
 
@@ -15,7 +17,10 @@ import java.util.*
 open class BaseModel() : Comparable<BaseModel> {
 
     companion object {
-        val FIELD_DATE = "createdAt"
+        //
+        // table info
+        //
+        const val FIELD_DATE = "createdAt"
     }
 
     @get:Exclude
@@ -26,6 +31,8 @@ open class BaseModel() : Comparable<BaseModel> {
     init {
         this.createdAt = Utils.getServerLongTime()
     }
+
+    open fun tableName() = "base"
 
     override operator fun compareTo(other: BaseModel): Int {
         return if (this.createdAt > other.createdAt) {
@@ -49,5 +56,18 @@ open class BaseModel() : Comparable<BaseModel> {
 
     fun saveToDatabaseBase(node: DatabaseReference) {
         node.child(FIELD_DATE).setValue(this.createdAt)
+    }
+
+    fun saveToDatabase(withId: String? = null) {
+        val database = FirebaseDatabase.getInstance().reference.child(tableName())
+
+        if (!TextUtils.isEmpty(withId)) {
+            this.id = withId!!
+        }
+        else if (TextUtils.isEmpty(this.id)) {
+            // generate new id
+            this.id = database.push().key
+        }
+        database.child(this.id).setValue(this)
     }
 }

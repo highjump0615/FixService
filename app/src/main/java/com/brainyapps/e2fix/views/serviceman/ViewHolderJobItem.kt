@@ -51,6 +51,9 @@ class ViewHolderJobItem(itemView: View, ctx: Context) : ViewHolderBase(itemView,
             }
             else {
                 User.readFromDatabase(bid.userId, object : User.FetchDatabaseListener {
+                    override fun onFetchedReviews() {
+                    }
+
                     override fun onFetchedUser(user: User?, success: Boolean) {
                         bid.user = user
 

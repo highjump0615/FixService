@@ -238,6 +238,9 @@ class JobAvailableActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRefreshL
     private fun fetchJobUserInfo() {
         for (jobItem in aryJob) {
             User.readFromDatabase(jobItem.userId, object: User.FetchDatabaseListener {
+                override fun onFetchedReviews() {
+                }
+
                 override fun onFetchedUser(user: User?, success: Boolean) {
                     jobItem.userPosted = user
 

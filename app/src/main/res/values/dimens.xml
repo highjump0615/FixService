@@ -79,6 +79,7 @@
 
     <!-- serviceman profile activity -->
     <dimen name="serviceman_profile_user_height">260dp</dimen>
+    <dimen name="serviceman_imgview_send_size">30dp</dimen>
 
     <!-- rate star -->
     <dimen name="rate_star_width">80dp</dimen>

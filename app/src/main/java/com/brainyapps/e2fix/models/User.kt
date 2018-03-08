@@ -2,10 +2,12 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.TextUtils
 import android.util.Log
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.*
+import java.util.*
 
 
 /**
@@ -96,6 +98,8 @@ class User() : BaseModel(), Parcelable {
     @get:Exclude
     var reviews = ArrayList<Review>()
 
+    override fun tableName() = TABLE_NAME
+
     constructor(parcel: Parcel) : this() {
         type = parcel.readInt()
         banned = parcel.readByte().toInt() != 0
@@ -116,13 +120,6 @@ class User() : BaseModel(), Parcelable {
 
     constructor(id: String) : this() {
         this.id = id
-    }
-
-    fun saveToDatabase(withId: String) {
-        this.id = withId
-
-        val database = FirebaseDatabase.getInstance().reference
-        database.child(User.TABLE_NAME).child(withId).setValue(this)
     }
 
     /**
@@ -167,9 +164,68 @@ class User() : BaseModel(), Parcelable {
     }
 
     /**
+     * fetch reviews of the user
+     */
+    fun fetchReviews(fetchListener: FetchDatabaseListener) {
+        mFetchReviewListener = fetchListener
+
+        val database = FirebaseDatabase.getInstance().reference.child(Review.TABLE_NAME)
+        val query = database.orderByChild(Review.FIELD_USERID_RATED).equalTo(this.id)
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                this@User.reviews.clear()
+
+                for (reviewItem in dataSnapshot.children) {
+                    val review = reviewItem.getValue(Review::class.java)
+                    review!!.id = reviewItem.key
+
+                    this@User.reviews.add(review)
+
+                    // fetch user
+                    User.readFromDatabase(review.userId, mFetchListener)
+                }
+
+                // sort
+                Collections.sort(this@User.reviews, Collections.reverseOrder())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                mFetchReviewListener?.onFetchedReviews()
+            }
+        })
+    }
+
+    private var mFetchReviewListener: FetchDatabaseListener? = null
+    private val mFetchListener = object : FetchDatabaseListener {
+        override fun onFetchedUser(user: User?, success: Boolean) {
+            var bFetchedAll = true
+
+            for (reviewItem in this@User.reviews) {
+                if (TextUtils.equals(reviewItem.userId, user!!.id)) {
+                    reviewItem.user = user
+                }
+
+                if (reviewItem.user == null) {
+                    bFetchedAll = false
+                }
+            }
+
+            if (bFetchedAll) {
+                mFetchReviewListener?.onFetchedReviews()
+            }
+        }
+
+        override fun onFetchedReviews() {
+        }
+    }
+
+    /**
      * interface for reading from database
      */
     interface FetchDatabaseListener {
         fun onFetchedUser(user: User?, success: Boolean)
+        fun onFetchedReviews()
     }
+
 }

@@ -36,10 +36,18 @@ class ProfileServicemanActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRef
         recyclerView.setItemAnimator(DefaultItemAnimator())
 
         this.swiperefresh.setOnRefreshListener(this)
+
+        getReviews(false, false)
     }
 
     override fun onRefresh() {
         getReviews(true, false)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        User.currentUser!!.reviews.clear()
     }
 
     private fun getReviews(bRefresh: Boolean, bAnimation: Boolean) {
@@ -50,7 +58,23 @@ class ProfileServicemanActivity : BaseDrawerActivity(), SwipeRefreshLayout.OnRef
             }
         }
 
-        stopRefresh()
+        val user = User.currentUser
+        user?.fetchReviews(object: User.FetchDatabaseListener {
+            override fun onFetchedUser(user: User?, success: Boolean) {
+            }
+
+            override fun onFetchedReviews() {
+                if (bRefresh) {
+                    this@ProfileServicemanActivity.adapter?.notifyDataSetChanged()
+                }
+                else {
+                    this@ProfileServicemanActivity.adapter?.notifyItemChanged(0)
+                    this@ProfileServicemanActivity.adapter?.notifyItemRangeInserted(1, user.reviews.count())
+                }
+
+                stopRefresh()
+            }
+        })
     }
 
     fun stopRefresh() {

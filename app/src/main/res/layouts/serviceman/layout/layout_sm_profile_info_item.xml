@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
         <!-- user info -->
         <LinearLayout
@@ -38,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
-                    android:src="@drawable/user_default"/>
+                    android:src="@drawable/user_default"
+                    android:background="@color/colorBackground"/>
 
             </RelativeLayout>
 
@@ -155,6 +158,64 @@
         android:layout_margin="@dimen/profile_user_info_title_margin"
         android:layout_gravity="center"
         android:text="RATINGS AND REVIEWS"/>
+
+    <!-- write review -->
+    <LinearLayout
+        android:id="@+id/layout_rate_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical">
+            <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+                android:id="@+id/ratestar_edit"
+                android:layout_width="180dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                app:starSelectable="true"
+                app:starValue="0.0"/>
+            <TextView
+                android:id="@+id/text_rate_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="17sp"
+                android:text="0.0"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_margin="@dimen/job_margin"
+            android:layout_marginTop="12dp">
+            <EditText
+                android:id="@+id/edit_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/login_edit_hori_spacing"
+                android:paddingRight="45dp"
+                android:textSize="16sp"
+                android:hint="Enter your opinion about this speicalist"
+                android:imeActionLabel="Send" />
+            <ImageView
+                android:id="@+id/imgview_review_submit"
+                android:layout_width="@dimen/serviceman_imgview_send_size"
+                android:layout_height="@dimen/serviceman_imgview_send_size"
+                android:layout_marginRight="@dimen/login_edit_hori_spacing"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/edit_send_icon"
+                android:padding="5dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_empty_notice"
