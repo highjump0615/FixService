@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/admin_main_margin_title"
-                    android:text="Privacy Policy"
+                    android:text="@string/privacy_title"
                     android:textSize="@dimen/navbar_title_text_size"
                     android:layout_centerVertical="true"/>
 
@@ -185,7 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/admin_main_margin_title"
-                    android:text="Terms and Conditions"
+                    android:text="@string/terms_title"
                     android:textSize="@dimen/navbar_title_text_size"
                     android:layout_centerVertical="true"/>
 

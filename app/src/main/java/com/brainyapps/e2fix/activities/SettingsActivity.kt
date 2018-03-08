@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.serviceman.EditProfileActivity
+import com.brainyapps.e2fix.activities.serviceman.TermActivity
 import com.brainyapps.e2fix.activities.signin.LoginActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.FirebaseManager
@@ -32,6 +33,8 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
         }
 
         this.layout_edit_profile.setOnClickListener(this)
+        this.layout_privacy.setOnClickListener(this)
+        this.layout_term.setOnClickListener(this)
         this.layout_report.setOnClickListener(this)
         this.layout_logout.setOnClickListener(this)
     }
@@ -44,6 +47,7 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
             R.id.layout_edit_profile -> {
                 Utils.moveNextActivity(this, EditProfileActivity::class.java)
             }
+
             // report a problem
             R.id.layout_report -> {
                 val emailintent = Intent(Intent.ACTION_SENDTO)
@@ -55,10 +59,25 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
                 emailintent.data = Uri.parse(uriText)
                 startActivity(emailintent)
             }
+
             // log out
             R.id.layout_logout -> {
                 signOutClear()
                 Utils.moveNextActivity(this, LoginActivity::class.java, true, true)
+            }
+
+            // privacy policy
+            R.id.layout_privacy -> {
+                val intent = Intent(this, TermActivity::class.java)
+                intent.putExtra(TermActivity.KEY_TERM_TYPE, TermActivity.TERM_POLICY)
+                startActivity(intent)
+            }
+
+            // terms
+            R.id.layout_term -> {
+                val intent = Intent(this, TermActivity::class.java)
+                intent.putExtra(TermActivity.KEY_TERM_TYPE, TermActivity.TERM_SERVICE)
+                startActivity(intent)
             }
         }
     }

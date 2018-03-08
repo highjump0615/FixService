@@ -149,6 +149,9 @@
         <activity
             android:name=".activities.serviceman.ServicemanFilterActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.serviceman.TermActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
