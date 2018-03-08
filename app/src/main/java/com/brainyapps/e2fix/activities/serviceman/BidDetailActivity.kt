@@ -6,19 +6,25 @@ import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.activities.JobDetailHelper
+import com.brainyapps.e2fix.activities.ReportHelper
 import com.brainyapps.e2fix.models.Bid
+import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
 import kotlinx.android.synthetic.main.activity_bid_detail.*
+import kotlinx.android.synthetic.main.app_bar_serviceman.*
+import kotlinx.android.synthetic.main.app_bar_serviceman.view.*
 
-class BidDetailActivity : BaseActivity() {
-
-    var helper: JobDetailHelper? = null
+class BidDetailActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         val KEY_BID = "bid"
     }
 
     var bid: Bid? = null
+    var job: Job? = null
+
+    private var jobHelper: JobDetailHelper? = null
+    private var reportHelper: ReportHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +32,14 @@ class BidDetailActivity : BaseActivity() {
 
         setNavbar(null, true)
 
+        // right toolbar menu
+        this.toolbar.imgview_right.setOnClickListener(this)
+
         val bundle = intent.extras
 
         // get bid from intent
         this.bid = bundle?.getParcelable<Bid>(KEY_BID)
+        this.job = bundle?.getParcelable<Job>(JobDetailHelper.KEY_JOB)
 
         this.text_bid_time.text = this.bid!!.time
         this.text_bid_price.text = "$${this.bid!!.price}"
@@ -74,7 +84,18 @@ class BidDetailActivity : BaseActivity() {
         }
 
         // update job info
-        helper = JobDetailHelper(findViewById<View>(android.R.id.content))
-        helper!!.fillJobInfo(this.bid!!.job!!)
+        jobHelper = JobDetailHelper(findViewById<View>(android.R.id.content))
+        jobHelper!!.fillJobInfo(this.job!!)
+
+        this.reportHelper = ReportHelper(this)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            // report
+            R.id.imgview_right -> {
+                reportHelper!!.addReport(this.job!!.userId)
+            }
+        }
     }
 }

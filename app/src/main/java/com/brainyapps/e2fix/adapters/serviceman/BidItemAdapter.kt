@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.activities.serviceman.BidDetailActivity
 import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
@@ -90,6 +91,7 @@ class BidItemAdapter(val ctx: Context, private val aryBid: ArrayList<Bid>, val t
                 else if (action == ACTION_GOTO_DETAIL) {
                     val intent = Intent(ctx, BidDetailActivity::class.java)
                     intent.putExtra(BidDetailActivity.KEY_BID, aryBid[position - nDateIndex])
+                    intent.putExtra(JobDetailHelper.KEY_JOB, aryBid[position - nDateIndex].job)
                     ctx.startActivity(intent)
                 }
             }

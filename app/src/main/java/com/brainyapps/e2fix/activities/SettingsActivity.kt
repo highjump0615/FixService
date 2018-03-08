@@ -1,5 +1,7 @@
 package com.brainyapps.e2fix.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.brainyapps.e2fix.R
@@ -30,6 +32,7 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
         }
 
         this.layout_edit_profile.setOnClickListener(this)
+        this.layout_report.setOnClickListener(this)
         this.layout_logout.setOnClickListener(this)
     }
 
@@ -40,6 +43,17 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
             // edit profile
             R.id.layout_edit_profile -> {
                 Utils.moveNextActivity(this, EditProfileActivity::class.java)
+            }
+            // report a problem
+            R.id.layout_report -> {
+                val emailintent = Intent(Intent.ACTION_SENDTO)
+                val uriText = "mailto:Info.Pwas@gmail.com" +
+                        "?subject=" + Uri.encode("E2Fix Report a Problem") +
+                        "&body=" + Uri.encode("E2Fix is not working properly for me.\n" +
+                        "Here is a brief description of what's going on:\n\n" + "Sent from my Android")
+
+                emailintent.data = Uri.parse(uriText)
+                startActivity(emailintent)
             }
             // log out
             R.id.layout_logout -> {

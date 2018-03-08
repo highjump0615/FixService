@@ -123,7 +123,7 @@ class BidItemAdapter(ctx: Context) : BaseItemAdapter(ctx) {
 
                 // save job
                 this.job!!.bidTakenId = bid.id
-                this.job!!.saveToDatabase(this.job!!.id)
+                this.job!!.saveToDatabase(this.job!!.id, Job.FIELD_BIDID_TAKEN, bid.id)
 
                 // refresh list
                 notifyDataSetChanged()

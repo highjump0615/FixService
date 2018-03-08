@@ -2,6 +2,7 @@ package com.brainyapps.e2fix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.TextUtils
 import com.firebase.geofire.GeoLocation
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.FirebaseDatabase
@@ -64,11 +65,18 @@ class Bid() : BaseModel(), Parcelable {
         readFromParcelBase(parcel)
     }
 
-    fun saveToDatabase(withId: String) {
-        this.id = withId
+    fun saveToDatabase(withId: String? = null) {
+        if (!TextUtils.isEmpty(withId)) {
+            this.id = withId!!
+        }
+        else if (TextUtils.isEmpty(this.id)) {
+            // generate new id
+            val database = FirebaseDatabase.getInstance().reference
+            this.id = database.child(Bid.TABLE_NAME).push().key
+        }
 
         val database = FirebaseDatabase.getInstance().reference
-        database.child(Bid.TABLE_NAME).child(withId).setValue(this)
+        database.child(Bid.TABLE_NAME).child(this.id).setValue(this)
     }
 
     fun bidGeoLocation() : GeoLocation? {

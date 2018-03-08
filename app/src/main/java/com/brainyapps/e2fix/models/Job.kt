@@ -92,19 +92,24 @@ class Job() : BaseModel(), Parcelable {
         readFromParcelBase(parcel)
     }
 
-    fun saveToDatabase(withId: String) {
+    fun saveToDatabase(withId: String, key: String? = null, value: Any? = null) {
         this.id = withId
 
         val database = FirebaseDatabase.getInstance().reference
         val node = database.child(Job.TABLE_NAME).child(withId)
 
-        node.child(FIELD_TITLE).setValue(this.title)
-        node.child(FIELD_DESC).setValue(this.description)
-        node.child(FIELD_USERID).setValue(this.userId)
-        node.child(FIELD_PHOTO_URL).setValue(this.photoUrl)
-        node.child(FIELD_CATEGORY).setValue(this.category)
-        node.child(FIELD_LOCATION).setValue(this.location)
-        node.child(FIELD_BIDID_TAKEN).setValue(this.bidTakenId)
+        if (key != null && value != null) {
+            node.child(key).setValue(value)
+        }
+        else {
+            node.child(FIELD_TITLE).setValue(this.title)
+            node.child(FIELD_DESC).setValue(this.description)
+            node.child(FIELD_USERID).setValue(this.userId)
+            node.child(FIELD_PHOTO_URL).setValue(this.photoUrl)
+            node.child(FIELD_CATEGORY).setValue(this.category)
+            node.child(FIELD_LOCATION).setValue(this.location)
+            node.child(FIELD_BIDID_TAKEN).setValue(this.bidTakenId)
+        }
 
         saveToDatabaseBase(node)
     }

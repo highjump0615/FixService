@@ -1,25 +1,33 @@
 package com.brainyapps.e2fix.activities.serviceman
 
+import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.EditText
+import android.widget.Toast
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.activities.JobDetailHelper
 import com.brainyapps.e2fix.activities.GeoLocationHelper
+import com.brainyapps.e2fix.activities.ReportHelper
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.models.Report
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.Utils
 import com.firebase.geofire.GeoLocation
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_bid_submit.*
+import kotlinx.android.synthetic.main.app_bar_serviceman.*
+import kotlinx.android.synthetic.main.app_bar_serviceman.view.*
 
 class BidSubmitActivity : BaseActivity(), View.OnClickListener {
 
     private var jobHelper: JobDetailHelper? = null
     private var locationHelper: GeoLocationHelper? = null
+    private var reportHelper: ReportHelper? = null
 
     var job: Job? = null
     var bid: Bid? = null
@@ -33,6 +41,9 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         this.but_submit.setOnClickListener(this)
 
         jobHelper = JobDetailHelper(findViewById<View>(android.R.id.content))
+
+        // right toolbar menu
+        this.toolbar.imgview_right.setOnClickListener(this)
 
         // get job from intent
         val bundle = intent.extras
@@ -55,6 +66,8 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
 
         // init location
         this.locationHelper = GeoLocationHelper(this, "Bid submit needs location for showing distance")
+
+        this.reportHelper = ReportHelper(this)
     }
 
     override fun onClick(view: View?) {
@@ -62,6 +75,11 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
             // submit button
             R.id.but_submit -> {
                 submitBid()
+            }
+
+            // report
+            R.id.imgview_right -> {
+                reportHelper!!.addReport(this.job!!.userId)
             }
         }
     }
@@ -107,11 +125,6 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         if (newBid == null) {
             newBid = Bid()
 
-            // generate id
-            val database = FirebaseDatabase.getInstance().reference
-            val strKey = database.child(Bid.TABLE_NAME).push().getKey();
-            newBid.id = strKey
-
             newBid.jobId = job!!.id
             newBid.userId = User.currentUser!!.id
 
@@ -127,7 +140,7 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
             newBid!!.longitude = it.longitude
         }
 
-        newBid.saveToDatabase(newBid.id)
+        newBid.saveToDatabase()
 
         finish()
     }
