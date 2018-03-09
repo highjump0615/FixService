@@ -12,6 +12,7 @@ import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
+import com.kobakei.ratethisapp.RateThisApp
 import kotlinx.android.synthetic.main.layout_content_serviceman_setting.*
 
 open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
@@ -36,6 +37,7 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
         this.layout_privacy.setOnClickListener(this)
         this.layout_term.setOnClickListener(this)
         this.layout_report.setOnClickListener(this)
+        this.layout_rate.setOnClickListener(this)
         this.layout_logout.setOnClickListener(this)
     }
 
@@ -78,6 +80,11 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
                 val intent = Intent(this, TermActivity::class.java)
                 intent.putExtra(TermActivity.KEY_TERM_TYPE, TermActivity.TERM_SERVICE)
                 startActivity(intent)
+            }
+
+            // rate app
+            R.id.layout_rate -> {
+                RateThisApp.showRateDialog(this)
             }
         }
     }

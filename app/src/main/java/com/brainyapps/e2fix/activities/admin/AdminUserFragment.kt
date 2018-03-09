@@ -87,6 +87,10 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 for (userItem in dataSnapshot.children) {
                     val user = userItem.getValue(User::class.java)
                     user!!.id = userItem.key
+                    if (user.type == User.USER_TYPE_ADMIN) {
+                        continue
+                    }
+
                     aryUser.add(user)
                 }
 

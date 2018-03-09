@@ -13,10 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_admin_user_detail.*
 
-class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
+class AdminUserDetailActivity : BaseActivity() {
 
     private val TAG = AdminUserDetailActivity::class.java.getSimpleName()
-    var helper: UserDetailHelper? = null
+    var userHelper: UserDetailHelper? = null
+    var banHelper: AdminBanUserHelper? = null
     var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,87 +33,11 @@ class AdminUserDetailActivity : BaseActivity(), View.OnClickListener {
         // user type
         this.text_user_type.text = "REGISTERD AS " + this.user!!.userTypeString().toUpperCase()
 
-        // button
-        this.but_ban.setOnClickListener(this)
-        this.but_unban.setOnClickListener(this)
-
         // user info
-        this.helper = UserDetailHelper(findViewById<View>(android.R.id.content))
-        this.helper!!.fillUserInfo(this.user!!)
+        this.userHelper = UserDetailHelper(findViewById<View>(android.R.id.content))
+        this.userHelper!!.fillUserInfo(this.user!!)
 
-        updateButton()
-    }
-
-    /**
-     * update buttons according to user status
-     */
-    fun updateButton() {
-        if (this.user!!.banned) {
-            this.but_ban.visibility = View.GONE
-            this.but_unban.visibility = View.VISIBLE
-        }
-        else {
-            this.but_ban.visibility = View.VISIBLE
-            this.but_unban.visibility = View.GONE
-        }
-    }
-
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            // ban
-            R.id.but_ban -> {
-                Utils.createProgressDialog(this, "Banning User", "Updating user profile...")
-
-                val database = FirebaseDatabase.getInstance().reference
-                database.child(User.TABLE_NAME)
-                        .child(this.user!!.id)
-                        .child(User.FIELD_BANNED)
-                        .setValue(true)
-                        .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
-                            if (!task.isSuccessful) {
-                                // fail
-                                Log.w(TAG, "updatePassword:failure", task.exception)
-                                Utils.createErrorAlertDialog(this, "Ban Failed", task.exception?.localizedMessage!!).show()
-                            }
-                            else {
-                                // success
-                                this.user!!.banned = true
-
-                                Toast.makeText(this, "Banned user successfully", Toast.LENGTH_SHORT).show()
-                                updateButton()
-                            }
-
-                            Utils.closeProgressDialog()
-                        })
-            }
-
-            // unban
-            R.id.but_unban -> {
-                Utils.createProgressDialog(this, "Unbanning User", "Updating user profile...")
-
-                val database = FirebaseDatabase.getInstance().reference
-                database.child(User.TABLE_NAME)
-                        .child(this.user!!.id)
-                        .child(User.FIELD_BANNED)
-                        .setValue(false)
-                        .addOnCompleteListener(this, OnCompleteListener<Void> { task ->
-                            if (!task.isSuccessful) {
-                                // fail
-                                Log.w(TAG, "updatePassword:failure", task.exception)
-                                Utils.createErrorAlertDialog(this, "Unban Failed", task.exception?.localizedMessage!!).show()
-                            }
-                            else {
-                                // success
-                                this.user!!.banned = false
-
-                                Toast.makeText(this, "Unbanned user successfully", Toast.LENGTH_SHORT).show()
-                                updateButton()
-                            }
-
-                            Utils.closeProgressDialog()
-                        })
-            }
-        }
+        this.banHelper = AdminBanUserHelper(this, this.user!!)
     }
 
 }

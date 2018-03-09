@@ -32,14 +32,10 @@ class ViewHolderUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView
 
         // check if posted job
         itemView.text_type.setText(data.userTypeString())
+    }
 
-        // reported mark
-//        if (data.status == User.USER_STATUS_REPORTED) {
-//            itemView.imgview_flag.visibility = View.VISIBLE
-//        }
-//        else {
-            itemView.imgview_flag.visibility = View.INVISIBLE
-//        }
+    fun showReportMark() {
+        itemView.imgview_flag.visibility = View.VISIBLE
     }
 
 }

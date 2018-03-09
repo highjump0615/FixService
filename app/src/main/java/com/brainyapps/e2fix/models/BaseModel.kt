@@ -70,4 +70,9 @@ open class BaseModel() : Comparable<BaseModel> {
         }
         database.child(this.id).setValue(this)
     }
+
+    fun deleteFromDatabase() {
+        val database = FirebaseDatabase.getInstance().reference.child(tableName())
+        database.child(this.id).removeValue()
+    }
 }

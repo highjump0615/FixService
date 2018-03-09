@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.admin.AdminReportDetail"
+    tools:context="com.brainyapps.e2fix.activities.admin.AdminReportDetailActivity"
     android:background="@color/colorBackground">
 
     <LinearLayout
@@ -36,6 +36,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
@@ -43,22 +44,37 @@
             android:background="@android:color/white" />
 
         <TextView
+            android:id="@+id/text_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="Reported by David Ho"
             android:textStyle="bold"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"
+            android:visibility="invisible"/>
 
         <!-- button -->
-        <Button
-            android:id="@+id/but_ban"
-            android:theme="@style/DangerButtonStyle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:text="BAN USER" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/but_unban"
+                android:theme="@style/PrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/unban_user"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/but_ban"
+                android:theme="@style/DangerButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/ban_user" />
+        </RelativeLayout>
+
         <Button
             android:id="@+id/but_delete"
             android:theme="@style/PrimaryButtonStyle"

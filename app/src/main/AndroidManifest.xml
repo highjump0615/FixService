@@ -101,7 +101,7 @@
             android:name=".activities.admin.AdminUserDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.admin.AdminReportDetail"
+            android:name=".activities.admin.AdminReportDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.signin.SignupInfoActivity"
