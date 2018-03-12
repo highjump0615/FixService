@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.signin.SignupStripeActivity">
+    tools:context="com.brainyapps.e2fix.activities.StripeCardInputActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,35 +27,28 @@
             android:paddingTop="@dimen/signup_vertical_margin"
             android:paddingBottom="@dimen/signup_vertical_margin"
             android:orientation="vertical">
-            
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/stripe_logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="Available Payment Information"
-                android:textSize="18sp"/>
+                android:layout_marginBottom="10dp"
+                android:text="Fill card information"
+                android:textSize="18sp" />
 
-            <!-- payment item -->
-            <include
-                layout="@layout/layout_payment_item"
+            <com.stripe.android.view.CardMultilineWidget
+                android:id="@+id/card_multiline_widget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/payment_item_margin"/>
+                app:shouldShowPostalCode="false" />
 
-            <!-- done -->
+            <!-- save -->
             <Button
-                android:id="@+id/but_done"
+                android:id="@+id/but_save"
                 android:theme="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Update &amp; Save" />
+                android:text="Save" />
 
         </LinearLayout>
 

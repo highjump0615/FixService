@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/toolbar_bg">
+
+            <com.brainyapps.e2fix.views.serviceman.ViewToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- top bar -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Payment Confirmation"
+                android:textSize="16sp"
+                android:background="@color/colorSemiTran"/>
+
+        </LinearLayout>
+
+        <!-- notice -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10% of the service price is required as deposit."
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@color/colorGreyLight"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:padding="@dimen/job_margin"
+            android:orientation="vertical">
+
+            <!-- payment item -->
+            <include
+                layout="@layout/layout_payment_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Selected serviceman"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/job_margin"
+                android:padding="@dimen/job_margin"
+                android:orientation="vertical"
+                android:background="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- user photo -->
+                    <ImageView
+                        android:id="@+id/imgview_photo"
+                        android:layout_width="@dimen/rate_item_photo_size"
+                        android:layout_height="@dimen/rate_item_photo_size"
+                        android:src="@drawable/user_default"
+                        android:background="@color/colorBackground"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/text_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/admin_user_list_name_size"
+                            android:text="Oliver Cramb"
+                            android:textStyle="bold"/>
+
+                        <!-- location -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/job_list_icons_height"
+                            android:layout_below="@id/text_name"
+                            android:gravity="center_vertical">
+                            <ImageView
+                                android:layout_width="@dimen/job_list_icon_width"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/job_list_icon_margin"
+                                android:padding="2dp"
+                                android:src="@drawable/user_detail_location" />
+                            <TextView
+                                android:id="@+id/text_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2.3 miles aray from you"
+                                android:textSize="@dimen/job_list_icon_text_size"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- time -->
+            <RelativeLayout
+                style="@style/BidDetailItem"
+                android:layout_marginTop="3dp"
+                android:background="@android:color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated time to complete the job"/>
+                <TextView
+                    android:id="@+id/text_bid_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 days"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <!-- price -->
+            <RelativeLayout
+                style="@style/BidDetailItem"
+                android:background="@color/colorWhiteBackground">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total service price"/>
+                <TextView
+                    android:id="@+id/text_bid_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$200"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <!-- done -->
+            <Button
+                android:id="@+id/but_proceed"
+                android:theme="@style/PrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Proceed" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

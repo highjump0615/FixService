@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- add new -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/payment_item_height"
+        android:text="+ Add Payment Method"
+        android:textColor="@color/colorTheme"/>
+
+    <!-- existing -->
+    <RelativeLayout
+        android:id="@+id/layout_payment_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/add_payment_bg"
+        android:padding="@dimen/payment_item_padding_margin"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/paymentinfo_payment_mcv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/payment_item_padding_margin" />
+
+        <TextView
+            android:id="@+id/paymentinfo_payment_last4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/payment_item_padding_margin"
+            android:layout_toLeftOf="@+id/paymentinfo_payment_edit"
+            android:layout_toRightOf="@+id/paymentinfo_payment_mcv"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/paymentinfo_payment_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/payment_item_padding_margin"
+            android:src="@drawable/admin_edit" />
+    </RelativeLayout>
+
+</RelativeLayout>

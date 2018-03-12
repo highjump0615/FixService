@@ -104,4 +104,9 @@
     <!-- filter activity -->
     <dimen name="filter_tick_adding">12dp</dimen>
 
+    <!-- payment activity -->
+    <dimen name="payment_item_height">46dp</dimen>
+    <dimen name="payment_item_margin">10dp</dimen>
+    <dimen name="payment_item_padding_margin">8dp</dimen>
+
 </resources>
