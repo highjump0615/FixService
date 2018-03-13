@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
+import com.brainyapps.e2fix.activities.serviceman.ServicemanPaymentInfo
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.E2FUpdateImageListener
 import com.brainyapps.e2fix.utils.Utils
@@ -62,7 +63,12 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
                     // make new user
                     initUser()
 
-                    Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+                    if (userType == User.USER_TYPE_SERVICEMAN) {
+                        Utils.moveNextActivity(this, ServicemanPaymentInfo::class.java)
+                    }
+                    else {
+                        Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+                    }
                 }
             }
         }

@@ -52,13 +52,6 @@ open class SignupBaseActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun enableNextButton(enable: Boolean) {
-        mbutNext.isEnabled = enable
-
-        if (enable) {
-            mbutNext.alpha = 1.0f
-        }
-        else {
-            mbutNext.alpha = 0.6f
-        }
+        enableButton(mbutNext, enable)
     }
 }

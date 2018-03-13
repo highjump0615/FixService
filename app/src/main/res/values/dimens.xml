@@ -108,5 +108,6 @@
     <dimen name="payment_item_height">46dp</dimen>
     <dimen name="payment_item_margin">10dp</dimen>
     <dimen name="payment_item_padding_margin">8dp</dimen>
+    <dimen name="payment_desc_top_margin">14dp</dimen>
 
 </resources>

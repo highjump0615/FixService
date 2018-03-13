@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.admin.AdminMainActivity
@@ -75,5 +76,16 @@ open class BaseActivity : AppCompatActivity() {
     fun signOutClear() {
         FirebaseManager.mAuth.signOut()
         User.currentUser = null
+    }
+
+    fun enableButton(button: View, enable: Boolean) {
+        button.isEnabled = enable
+
+        if (enable) {
+            button.alpha = 1.0f
+        }
+        else {
+            button.alpha = 0.6f
+        }
     }
 }

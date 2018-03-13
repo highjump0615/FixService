@@ -98,6 +98,9 @@ class User() : BaseModel(), Parcelable {
     @get:Exclude
     var reviews = ArrayList<Review>()
 
+    // stripe
+    var stripeAccountId = ""
+
     override fun tableName() = TABLE_NAME
 
     constructor(parcel: Parcel) : this() {
@@ -114,6 +117,7 @@ class User() : BaseModel(), Parcelable {
         location = parcel.readString()
         skill = parcel.readString()
         rating = parcel.readDouble()
+        stripeAccountId = parcel.readString()
 
         readFromParcelBase(parcel)
     }
@@ -155,6 +159,7 @@ class User() : BaseModel(), Parcelable {
         parcel.writeString(location)
         parcel.writeString(skill)
         parcel.writeDouble(rating)
+        parcel.writeString(stripeAccountId)
 
         writeToParcelBase(parcel, flags)
     }
