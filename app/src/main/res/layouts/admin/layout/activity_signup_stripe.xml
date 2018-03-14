@@ -39,11 +39,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="Available Payment Information"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <!-- payment item -->
-            <include
-                layout="@layout/layout_payment_item"
+            <com.brainyapps.e2fix.views.customer.ViewStripeCardItem
+                android:id="@+id/carditem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/payment_item_margin"/>
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Update &amp; Save" />
+                android:text="Done" />
 
         </LinearLayout>
 

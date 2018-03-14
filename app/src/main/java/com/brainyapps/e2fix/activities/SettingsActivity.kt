@@ -29,11 +29,10 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
             setContentView(R.layout.activity_customer_setting)
             setNavbar()
             initDrawer(User.USER_TYPE_CUSTOMER)
-
-            this.layout_payment.visibility = View.GONE
         }
 
         this.layout_edit_profile.setOnClickListener(this)
+        this.layout_payment.setOnClickListener(this)
         this.layout_privacy.setOnClickListener(this)
         this.layout_term.setOnClickListener(this)
         this.layout_report.setOnClickListener(this)
