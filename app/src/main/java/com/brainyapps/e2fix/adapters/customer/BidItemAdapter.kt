@@ -12,10 +12,12 @@ import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.UserDetailHelper
 import com.brainyapps.e2fix.activities.customer.BidDetailActivity
+import com.brainyapps.e2fix.activities.customer.BidPayActivity
 import com.brainyapps.e2fix.activities.customer.BidderProfileActivity
 import com.brainyapps.e2fix.activities.serviceman.*
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
+import com.brainyapps.e2fix.utils.CommonObjects
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.customer.ViewHolderBidUserItem
 import com.brainyapps.e2fix.views.serviceman.ViewHolderBidItem
@@ -117,16 +119,10 @@ class BidItemAdapter(ctx: Context) : BaseItemAdapter(ctx) {
 
             // choose as bidder -> {
             R.id.but_choose_bidder -> {
-                // save bid
-                bid.isTaken = true
-                bid.saveToDatabase(bid.id)
-
-                // save job
-                this.job!!.bidTakenId = bid.id
-                this.job!!.saveToDatabase(this.job!!.id, Job.FIELD_BIDID_TAKEN, bid.id)
-
-                // refresh list
-                notifyDataSetChanged()
+                // go to payment page
+                CommonObjects.selectedJob = this.job
+                CommonObjects.selectedBid = bid
+                Utils.moveNextActivity(this.context as Activity, BidPayActivity::class.java)
             }
         }
     }

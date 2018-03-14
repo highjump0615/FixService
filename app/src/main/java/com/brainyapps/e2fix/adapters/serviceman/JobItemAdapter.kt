@@ -17,6 +17,7 @@ import com.brainyapps.e2fix.activities.serviceman.BidSubmitActivity
 import com.brainyapps.e2fix.adapters.BaseItemAdapter
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
+import com.brainyapps.e2fix.utils.CommonObjects
 import com.brainyapps.e2fix.utils.Utils
 import com.brainyapps.e2fix.views.serviceman.ViewHolderJobItem
 import java.util.ArrayList
@@ -81,15 +82,13 @@ class JobItemAdapter(val ctx: Context, val aryJob: ArrayList<Job>)
         when (view?.id) {
             // bid button
             R.id.but_bid -> {
+                CommonObjects.selectedJob = this.aryJob[position]
+
                 if (TextUtils.equals(this.aryJob[position].userId, User.currentUser!!.id)) {
-                    val intent = Intent(ctx, BidDetailActivity::class.java)
-                    intent.putExtra(JobDetailHelper.KEY_JOB, this.aryJob[position])
-                    ctx.startActivity(intent)
+                    Utils.moveNextActivity(ctx as Activity, BidDetailActivity::class.java)
                 }
                 else {
-                    val intent = Intent(ctx, BidSubmitActivity::class.java)
-                    intent.putExtra(JobDetailHelper.KEY_JOB, this.aryJob[position])
-                    ctx.startActivity(intent)
+                    Utils.moveNextActivity(ctx as Activity, BidSubmitActivity::class.java)
                 }
             }
         }

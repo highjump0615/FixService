@@ -16,6 +16,7 @@ import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.Report
 import com.brainyapps.e2fix.models.User
+import com.brainyapps.e2fix.utils.CommonObjects
 import com.brainyapps.e2fix.utils.Utils
 import com.firebase.geofire.GeoLocation
 import com.google.firebase.database.FirebaseDatabase
@@ -45,9 +46,8 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         // right toolbar menu
         this.toolbar.imgview_right.setOnClickListener(this)
 
-        // get job from intent
-        val bundle = intent.extras
-        this.job = bundle.getParcelable(JobDetailHelper.KEY_JOB)
+        // get job from common object
+        this.job = CommonObjects.selectedJob!!
 
         jobHelper!!.fillJobInfo(this.job!!)
 
@@ -55,7 +55,7 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         for (bidItem in this.job!!.bidArray) {
             if (TextUtils.equals(bidItem.userId, User.currentUser!!.id)) {
                 this.edit_time.setText(bidItem.time)
-                this.edit_price.setText(bidItem.price)
+                this.edit_price.setText(bidItem.price.toString())
                 this.edit_contact.setText(bidItem.contact)
 
                 this.bid = bidItem
@@ -68,6 +68,9 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         this.locationHelper = GeoLocationHelper(this, "Bid submit needs location for showing distance")
 
         this.reportHelper = ReportHelper(this)
+
+        // submit button
+        enableButton(this.but_submit, this.job!!.isBidAvailable())
     }
 
     override fun onClick(view: View?) {
@@ -132,7 +135,7 @@ class BidSubmitActivity : BaseActivity(), View.OnClickListener {
         }
 
         newBid.time = strTime
-        newBid.price = strPrice
+        newBid.price = strPrice.toDouble()
         newBid.contact = strContact
 
         this.locationHelper!!.location?.let {

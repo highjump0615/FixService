@@ -50,8 +50,8 @@
             android:orientation="vertical">
 
             <!-- payment item -->
-            <include
-                layout="@layout/layout_payment_item"
+            <com.brainyapps.e2fix.views.customer.ViewStripeCardItem
+                android:id="@+id/carditem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

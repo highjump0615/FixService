@@ -32,16 +32,18 @@ class ViewStripeCardItem : RelativeLayout {
     /**
      * fill content view in item
      */
-    fun fillContent(source: StripeSource) {
+    fun fillContent(source: StripeSource?) {
 
-        this.but_add_payment.visibility = View.GONE
-        this.layout_card_item.visibility = View.VISIBLE
+        source?.let {
+            this.but_add_payment.visibility = View.GONE
+            this.layout_card_item.visibility = View.VISIBLE
 
-        // brand
-        val resId = ImageResources.TEMPLATE_RESOURCE_MAP[source.brand]
-        this.imgview_payment_item_mcv.setImageResource(resId!!)
+            // brand
+            val resId = ImageResources.TEMPLATE_RESOURCE_MAP[source.brand]
+            this.imgview_payment_item_mcv.setImageResource(resId!!)
 
-        // last 4
-        this.text_payment_item_last4.text = "...${source.last4}"
+            // last 4
+            this.text_payment_item_last4.text = "...${source.last4}"
+        }
     }
 }

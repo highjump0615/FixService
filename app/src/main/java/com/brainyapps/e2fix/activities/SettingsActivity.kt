@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.serviceman.EditProfileActivity
+import com.brainyapps.e2fix.activities.serviceman.ServicemanPaymentInfo
 import com.brainyapps.e2fix.activities.serviceman.TermActivity
 import com.brainyapps.e2fix.activities.signin.LoginActivity
+import com.brainyapps.e2fix.activities.signin.SignupStripeActivity
 import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
@@ -47,6 +49,20 @@ open class SettingsActivity : BaseDrawerActivity(), View.OnClickListener {
             // edit profile
             R.id.layout_edit_profile -> {
                 Utils.moveNextActivity(this, EditProfileActivity::class.java)
+            }
+
+            // payment {
+            R.id.layout_payment -> {
+                if (User.currentUser!!.type == User.USER_TYPE_SERVICEMAN) {
+                    val intent = Intent(this, ServicemanPaymentInfo::class.java)
+                    intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, false)
+                    startActivity(intent)
+                }
+                else {
+                    val intent = Intent(this, SignupStripeActivity::class.java)
+                    intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, false)
+                    startActivity(intent)
+                }
             }
 
             // report a problem

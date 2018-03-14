@@ -34,7 +34,7 @@ class Bid() : BaseModel(), Parcelable {
     }
 
     var time = ""
-    var price = ""
+    var price: Double = 0.0
     var contact = ""
 
     var isTaken = false
@@ -53,7 +53,7 @@ class Bid() : BaseModel(), Parcelable {
 
     constructor(parcel: Parcel) : this() {
         time = parcel.readString()
-        price = parcel.readString()
+        price = parcel.readDouble()
         contact = parcel.readString()
         isTaken = parcel.readByte().toInt() != 0
         jobId = parcel.readString()
@@ -77,7 +77,7 @@ class Bid() : BaseModel(), Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(time)
-        parcel.writeString(price)
+        parcel.writeDouble(price)
         parcel.writeString(contact)
         parcel.writeByte((if (isTaken) 1 else 0).toByte())
         parcel.writeString(jobId)

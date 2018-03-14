@@ -144,6 +144,9 @@
             android:name=".activities.customer.ProfileCustomerActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.customer.BidPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity

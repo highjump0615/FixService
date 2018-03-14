@@ -15,11 +15,11 @@ import com.brainyapps.e2fix.adapters.customer.BidItemAdapter
 import com.brainyapps.e2fix.models.Bid
 import com.brainyapps.e2fix.models.Job
 import com.brainyapps.e2fix.models.User
+import com.brainyapps.e2fix.utils.CommonObjects
 import kotlinx.android.synthetic.main.activity_customer_bid_detail.*
 
 class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    var aryBid = ArrayList<Bid>()
     var adapter: BidItemAdapter? = null
 
     var locationHelper: GeoLocationHelper? = null
@@ -32,9 +32,8 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         setNavbar(null, true)
 
-        // get job from intent
-        val bundle = intent.extras
-        this.job = bundle.getParcelable(JobDetailHelper.KEY_JOB)
+        // get job from common objects
+        this.job = CommonObjects.selectedJob!!
 
         // init list
         val recyclerView = findViewById<RecyclerView>(R.id.list)
@@ -55,6 +54,13 @@ class BidDetailActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         // init location
         this.locationHelper = GeoLocationHelper(this, "Location is needed for showing distance from bidders")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // refresh list
+        this.adapter!!.notifyDataSetChanged()
     }
 
     fun fetchBidUserInfo(animated: Boolean) {

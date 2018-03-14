@@ -11,7 +11,9 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import com.brainyapps.e2fix.R
 import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.activities.BasePaymentInfoActivity
 import com.brainyapps.e2fix.api.APIManager
+import com.brainyapps.e2fix.models.User
 import com.brainyapps.e2fix.utils.RandomString
 import kotlinx.android.synthetic.main.activity_serviceman_payment_info.*
 import okhttp3.Call
@@ -22,7 +24,7 @@ import java.io.IOException
 import java.net.URLDecoder
 import java.util.*
 
-class ServicemanPaymentInfo : BaseActivity(), View.OnClickListener {
+class ServicemanPaymentInfo : BasePaymentInfoActivity(), View.OnClickListener {
 
     private val TAG = ServicemanPaymentInfo::class.java.getSimpleName()
 
@@ -136,8 +138,23 @@ class ServicemanPaymentInfo : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             // Photo
             R.id.but_done -> {
-                // save account id
+                saveUserInfo()
             }
         }
+    }
+
+    override fun saveUserData(userId: String) {
+        val user = User.currentUser!!
+
+        // save account id
+        user.stripeAccountId = accountId
+        user.saveToDatabase(userId)
+
+        if (fromSignup) {
+            goToMain()
+            return
+        }
+
+        finish()
     }
 }

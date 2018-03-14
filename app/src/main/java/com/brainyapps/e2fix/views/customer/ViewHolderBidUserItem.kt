@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BaseActivity
 import com.brainyapps.e2fix.activities.UserDetailHelper
 import com.brainyapps.e2fix.activities.customer.BidDetailActivity
 import com.brainyapps.e2fix.models.Bid
@@ -57,13 +58,6 @@ class ViewHolderBidUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemV
         }
 
         // button enable status
-        itemView.but_choose_bidder.isEnabled = bidAvailable
-        if (bidAvailable) {
-            itemView.but_choose_bidder.alpha = 1.0f
-        }
-        else {
-            itemView.but_choose_bidder.alpha = 0.6f
-        }
-
+        activity.enableButton(itemView.but_choose_bidder, bidAvailable)
     }
 }

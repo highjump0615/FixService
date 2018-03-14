@@ -29,7 +29,7 @@ object APIManager {
         params["code"] = authCode
         params["grant_type"] = "authorization_code"
 
-        sendToServiceByPost(urlStripe, params, responseCallback)
+        sendToServiceByPost(urlStripe, null, params, responseCallback)
     }
 
     /**
@@ -43,6 +43,57 @@ object APIManager {
         val params: MutableMap<String, String> = HashMap()
 
         sendToServiceByGet(urlStripe, secret, params, responseCallback)
+    }
+
+    /**
+     * API for creating customer
+     */
+    fun createStripeCustomer(email: String,
+                             secret: String,
+                             responseCallback: Callback) {
+
+        val urlStripe = "$StripBaseUrl/customers"
+
+        val params: MutableMap<String, Any> = HashMap()
+        params["email"] = email
+
+        sendToServiceByPost(urlStripe, secret, params, responseCallback)
+    }
+
+    fun attachSource(sourceId: String,
+                     customerId: String,
+                     secret: String,
+                     responseCallback: Callback) {
+
+        val urlStripe = "$StripBaseUrl/customers/$customerId/sources"
+
+        val params: MutableMap<String, Any> = HashMap()
+        params["source"] = sourceId
+
+        sendToServiceByPost(urlStripe, secret, params, responseCallback)
+    }
+
+    /**
+     * API for payment
+     */
+    fun createStripeCharge(sourceId: String,
+                           amount: Int,
+                           description: String,
+                           accountId: String,
+                           secret: String,
+                           responseCallback: Callback) {
+
+        val urlStripe = "$StripBaseUrl/charges"
+
+        val params: MutableMap<String, Any> = HashMap()
+        params["amount"] = amount
+        params["currency"] = "usd"
+        params["customer"] = sourceId
+        params["description"] = description
+        params["application_fee"] = amount / 10
+        params["destination[account]"] = accountId
+
+        sendToServiceByPost(urlStripe, secret, params, responseCallback)
     }
 
 
@@ -75,6 +126,7 @@ object APIManager {
      * Send Post request
      */
     private fun sendToServiceByPost(serviceAPIURL: String,
+                                    secret: String?,
                                     params: Map<String, Any>,
                                     responseCallback: Callback) {
 
@@ -83,11 +135,12 @@ object APIManager {
             formParam.add(param.key, param.value.toString())
         }
 
-        val request = Request.Builder()
-                .url(serviceAPIURL)
-                .post(formParam.build())
-                .build()
+        val requestBuilder = Request.Builder()
+        if (!TextUtils.isEmpty(secret)) {
+            requestBuilder.addHeader("Authorization", "Bearer $secret")
+        }
 
+        val request = requestBuilder.url(serviceAPIURL).post(formParam.build()).build()
 
         val client = OkHttpClient()
         client.newCall(request).enqueue(responseCallback)

@@ -182,6 +182,10 @@ class Job() : BaseModel(), Parcelable {
         })
     }
 
+    fun isBidAvailable() : Boolean {
+        return TextUtils.isEmpty(bidTakenId)
+    }
+
 
     /**
      * interface for reading from database

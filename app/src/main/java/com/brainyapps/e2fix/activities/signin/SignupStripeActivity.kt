@@ -5,34 +5,38 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.brainyapps.e2fix.R
-import com.brainyapps.e2fix.activities.BaseActivity
+import com.brainyapps.e2fix.activities.BasePaymentInfoActivity
 import com.brainyapps.e2fix.activities.StripeCardInputActivity
-import com.brainyapps.e2fix.activities.customer.JobPostedActivity
-import com.brainyapps.e2fix.activities.serviceman.JobAvailableActivity
+import com.brainyapps.e2fix.api.APIManager
 import com.brainyapps.e2fix.models.StripeSource
 import com.brainyapps.e2fix.models.User
-import com.brainyapps.e2fix.utils.FirebaseManager
 import com.brainyapps.e2fix.utils.Utils
-import com.brainyapps.e2fix.views.customer.ViewStripeCardItem
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageMetadata
-import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_signup_stripe.*
 import kotlinx.android.synthetic.main.layout_payment_item.*
-import kotlinx.android.synthetic.main.layout_payment_item.view.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import java.net.URLDecoder
 
-class SignupStripeActivity : BaseActivity(), View.OnClickListener {
+open class SignupStripeActivity : BasePaymentInfoActivity(), View.OnClickListener {
 
     private val TAG = SignupStripeActivity::class.java.getSimpleName()
-    private val CODE_CARD_INFO = 2000
+    val CODE_CARD_INFO = 2000
+
+    var stripeSrc: StripeSource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initView()
+        createStripeCustomer()
+    }
+
+    open fun initView() {
         setContentView(R.layout.activity_signup_stripe)
 
         setNavbar("Payment Information", true)
@@ -41,6 +45,14 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
 
         this.but_add_payment.setOnClickListener(this)
         this.layout_card_item.setOnClickListener(this)
+
+        updateCardItem()
+    }
+
+    fun updateCardItem() {
+        // update payment info
+        stripeSrc = User.currentUser!!.stripeSource
+        this.carditem.fillContent(stripeSrc)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,65 +62,61 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
             // get stripe source from intent
             val bundle = data?.extras
             bundle?.let {
-                val source = it.getParcelable<StripeSource>(StripeCardInputActivity.KEY_STRIPE_SOURCE)
-                val viewPaymentItem = this.carditem as ViewStripeCardItem
-                viewPaymentItem.fillContent(source)
+                // update payment info
+                stripeSrc = it.getParcelable<StripeSource>(StripeCardInputActivity.KEY_STRIPE_SOURCE)
+                this.carditem.fillContent(stripeSrc!!)
             }
         }
+    }
+
+    /**
+     * check stripe customer, create it if not exists
+     */
+    private fun createStripeCustomer() {
+        val user = User.currentUser!!
+
+        if (!TextUtils.isEmpty(user.stripeCustomerId)) {
+            return
+        }
+
+        APIManager.createStripeCustomer(
+                user.email,
+                getString(R.string.stripe_secret_key),
+                object: Callback {
+                    override fun onFailure(call: Call?, e: IOException?) {
+                        Log.w(TAG, "create stripe customer failed", e)
+
+                        Toast.makeText(this@SignupStripeActivity, "Failed creating stripe customer", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onResponse(call: Call?, response: Response?) {
+                        val strResponseDecoded = URLDecoder.decode(response!!.body()!!.string(), "UTF-8")
+                        val result = JSONObject(strResponseDecoded)
+
+                        if (!response.isSuccessful) {
+                            runOnUiThread {
+                                Toast.makeText(this@SignupStripeActivity, "Failed creating stripe customer", Toast.LENGTH_SHORT).show()
+                            }
+
+                            Log.d(TAG, strResponseDecoded)
+                            return
+                        }
+
+                        runOnUiThread {
+                            Toast.makeText(this@SignupStripeActivity, "Created stripe customer successfully", Toast.LENGTH_SHORT).show()
+                        }
+
+                        // save bid info
+                        user.stripeCustomerId = result.getString("id")
+                    }
+                }
+        )
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.but_done -> {
-
-                val user = User.currentUser
-
-                // social log in, make it success directly
-                if (!TextUtils.isEmpty(user!!.id)) {
-                    saveUserData(user.id)
-                    return
-                }
-
-                Utils.createProgressDialog(this, "Signing up...", "Submitting user credentials")
-
-                // create new user
-                FirebaseManager.mAuth.createUserWithEmailAndPassword(user.email, user.password)
-                        .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
-                            if (!task.isSuccessful) {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                                Utils.createErrorAlertDialog(this, "Signup failed.", task.exception?.localizedMessage!!).show()
-
-                                Utils.closeProgressDialog()
-
-                                return@OnCompleteListener
-                            }
-
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success")
-
-                            val userId = FirebaseManager.mAuth.currentUser!!.uid
-
-                            // save photo image
-                            if (user.photoByteArray != null) {
-                                val metadata = StorageMetadata.Builder()
-                                        .setContentType("image/jpeg")
-                                        .build()
-                                val storageReference = FirebaseStorage.getInstance().getReference(User.TABLE_NAME).child(userId + ".jpg")
-                                val uploadTask = storageReference.putBytes(user.photoByteArray!!, metadata)
-                                uploadTask.addOnSuccessListener(this@SignupStripeActivity, OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
-                                    user.photoUrl = taskSnapshot.downloadUrl.toString()
-                                    saveUserData(userId)
-                                }).addOnFailureListener(this@SignupStripeActivity, OnFailureListener {
-                                    Log.d(TAG, it.toString())
-
-                                    saveUserData(userId)
-                                })
-                            }
-                            else {
-                                saveUserData(userId)
-                            }
-                        })
+                saveUserInfo()
             }
 
             // payment method
@@ -123,8 +131,70 @@ class SignupStripeActivity : BaseActivity(), View.OnClickListener {
         startActivityForResult(intent, CODE_CARD_INFO)
     }
 
-    private fun saveUserData(userId: String) {
-        User.currentUser!!.saveToDatabase(userId)
-        goToMain()
+    fun updateSourceInUserDb(userId: String) {
+        val user = User.currentUser!!
+
+        // save user info
+        user.stripeSource = stripeSrc
+        user.saveToDatabase(userId)
+    }
+
+    override fun saveUserData(userId: String) {
+        updateSourceInUserDb(userId)
+
+        //
+        // STRIPE: attach source to customer
+        //
+        val user = User.currentUser!!
+        if (!TextUtils.isEmpty(user.stripeCustomerId) && stripeSrc != null) {
+            Utils.createProgressDialog(this, "Stripe", "Attaching card info to customer")
+
+            // STRIPE: attach source to customer
+            APIManager.attachSource(
+                    stripeSrc!!.sourceId,
+                    user.stripeCustomerId,
+                    getString(R.string.stripe_secret_key),
+                    object : Callback {
+                        override fun onFailure(call: Call?, e: IOException?) {
+                            Log.w(TAG, "attach source failed", e)
+
+                            Toast.makeText(this@SignupStripeActivity, "Failed attaching source", Toast.LENGTH_SHORT).show()
+                            Utils.closeProgressDialog()
+                        }
+
+                        override fun onResponse(call: Call?, response: Response?) {
+                            val strResponseDecoded = URLDecoder.decode(response!!.body()!!.string(), "UTF-8")
+                            val result = JSONObject(strResponseDecoded)
+
+                            if (!response.isSuccessful) {
+                                runOnUiThread {
+                                    Toast.makeText(this@SignupStripeActivity, "Failed attaching source", Toast.LENGTH_SHORT).show()
+                                }
+
+                                Log.d(TAG, strResponseDecoded)
+                                Utils.closeProgressDialog()
+                                return
+                            }
+
+                            runOnUiThread {
+                                Toast.makeText(this@SignupStripeActivity, "Attached card information successfully", Toast.LENGTH_SHORT).show()
+                                finalize()
+                            }
+                        }
+                    }
+            )
+        }
+        else {
+            finalize()
+        }
+    }
+
+    private fun finalize() {
+        if (fromSignup) {
+            goToMain()
+            return
+        }
+
+        finish()
     }
 }

@@ -100,6 +100,7 @@ class User() : BaseModel(), Parcelable {
 
     // stripe
     var stripeAccountId = ""
+    var stripeCustomerId = ""
     var stripeSource: StripeSource? = null
 
     override fun tableName() = TABLE_NAME
@@ -119,6 +120,7 @@ class User() : BaseModel(), Parcelable {
         skill = parcel.readString()
         rating = parcel.readDouble()
         stripeAccountId = parcel.readString()
+        stripeCustomerId = parcel.readString()
         stripeSource = parcel.readParcelable(StripeSource::class.java.classLoader)
 
         readFromParcelBase(parcel)
@@ -162,6 +164,7 @@ class User() : BaseModel(), Parcelable {
         parcel.writeString(skill)
         parcel.writeDouble(rating)
         parcel.writeString(stripeAccountId)
+        parcel.writeString(stripeCustomerId)
         parcel.writeParcelable(stripeSource, flags)
 
         writeToParcelBase(parcel, flags)

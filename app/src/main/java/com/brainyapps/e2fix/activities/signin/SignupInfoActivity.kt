@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import com.brainyapps.e2fix.R
+import com.brainyapps.e2fix.activities.BasePaymentInfoActivity
 import com.brainyapps.e2fix.activities.PhotoActivityHelper
 import com.brainyapps.e2fix.activities.serviceman.ServicemanPaymentInfo
 import com.brainyapps.e2fix.models.User
@@ -64,10 +65,14 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
                     initUser()
 
                     if (userType == User.USER_TYPE_SERVICEMAN) {
-                        Utils.moveNextActivity(this, ServicemanPaymentInfo::class.java)
+                        val intent = Intent(this, ServicemanPaymentInfo::class.java)
+                        intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
+                        startActivity(intent)
                     }
                     else {
-                        Utils.moveNextActivity(this, SignupStripeActivity::class.java)
+                        val intent = Intent(this, SignupStripeActivity::class.java)
+                        intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
+                        startActivity(intent)
                     }
                 }
             }
