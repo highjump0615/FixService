@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/toolbar_bg">
+
+            <com.brainyapps.e2fix.views.serviceman.ViewToolbar
+                android:id="@+id/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- top bar -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/view_toolbar"
+                android:gravity="center"
+                android:text="MY PROFILE"
+                android:textSize="16sp"
+                android:background="@color/colorSemiTran"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/white" />
+
+            <!-- user info -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/admin_user_detail_photo_size"
+                    android:layout_height="@dimen/admin_user_detail_photo_size"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/round_corner_white_bg">
+
+                    <ImageView
+                        android:id="@+id/imgview_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/user_default"
+                        android:background="@color/colorBackground"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="David Haskins"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- about title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:text="ABOUT"/>
+
+        <!-- about info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/admin_user_detail_padding"
+            android:paddingBottom="@dimen/admin_user_detail_padding">
+
+            <!-- phone -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/admin_user_detail_about_height"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/admin_user_detail_about_margin">
+                <ImageView
+                    android:layout_width="@dimen/admin_user_detail_icon_width"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_detail_card"/>
+                <TextView
+                    android:id="@+id/text_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="Miamy, Florida"/>
+            </LinearLayout>
+
+            <!-- location -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/admin_user_detail_about_height"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/admin_user_detail_about_margin">
+                <ImageView
+                    android:layout_width="@dimen/admin_user_detail_icon_width"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_detail_location"/>
+                <TextView
+                    android:id="@+id/text_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="Miamy, Florida"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

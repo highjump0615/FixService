@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brainyapps.e2fix.activities.signin.SignupInfoActivity"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/app_bar_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/signup_info_photo_size"
+                    android:layout_height="@dimen/signup_info_photo_size"
+                    android:layout_gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/but_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:theme="@style/SignupPhotoButtonStyle"
+                        android:paddingTop="14dp"
+                        android:text="+ ADD PHOTO"
+                        android:textSize="12sp"
+                        android:drawableTop="@drawable/signup_user_default"/>
+
+                    <ImageView
+                        android:id="@+id/imgview_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+                <!-- first name -->
+                <EditText
+                    android:id="@+id/edit_firstname"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="First Name"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- last name -->
+                <EditText
+                    android:id="@+id/edit_lastname"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- contact information -->
+                <EditText
+                    android:id="@+id/edit_contact"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableStart="@drawable/signup_contact"
+                    android:hint="Contact Information"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- location -->
+                <EditText
+                    android:id="@+id/edit_location"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/signup_location"
+                    android:hint="Location"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- skill -->
+                <EditText
+                    android:id="@+id/edit_skill"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/signup_skill"
+                    android:hint="Qualification, Skills and Job Experience" />
+
+                <!-- next button -->
+                <RelativeLayout
+                    android:id="@+id/but_next"
+                    style="@style/DirectionButStyle"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        style="@style/DirectionButIcon" />
+
+                    <TextView
+                        style="@style/CustomButTextStyle"
+                        android:text="NEXT" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

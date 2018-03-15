@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/profile_menu_photo"
+        android:title="Load photo from gallery" />
+
+    <item
+        android:id="@+id/profile_menu_camera"
+        android:title="Take photo from camera" />
+
+    <group android:id="@+id/profile_menu_group">
+        <item
+            android:id="@+id/profile_menu_cancel"
+            android:title="@android:string/cancel" />
+    </group>
+</menu>

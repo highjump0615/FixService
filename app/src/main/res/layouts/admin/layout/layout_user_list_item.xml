@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/admin_user_list_margin"
+    android:layout_marginLeft="@dimen/admin_user_list_margin"
+    android:layout_marginRight="@dimen/admin_user_list_margin"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/admin_user_list_margin">
+
+        <!-- user photo -->
+        <ImageView
+            android:id="@+id/imgview_photo"
+            android:layout_width="@dimen/admin_user_list_photo_size"
+            android:layout_height="@dimen/admin_user_list_photo_size"
+            android:src="@drawable/user_default"
+            android:background="@color/colorBackground"/>
+
+        <!-- nambidTypetype -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/admin_user_list_name_size"
+                android:text="Oliver Cramb"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/text_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="@dimen/admin_user_list_type_size"
+                android:text="Customer" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgview_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/admin_report_red"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

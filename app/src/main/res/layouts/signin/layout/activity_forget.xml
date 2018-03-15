@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brainyapps.e2fix.activities.signin.ForgetActivity"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/app_bar_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/signup_vertical_margin"
+            android:paddingBottom="@dimen/signup_vertical_margin"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit"
+                style="@style/LoginEditTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Your Email"
+                android:drawableStart="@drawable/login_mail"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <CheckBox
+                android:id="@+id/chk_registered"
+                style="@style/CheckboxStyle"
+                android:text="Registered Email"
+                android:layout_marginTop="14dp"/>
+
+            <!-- submit button -->
+            <RelativeLayout
+                android:id="@+id/but_next"
+                style="@style/DirectionButStyle"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    style="@style/DirectionButIcon" />
+
+                <TextView
+                    style="@style/CustomButTextStyle"
+                    android:text="SUBMIT" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

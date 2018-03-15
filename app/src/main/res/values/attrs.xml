@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ViewToolbar">
+        <attr name="rightImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ViewRateStar">
+        <attr name="starValue" format="float" />
+        <attr name="starSelectable" format="boolean" />
+    </declare-styleable>
+
+</resources>

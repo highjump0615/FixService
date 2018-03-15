@@ -1,11 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +15,104 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- button -->
+    <style name="PrimaryButtonStyle" parent="Theme.AppCompat">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorButtonNormal">@color/colorTheme</item>
+    </style>
+    <style name="DangerButtonStyle" parent="Theme.AppCompat">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorButtonNormal">@color/colorGoogle</item>
+    </style>
+    <style name="PrimaryFlatButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorAccent">@color/colorTheme</item>
+    </style>
+
+
+    <!-- Splash activity -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <!-- login activity -->
+    <style name="LoginEditTheme">
+        <item name="android:drawablePadding">@dimen/login_edit_hori_spacing</item>
+        <item name="android:paddingLeft">@dimen/login_edit_hori_spacing</item>
+        <item name="android:paddingRight">@dimen/login_edit_hori_spacing</item>
+        <item name="android:paddingBottom">@dimen/login_edit_vert_spacing</item>
+    </style>
+    <style name="ButTransparentTheme">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorTheme</item>
+        <item name="android:textSize">@dimen/login_but_text_size</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- signup activity -->
+    <style name="DirectionButStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/login_but_social_height</item>
+        <item name="android:background">@color/colorThemeDark</item>
+    </style>
+    <style name="DirectionButIcon">
+        <item name="android:layout_width">@dimen/login_but_social_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/signup_arrow</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:padding">@dimen/login_but_social_padding</item>
+        <item name="android:background">@color/colorThemeDarkDeep</item>
+    </style>
+    <style name="CustomButTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/login_but_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CheckboxStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/signup_text_size</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="colorControlNormal">@color/colorTheme</item>
+        <item name="colorControlHighlight">@color/colorTheme</item>
+        <item name="buttonTint">@drawable/chk_color</item>
+        <item name="android:textColor">@drawable/chk_text_color</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <!-- tool bar -->
+    <style name="ToolbarStyle">
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
+    <!-- sign up info activity -->
+    <style name="SignupPhotoButtonStyle" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/colorTheme</item>
+        <item name="colorButtonNormal">@android:color/white</item>
+    </style>
+
+    <!-- bid detail avtivity -->
+    <style name="BidDetailItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bid_detail_item_height</item>
+        <item name="android:paddingLeft">@dimen/bid_detail_item_hori_padding</item>
+        <item name="android:paddingRight">@dimen/bid_detail_item_hori_padding</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
 </resources>

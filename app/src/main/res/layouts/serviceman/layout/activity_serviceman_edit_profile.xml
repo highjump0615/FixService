@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brainyapps.e2fix.activities.signin.SignupInfoActivity"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/app_bar_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/signup_info_photo_size"
+                    android:layout_height="@dimen/signup_info_photo_size"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/round_corner_white_bg">
+
+                    <ImageView
+                        android:id="@+id/imgview_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/edit_profile_photo_margin"
+                        android:src="@drawable/user_default"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:padding="@dimen/edit_profile_photo_button_padding"
+                        android:gravity="center"
+                        android:layout_alignParentBottom="true"
+                        android:text="CHANGE"
+                        android:textColor="@color/colorTheme"
+                        android:background="@android:color/white"/>
+
+                </RelativeLayout>
+
+                <!-- first name -->
+                <EditText
+                    android:id="@+id/edit_firstname"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="First Name"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- last name -->
+                <EditText
+                    android:id="@+id/edit_lastname"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- contact information -->
+                <EditText
+                    android:id="@+id/edit_contact"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_profile_spacing"
+                    android:drawableStart="@drawable/signup_contact"
+                    android:hint="Contact Information"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- location -->
+                <EditText
+                    android:id="@+id/edit_location"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/signup_location"
+                    android:hint="Location"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- skill -->
+                <EditText
+                    android:id="@+id/edit_skill"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/signup_skill"
+                    android:hint="Qualification, Skills and Job Experience" />
+
+                <!-- email -->
+                <EditText
+                    android:id="@+id/edit_email"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_profile_spacing"
+                    android:hint="Email Address"
+                    android:drawableStart="@drawable/login_mail"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- old password -->
+                <EditText
+                    android:id="@+id/edit_password_current"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Current Password"
+                    android:drawableStart="@drawable/login_pwd"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- password -->
+                <EditText
+                    android:id="@+id/edit_password"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:drawableStart="@drawable/login_pwd"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- confirm password -->
+                <EditText
+                    android:id="@+id/edit_repassword"
+                    style="@style/LoginEditTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:drawableStart="@drawable/login_pwd"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <!-- save button -->
+                <Button
+                    android:id="@+id/but_save"
+                    android:theme="@style/PrimaryButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="SAVE CHANGES" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

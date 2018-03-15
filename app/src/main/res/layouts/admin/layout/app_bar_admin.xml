@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:layout_height="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/text_job_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="MAIN MENU"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:src="@drawable/logo_right"/>
+
+</android.support.v7.widget.Toolbar>

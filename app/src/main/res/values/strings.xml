@@ -1,8 +1,100 @@
 <resources>
-    <string name="app_name">FixService</string>
+    <string name="app_name">E2Fix</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email Address</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">LOGIN</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_field_not_empty">This field cannot be empty</string>
+    <string name="error_fill_data">Please fill up data</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="error_oldpassword">Current Password is not correct</string>
+
+    <!-- admin user detail -->
+    <string name="ban_user">BAN USER</string>
+    <string name="unban_user">UNBAN USER</string>
+    
+    
+    <string-array name="jobtypes_array">
+        <item>Construction jobs</item>
+        <item>Paint jobs</item>
+        <item>Tile jobs</item>
+        <item>Plumbings</item>
+        <item>Roofings</item>
+        <item>Repair Jobs</item>
+        <item>Mechanic Jobs</item>
+        <item>Technical Jobs</item>
+        <item>Electrical Jobs</item>
+        <item>Others</item>
+    </string-array>
+
+    <string name="facebook_app_id">1924679874510574</string>
+    <string name="fb_login_protocol_scheme">fb1924679874510574</string>
+
+    <string name="terms_title">Terms and Conditions</string>
+    <string name="terms_content"><![CDATA[<p/>
+    Last updated: January 18, 2018
+    <sub>
+    <p/>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the Park with a smile mobile application (the "Service") operated by BeautyShop ("us", "we", or "our").
+    <p><b>Exclusions</b></p>
+    Some jurisdictions do not allow the exclusion of certain warranties or the exclusion or limitation of liability for consequential or incidental damages, so the limitations above may not apply to you.
+
+    <p><b>Governing Law</b></p>
+    These Terms shall be governed and construed in accordance with the laws of New York, United States, without regard to its conflict of law provisions.
+
+    <br/>
+    <br/>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have had between us regarding the Service.
+
+    <p><b>Changes</b></p>
+    We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+
+    <br/>
+    <br/>By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Service.
+
+    <p><b>Contact Us</b></p>
+    If you have any questions about these Terms, please contact us.
+    <p/>]]></string>
+
+    <string name="privacy_title">Privacy Policy</string>
+    <string name="privacy_content"><![CDATA[<p/>
+    Last updated: January 24, 2018
+    <p><b>Links To Other Sites</b></p>
+    Our Service may contain links to other sites that are not operated by us. If you click on a third party link, you will be directed to that third party\'s site. We strongly advise you to review the Privacy Policy of every site you visit.
+
+    <br/>
+    <br/>We have no control over, and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
+
+    <p><b>Children\'s Privacy</b></p>
+    Only persons age 18 or older have permission to access our Service. Our Service does not address anyone under the age of 13 ("Children").
+
+    <br/>
+    <br/>We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you learn that your Children have provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from a child under age 13 without verification of parental consent, we take steps to remove that information from our servers.
+
+    <p><b>Changes To This Privacy Policy</b></p>
+    This Privacy Policy is effective as of October 24, 2017 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.
+
+    <br/>
+    <br/>We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.
+    <br/>
+    <br/>If we make any material changes to this Privacy Policy, we will notify you either through the email address you have provided us, or by placing a prominent notice on our website.
+
+    <p><b>Contact Us</b></p>
+    If you have any questions about this Privacy Policy, please contact us.
+    <p/>]]></string>
+
+
 </resources>

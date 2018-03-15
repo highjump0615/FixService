@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/serviceman_profile_user_height"
+        android:layout_marginTop="-76dp"
+        android:background="@drawable/toolbar_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <!-- user info -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_width="@dimen/admin_user_detail_photo_size"
+                android:layout_height="@dimen/admin_user_detail_photo_size"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/round_corner_white_bg">
+
+                <ImageView
+                    android:id="@+id/imgview_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:src="@drawable/user_default"
+                    android:background="@color/colorBackground"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Serviceman"
+                android:textSize="12sp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="David Haskins"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- about title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/profile_user_info_title_margin"
+        android:layout_gravity="center"
+        android:text="ABOUT"/>
+
+    <!-- about info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/admin_user_detail_padding"
+        android:paddingBottom="@dimen/admin_user_detail_padding">
+
+        <!-- phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/admin_user_detail_about_margin">
+            <ImageView
+                android:layout_width="@dimen/admin_user_detail_icon_width"
+                android:layout_height="match_parent"
+                android:src="@drawable/user_detail_card"/>
+            <TextView
+                android:id="@+id/text_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                android:text="Miamy, Florida"/>
+        </LinearLayout>
+
+        <!-- skills -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/admin_user_detail_about_margin">
+            <ImageView
+                android:layout_width="@dimen/admin_user_detail_icon_width"
+                android:layout_height="match_parent"
+                android:src="@drawable/profile_skill"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:id="@+id/text_skill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                android:text="Qulification, Skills and Job Experience, Qualification, Skills and Job Experience"/>
+        </LinearLayout>
+
+        <!-- rating -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/admin_user_detail_about_margin">
+            <ImageView
+                android:layout_width="@dimen/admin_user_detail_icon_width"
+                android:layout_height="match_parent"
+                android:src="@drawable/setting_rate"
+                android:tint="@color/colorTheme"/>
+            <TextView
+                android:id="@+id/text_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                android:text="5.0/5.0"/>
+
+            <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+                android:id="@+id/ratestar"
+                android:layout_width="@dimen/rate_star_width"
+                android:layout_height="@dimen/rate_star_height"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                app:starValue="2.0"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- rating title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/profile_user_info_title_margin"
+        android:layout_gravity="center"
+        android:text="RATINGS AND REVIEWS"/>
+
+    <!-- write review -->
+    <LinearLayout
+        android:id="@+id/layout_rate_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical">
+            <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+                android:id="@+id/ratestar_edit"
+                android:layout_width="180dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="@dimen/profile_user_info_margin"
+                app:starSelectable="true"
+                app:starValue="0.0"/>
+            <TextView
+                android:id="@+id/text_rate_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="17sp"
+                android:text="0.0"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_margin="@dimen/job_margin"
+            android:layout_marginTop="12dp">
+            <EditText
+                android:id="@+id/edit_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/login_edit_hori_spacing"
+                android:paddingRight="45dp"
+                android:textSize="16sp"
+                android:hint="Enter your opinion about this speicalist"
+                android:imeActionLabel="Send" />
+            <ImageView
+                android:id="@+id/imgview_review_submit"
+                android:layout_width="@dimen/serviceman_imgview_send_size"
+                android:layout_height="@dimen/serviceman_imgview_send_size"
+                android:layout_marginRight="@dimen/login_edit_hori_spacing"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/edit_send_icon"
+                android:padding="5dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_empty_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="There is no reviews yet"
+        android:textColor="@color/colorGrey"
+        android:visibility="gone"/>
+
+
+</LinearLayout>
