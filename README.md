@@ -33,8 +33,7 @@ Available job list, filter, bid, ...
 ```app\_bar\_normal.xml```  
 Custom Title, Back Button  
 ```app\_bar\_admin.xml```  
-```app\_bar\_serviceman.xml```
-
+```app\_bar\_serviceman.xml```  
 - Material Buttons  
 Buttons with simple color background or transparent background are made as material buttons  
 RaisedButton: ```PrimaryButtonStyle```  
