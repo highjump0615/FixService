@@ -61,8 +61,7 @@ CardView: foreground
 Stripe API: [https://stripe.com/docs/api#create_customer](https://stripe.com/docs/api#create_customer)  
 - Add card as payment information -> Making Source  
 Android SDK:  
-```CardMultilineWidget``` for input card information  ```Stripe.createSource()```
-
+```CardMultilineWidget``` for input card information  ```Stripe.createSource()```  
 - Attach source to client  
 Stripe API: [https://stripe.com/docs/api#attach_source](https://stripe.com/docs/api#attach_source)
 - Create charge for payment
@@ -79,15 +78,12 @@ Oauth connection in WebView to authenticate and get account information
 ```AdminBanUserHelper```  
 ```GeoLocationHelper```  
 ```JobDetailHelper```  
-```UserDetailHelper```
-
+```UserDetailHelper```  
 - Excluding fields in model  
-```@get:Exclude``` excludes the field when getting, avoids redundant saving in db
-
+```@get:Exclude``` excludes the field when getting, avoids redundant saving in db  
 - <s>Fetching data from firebase synchronously</s>  
 Implemented using [Play services Task API](https://developers.google.com/android/guides/tasks)  
-```User.readFromDatabase```
-
+```User.readFromDatabase```  
 - All Api calls are defined in ApiManager with respone callback  
 - Save sensitive Information in different string resource file  
 ```app/src/main/res/values/secret.xml```, gitignored
