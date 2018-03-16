@@ -30,10 +30,10 @@ Available job list, filter, bid, ...
 #### 2.1 UI Implementation
 - Subdirectories in Resource Layout  
 - Toolbar  
-```app\_bar\_normal.xml```  
+```app_bar_normal.xml```  
 Custom Title, Back Button  
-```app\_bar\_admin.xml```  
-```app\_bar\_serviceman.xml```  
+```app_bar_admin.xml```  
+```app_bar_serviceman.xml```  
 - Material Buttons  
 Buttons with simple color background or transparent background are made as material buttons  
 RaisedButton: ```PrimaryButtonStyle```  
