@@ -97,7 +97,7 @@ Seekbar with numeric value label in Filter page for serviceman
 Real Time permission checking module
 - [Android RateThisApp](https://github.com/kobakei/Android-RateThisApp) v1.2.0   
 Rate app in Google Play
-- [Strip Android SDK](https://github.com/stripe/stripe-android)    
+- [Stripe Android SDK](https://github.com/stripe/stripe-android)    
 - [OkHttp](https://github.com/square/okhttp) v3.10.0  
 Calling & Fetching data from Rest Api  
 \* Payment process using Stripe & Firebase API
