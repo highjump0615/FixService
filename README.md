@@ -72,9 +72,9 @@ Stripe API: [https://stripe.com/docs/api#create_charge](https://stripe.com/docs/
 [Using Connect with Express Accounts](https://stripe.com/docs/connect/express-accounts)  
 Oauth connection in WebView to authenticate and get account information  
 
-#### 2.2.3 Code tricks  
-- Common module for input image
-```PhotoActivityHelper``` & ```E2FUpdateImageListener```  
+#### 2.3 Code tricks  
+- Common modules  
+```PhotoActivityHelper``` & ```E2FUpdateImageListener``` for input image  
 ```AdminBanUserHelper```  
 ```GeoLocationHelper```  
 ```JobDetailHelper```  
@@ -88,7 +88,13 @@ Implemented using [Play services Task API](https://developers.google.com/android
 - Save sensitive Information in different string resource file  
 ```app/src/main/res/values/secret.xml```, gitignored
 
-#### 2.2.4 Third-Party Libraries
+#### 2.4 Third-Party Libraries
+- [Google Firebase](https://mvnrepository.com/artifact/com.google.firebase) v11.8.0  
+  - Firebase Auth  
+  - Firebase Database
+  - Firebase Storage
+- [Firebase Geofire](https://github.com/firebase/geofire-java) v2.3.0  
+Filtering Jobs based on distance
 - [BottomSheet](https://github.com/soarcn/BottomSheet) v1.x  
 Showing options when selecting photo  
 - [Glide](https://github.com/bumptech/glide) v4.6.1    
