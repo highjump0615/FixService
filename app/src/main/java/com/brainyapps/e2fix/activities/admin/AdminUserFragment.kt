@@ -28,7 +28,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     var adapter: UserItemAdapter? = null
     var aryUser = ArrayList<User>()
 
-    var isInitialzied = false
+    var isInitialized = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -107,7 +107,7 @@ class AdminUserFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             }
         })
 
-        isInitialzied = true
+        isInitialized = true
     }
 
     fun stopRefresh() {

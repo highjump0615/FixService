@@ -70,7 +70,7 @@ class AdminUserActivity : BaseActivity() {
 
         // update list
         val fragment = this@AdminUserActivity.mSectionsPagerAdapter!!.getItem(this.currentTab) as AdminUserFragment
-        if (reload || !fragment.isInitialzied) {
+        if (reload || !fragment.isInitialized) {
             fragment.getUsers(false, true)
         }
     }

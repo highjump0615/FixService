@@ -28,10 +28,10 @@ class ViewHolderUserItem(itemView: View, ctx: Context) : ViewHolderBase(itemView
                 .into(itemView.imgview_photo)
 
         // name
-        itemView.text_name.setText(data.userFullName())
+        itemView.text_name.text = data.userFullName()
 
         // check if posted job
-        itemView.text_type.setText(data.userTypeString())
+        itemView.text_type.text = data.userTypeString()
     }
 
     fun showReportMark() {
