@@ -61,21 +61,31 @@ class SignupInfoActivity : SignupBaseActivity(), E2FUpdateImageListener {
             // next
             R.id.but_next -> {
                 if (checkValidation()) {
-                    // make new user
-                    initUser()
-
-                    if (userType == User.USER_TYPE_SERVICEMAN) {
-                        val intent = Intent(this, ServicemanPaymentInfo::class.java)
-                        intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
-                        startActivity(intent)
-                    }
-                    else {
-                        val intent = Intent(this, SignupStripeActivity::class.java)
-                        intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
-                        startActivity(intent)
-                    }
+                    Utils.createErrorAlertDialog(this,
+                            "Notice",
+                            "This app is not responsible for the actions of the individuals that are on it. We connect you and try to save you time and money.",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                this.doNextAction()
+                            }
+                    ).show()
                 }
             }
+        }
+    }
+
+    private fun doNextAction() {
+        // make new user
+        initUser()
+
+        if (userType == User.USER_TYPE_SERVICEMAN) {
+            val intent = Intent(this, ServicemanPaymentInfo::class.java)
+            intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
+            startActivity(intent)
+        }
+        else {
+            val intent = Intent(this, SignupStripeActivity::class.java)
+            intent.putExtra(BasePaymentInfoActivity.KEY_FROM_SIGNUP, true)
+            startActivity(intent)
         }
     }
 
