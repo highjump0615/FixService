@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.serviceman.JobAvailableActivity">
+    tools:context="com.brainyapps.ezfix.activities.serviceman.JobAvailableActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
-        <com.brainyapps.e2fix.views.serviceman.ViewToolbar
+        <com.brainyapps.ezfix.views.serviceman.ViewToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

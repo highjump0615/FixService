@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.signin.SignupEmailActivity">
+    tools:context="com.brainyapps.ezfix.activities.signin.SignupEmailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
-        <com.brainyapps.e2fix.views.admin.ViewToolbar
+        <com.brainyapps.ezfix.views.admin.ViewToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/nav_main_bg"/>

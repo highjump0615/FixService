@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brainyapps.e2fix.activities.admin.AdminUserDetailActivity"
+    tools:context="com.brainyapps.ezfix.activities.admin.AdminUserDetailActivity"
     android:background="@color/colorBackground">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_height="300dp"
             android:background="@drawable/toolbar_bg">
 
-            <com.brainyapps.e2fix.views.admin.ViewToolbar
+            <com.brainyapps.ezfix.views.admin.ViewToolbar
                 android:id="@+id/view_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

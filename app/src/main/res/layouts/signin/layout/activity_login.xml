@@ -5,7 +5,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.brainyapps.e2fix.activities.signin.LoginActivity">
+    tools:context="com.brainyapps.ezfix.activities.signin.LoginActivity">
 
     <ImageView
         android:layout_width="wrap_content"
