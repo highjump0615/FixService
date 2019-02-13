@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true">
-                        <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+                        <com.brainyapps.ezfix.views.serviceman.ViewRateStar
                             android:id="@+id/ratestar"
                             android:layout_width="@dimen/rate_star_width"
                             android:layout_height="@dimen/rate_star_height" />

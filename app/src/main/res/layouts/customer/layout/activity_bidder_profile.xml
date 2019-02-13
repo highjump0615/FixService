@@ -16,7 +16,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
-        <com.brainyapps.e2fix.views.serviceman.ViewToolbar
+        <com.brainyapps.ezfix.views.serviceman.ViewToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rightImage="@drawable/admin_report"/>

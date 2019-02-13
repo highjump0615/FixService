@@ -18,7 +18,7 @@
             android:orientation="vertical"
             android:background="@drawable/toolbar_bg">
 
-            <com.brainyapps.e2fix.views.serviceman.ViewToolbar
+            <com.brainyapps.ezfix.views.serviceman.ViewToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -50,7 +50,7 @@
             android:orientation="vertical">
 
             <!-- payment item -->
-            <com.brainyapps.e2fix.views.customer.ViewStripeCardItem
+            <com.brainyapps.ezfix.views.customer.ViewStripeCardItem
                 android:id="@+id/carditem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

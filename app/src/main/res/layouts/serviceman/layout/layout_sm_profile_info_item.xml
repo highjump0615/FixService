@@ -140,7 +140,7 @@
                 android:layout_marginLeft="@dimen/profile_user_info_margin"
                 android:text="5.0/5.0"/>
 
-            <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+            <com.brainyapps.ezfix.views.serviceman.ViewRateStar
                 android:id="@+id/ratestar"
                 android:layout_width="@dimen/rate_star_width"
                 android:layout_height="@dimen/rate_star_height"
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical">
-            <com.brainyapps.e2fix.views.serviceman.ViewRateStar
+            <com.brainyapps.ezfix.views.serviceman.ViewRateStar
                 android:id="@+id/ratestar_edit"
                 android:layout_width="180dp"
                 android:layout_height="26dp"
