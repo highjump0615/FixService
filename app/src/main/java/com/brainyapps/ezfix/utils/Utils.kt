@@ -74,10 +74,10 @@ class Utils {
         }
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-        fun checkStoragePermission(context: Context): Boolean {
+        fun checkPermission(context: Context, permission: String): Boolean {
             val currentAPIVersion = Build.VERSION.SDK_INT
             if (currentAPIVersion >= Build.VERSION_CODES.M) {
-                ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+                ActivityCompat.requestPermissions(context as Activity, arrayOf(permission), PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
                 return false
             } else {
                 return true

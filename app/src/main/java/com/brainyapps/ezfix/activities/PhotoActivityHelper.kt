@@ -2,7 +2,9 @@ package com.brainyapps.ezfix.activities
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,16 +14,24 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.FileProvider
 import android.widget.Toast
 import com.brainyapps.ezfix.R
 import com.brainyapps.ezfix.utils.E2FUpdateImageListener
 import com.brainyapps.ezfix.utils.Utils
 import com.cocosw.bottomsheet.BottomSheet
+import com.theartofdev.edmodo.cropper.CropImage
+import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.Permission
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Administrator on 2/21/18.
@@ -36,6 +46,8 @@ class PhotoActivityHelper(val owner: E2FUpdateImageListener) {
     var byteData: ByteArray? = null
 
     var activity: Activity = owner.getActivity()
+
+    private var mCurrentPhotoPath: String = ""
 
     init {
         initMenuDialog()
@@ -54,16 +66,18 @@ class PhotoActivityHelper(val owner: E2FUpdateImageListener) {
             when (which) {
                 R.id.profile_menu_camera -> {
                     if (ActivityCompat.checkSelfPermission(this.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Utils.checkStoragePermission(this.activity)
+                        Utils.checkPermission(this.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         return@OnClickListener
                     }
+
+                    Utils.checkPermission(this.activity, Manifest.permission.CAMERA)
 
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     this.activity.startActivityForResult(intent, REQUEST_CAMERA_CONTENT)
                 }
                 R.id.profile_menu_photo -> {
                     if (ActivityCompat.checkSelfPermission(this.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Utils.checkStoragePermission(this.activity)
+                        Utils.checkPermission(this.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         return@OnClickListener
                     }
 
@@ -87,13 +101,35 @@ class PhotoActivityHelper(val owner: E2FUpdateImageListener) {
         }).build()
     }
 
+    private fun createImageFile(): File? {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmssSS").format(Date())
+        val imageFileName = "JPEG_${timeStamp}_"
+        val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val image = File.createTempFile(imageFileName, ".jpg", storageDir)
+
+        mCurrentPhotoPath = image.absolutePath
+
+        return image
+    }
+
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         when (requestCode) {
             REQUEST_CAMERA_CONTENT -> if (resultCode == Activity.RESULT_OK) {
                 onCaptureImageResult(data!!)
             }
-            REQUEST_IMAGE_CROP, REQUEST_IMAGE_CONTENT -> if (resultCode == Activity.RESULT_OK) {
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+
+                if (resultCode == Activity.RESULT_OK) {
+                    val resultUri = result.uri
+                    handleImage(rotatePortrait(resultUri.path))
+                }
+                else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    val error = result.error
+                }
+            }
+            REQUEST_IMAGE_CONTENT -> if (resultCode == Activity.RESULT_OK) {
                 var selectedBitmap: Bitmap? = null
 
                 if (data!!.data == null) {
@@ -105,50 +141,55 @@ class PhotoActivityHelper(val owner: E2FUpdateImageListener) {
                     selectedBitmap = rotatePortrait(getPath(data.data))
                 }
 
-                if (selectedBitmap != null) {
-                    val bytes = ByteArrayOutputStream()
-                    selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    byteData = bytes.toByteArray()
-
-                    owner.updatePhotoImageView(byteData!!)
-                }
+                handleImage(selectedBitmap)
             }
         }
     }
 
-    private fun onCaptureImageResult(data: Intent) {
-        val uri = data.data
+    private fun onCaptureImageResult(data: Intent?) {
+        if (data == null) {
+            val file = File(mCurrentPhotoPath)
+            if (file.exists()) {
+                CropImage.activity(Uri.fromFile(file)).start(activity);
+                return
+            }
+        }
 
-        try {
-            //Start Crop Activity
+        var uri = data?.data
+        if (uri == null) {
+            val thumbnail = data?.extras?.get("data")
 
-            val cropIntent = Intent("com.android.camera.action.CROP")
+            if (thumbnail != null) {
+                uri = getImageUri(activity.applicationContext, thumbnail as Bitmap)
+                beginCrop(uri)
+            }
+        }
+        else {
+            beginCrop(uri)
+        }
+    }
 
-            cropIntent.setDataAndType(uri, "image/*")
-            // set crop properties
-            cropIntent.putExtra("crop", true)
-            // indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 0)
-            cropIntent.putExtra("aspectY", 0)
-            // indicate output X and Y
-            cropIntent.putExtra("outputX", 300)
-            cropIntent.putExtra("outputY", 300)
+    private fun beginCrop(source: Uri) {
+        // start cropping activity for pre-acquired image saved on the device
+        CropImage.activity(source).start(activity);
+    }
 
-            // retrieve data on return
-            cropIntent.putExtra("return-data", true)
-            // start the activity - we handle returning in onActivityResult
-            this.activity.startActivityForResult(cropIntent, REQUEST_IMAGE_CROP)
-        } catch (anfe: ActivityNotFoundException) {
-            // display an error message
-            val errorMessage = "your device doesn't support the crop action!"
-            val thumbnail = data.extras!!.get("data") as Bitmap
-
+    private fun handleImage(bitmap: Bitmap?) {
+        bitmap?.let {
             val bytes = ByteArrayOutputStream()
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            it.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
             byteData = bytes.toByteArray()
 
             owner.updatePhotoImageView(byteData!!)
         }
+    }
+
+    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+
+        val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "temp_file", null)
+        return Uri.parse(path)
     }
 
     fun rotatePortrait(filepath: String): Bitmap? {
