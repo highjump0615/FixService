@@ -19,6 +19,7 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import com.brainyapps.ezfix.R
 import com.brainyapps.ezfix.utils.FirebaseManager
@@ -46,6 +47,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlin.system.exitProcess
 
 
 /**
@@ -375,7 +377,11 @@ class LoginActivity : BaseActivity(), LoaderCallbacks<Cursor>, View.OnClickListe
         Utils.createErrorAlertDialog(
             this,
             "Cannot Connect to Google Service",
-            "The app would not be working properly"
+            "The app would not be working properly",
+            DialogInterface.OnClickListener { dialog, which ->
+                // exit app
+                exitProcess(0)
+            }
         ).show()
     }
 
